@@ -1,0 +1,165 @@
+---
+import { LANGS, LANG_LABELS, type Lang } from '../config/site';
+import { useT } from '../i18n/ui';
+import { href, swapLang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useT(lang);
+
+/** 상단 메뉴 — 메뉴를 추가/삭제하려면 여기만 수정 */
+const nav = [
+  { path: '/about', label: t('nav.about') },
+  { path: '/products', label: t('nav.products') },
+  { path: '/catalogue', label: t('nav.catalogue') },
+  { path: '/contact', label: t('nav.contact') },
+];
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="logo" href={href(lang)} aria-label="HIVINA">
+      <span class="logo-mark">HI</span>VINA
+    </a>
+
+    <div class="menu">
+      <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={t('nav.menu')}>
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="site-nav" aria-label={t('nav.menu')}>
+        {
+          nav.map((item) => {
+            const target = href(lang, item.path);
+            return (
+              <a href={target} aria-current={current.startsWith(target) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            );
+          })
+        }
+        <div class="langs" role="group" aria-label={t('nav.language')}>
+          {
+            LANGS.map((l) => (
+              <a href={swapLang(current, l)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>
+                {LANG_LABELS[l]}
+              </a>
+            ))
+          }
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.site-header .toggle');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .bar {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+  .logo-mark {
+    color: var(--color-accent);
+  }
+  .toggle {
+    display: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .nav > a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .nav > a[aria-current='page'] {
+    color: var(--color-primary);
+    box-shadow: inset 0 -2px 0 var(--color-accent);
+  }
+  .langs {
+    display: flex;
+    gap: 4px;
+    padding-left: 20px;
+    border-left: 1px solid var(--color-line);
+  }
+  .langs a {
+    font-size: 0.8rem;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: var(--color-muted);
+  }
+  .langs a[aria-current='true'] {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+
+  /* 모바일: 햄버거 버튼으로 메뉴 열고 닫기 */
+  @media (max-width: 860px) {
+    .toggle {
+      display: grid;
+      gap: 5px;
+      padding: 10px;
+    }
+    .toggle[aria-expanded='false'] + .nav {
+      display: none;
+    }
+    .toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--color-text);
+    }
+    .nav {
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--color-line);
+      padding: 8px var(--gutter) 16px;
+    }
+    .nav > a {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-line);
+    }
+    .langs {
+      border: 0;
+      padding: 12px 0 0;
+    }
+  }
+</style>

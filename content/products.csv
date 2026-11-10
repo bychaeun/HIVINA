@@ -1,0 +1,8 @@
+id,category,sort,visible,new,name_ko,name_vi,name_en,summary_ko,summary_vi,summary_en,description_ko,description_vi,description_en,features_ko,features_vi,features_en,applications_ko,applications_vi,applications_en
+t-white,lpm,1,Y,N,T-White,T-White,T-White,멜라민 백색 종이,Giấy melamine màu trắng,White melamine paper,"[샘플 문구] 미팅 후 실제 설명으로 교체하세요.","[Nội dung mẫu] Vui lòng thay bằng mô tả thực tế.","[Sample text] Replace with the real description.",,,,가구 | 도어,Nội thất | Cửa,Furniture | Doors
+hi-flex,lpm,2,Y,Y,HI-FLEX,HI-FLEX,HI-FLEX,2017년 개발된 LPM 제품,Sản phẩm LPM phát triển năm 2017,LPM product developed in 2017,"[샘플 문구] 미팅 후 실제 설명으로 교체하세요.","[Nội dung mẫu] Vui lòng thay bằng mô tả thực tế.","[Sample text] Replace with the real description.",,,,,,
+lpm-standard,lpm,3,Y,N,LPM 일반,LPM tiêu chuẩn,LPM Standard,,,,,,,,,,,,
+lpm-paintable,lpm,4,Y,N,LPM 도장용,LPM dùng để sơn phủ,LPM Paintable,,,,,,,,,,,,
+pre-foil,finishing-foil,1,Y,N,Pre Foil,Pre Foil,Pre Foil,,,,,,,,,,,,
+post-foil,finishing-foil,2,Y,N,Post Foil,Post Foil,Post Foil,,,,,,,,,,,,
+uv-foil,finishing-foil,3,Y,N,UV Foil,UV Foil,UV Foil,2015년 출시된 UV 제품,Sản phẩm UV ra mắt năm 2015,UV product launched in 2015,,,,,,,,,

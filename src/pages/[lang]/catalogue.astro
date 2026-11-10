@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import type { Lang } from '../../config/site';
+import { useT, type UIKey } from '../../i18n/ui';
+import { langPaths } from '../../i18n/utils';
+import { CATALOGUE_GROUPS, getCatalogue } from '../../lib/images';
+
+export const getStaticPaths = langPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const items = getCatalogue();
+
+// 사진이 있는 그룹만, 정해진 순서 → 새 폴더는 이름순
+const present = [...new Set(items.map((i) => i.group))];
+const groups = [
+  ...CATALOGUE_GROUPS.filter((g) => present.includes(g)),
+  ...present.filter((g) => !CATALOGUE_GROUPS.includes(g)).sort(),
+];
+const label = (g: string) => {
+  const key = `catalogue.${g}` as UIKey;
+  return t(key) ?? g.charAt(0).toUpperCase() + g.slice(1);
+};
+---
+
+<Base lang={lang} title={t('catalogue.title')} description={t('catalogue.lead')}>
+  <section class="page-head">
+    <div class="container">
+      <h1>{t('catalogue.title')}</h1>
+      <p class="lead">{t('catalogue.lead')}</p>
+      {
+        groups.length > 1 && (
+          <nav class="jump">
+            {groups.map((g) => (
+              <a href={`#${g}`}>{label(g)}</a>
+            ))}
+          </nav>
+        )
+      }
+    </div>
+  </section>
+
+  {groups.length === 0 && <p class="container section">{t('catalogue.empty')}</p>}
+
+  {
+    groups.map((g) => (
+      <section class="section" id={g}>
+        <div class="container">
+          <h2>{label(g)}</h2>
+          <ul class="swatches">
+            {items
+              .filter((i) => i.group === g)
+              .map((i) => (
+                <li>
+                  <Image src={i.image} alt={i.code} widths={[200, 400]} sizes="200px" />
+                  <span>{i.code}</span>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .jump a {
+    text-decoration: none;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+  section[id] {
+    scroll-margin-top: var(--header-h);
+  }
+  .swatches {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+  .swatches :global(img) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--color-line);
+  }
+  .swatches span {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    color: var(--color-muted);
+  }
+</style>

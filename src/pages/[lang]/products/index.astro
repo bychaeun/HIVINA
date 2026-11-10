@@ -1,0 +1,72 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ProductCard from '../../../components/ProductCard.astro';
+import type { Lang } from '../../../config/site';
+import { useT } from '../../../i18n/ui';
+import { langPaths, localize } from '../../../i18n/utils';
+import { getCategories } from '../../../lib/products';
+
+export const getStaticPaths = langPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const categories = (await getCategories()).filter((c) => c.products.length > 0);
+---
+
+<Base lang={lang} title={t('products.title')} description={t('products.lead')}>
+  <section class="page-head">
+    <div class="container">
+      <h1>{t('products.title')}</h1>
+      <p class="lead">{t('products.lead')}</p>
+      {
+        categories.length > 1 && (
+          <nav class="jump">
+            {categories.map((c) => (
+              <a href={`#${c.id}`}>{localize(c, 'name', lang)}</a>
+            ))}
+          </nav>
+        )
+      }
+    </div>
+  </section>
+
+  {categories.length === 0 && <p class="container section">{t('products.empty')}</p>}
+
+  {
+    categories.map((cat) => (
+      <section class="section" id={cat.id}>
+        <div class="container">
+          <h2>{localize(cat, 'name', lang)}</h2>
+          <p class="lead">{localize(cat, 'summary', lang)}</p>
+          <div class="grid cards">
+            {cat.products.map((p) => (
+              <ProductCard product={p} lang={lang} />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .jump a {
+    text-decoration: none;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+  .cards {
+    margin-top: 28px;
+  }
+  section[id] {
+    scroll-margin-top: var(--header-h);
+  }
+</style>

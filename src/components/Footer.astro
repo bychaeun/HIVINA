@@ -1,0 +1,51 @@
+---
+import { COMPANY, type Lang } from '../config/site';
+import { useT } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useT(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div>
+      <p class="name">{COMPANY.legalName[lang]}</p>
+      <p>{COMPANY.address[lang]}</p>
+      <p>
+        {t('contact.phone')} {COMPANY.phone} · {t('contact.fax')} {COMPANY.fax}
+        {COMPANY.email && <> · <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></>}
+      </p>
+    </div>
+    <p class="copy">© {year} {COMPANY.name}. {t('footer.rights')}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-primary);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.875rem;
+    padding: 40px 0;
+  }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+  }
+  p {
+    margin: 0 0 4px;
+  }
+  .name {
+    color: #fff;
+    font-weight: 600;
+  }
+  .copy {
+    opacity: 0.7;
+  }
+</style>

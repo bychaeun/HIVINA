@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import { LANGS, type Lang } from '../../../config/site';
+import { useT } from '../../../i18n/ui';
+import { href, localize } from '../../../i18n/utils';
+import { getCategories, getProducts, type Product } from '../../../lib/products';
+
+/** products.csv 의 각 행 × 언어 수만큼 상세 페이지가 자동 생성됩니다. */
+export async function getStaticPaths() {
+  const products = await getProducts();
+  return LANGS.flatMap((lang) => products.map((product) => ({ params: { lang, id: product.id }, props: { product } })));
+}
+
+const lang = Astro.params.lang as Lang;
+const { product } = Astro.props as { product: Product };
+const t = useT(lang);
+const category = (await getCategories()).find((c) => c.id === product.categoryId);
+
+const name = localize(product, 'name', lang);
+const summary = localize(product, 'summary', lang);
+const description = localize(product, 'description', lang);
+const features = localize<string[]>(product, 'features', lang);
+const applications = localize<string[]>(product, 'applications', lang);
+const [cover, ...gallery] = product.images;
+---
+
+<Base lang={lang} title={name} description={summary}>
+  <section class="section">
+    <div class="container">
+      <a class="back" href={href(lang, '/products')}>← {t('products.back')}</a>
+
+      <div class="layout">
+        <div class="media">
+          {
+            cover ? (
+              <Image src={cover} alt={name} widths={[480, 960]} sizes="(max-width: 860px) 100vw, 560px" loading="eager" />
+            ) : (
+              <div class="placeholder">{t('products.noImage')}</div>
+            )
+          }
+          {
+            gallery.length > 0 && (
+              <div class="thumbs">
+                {gallery.map((img, i) => (
+                  <Image src={img} alt={`${name} ${i + 2}`} widths={[240, 480]} sizes="160px" />
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <div class="info">
+          {category && <p class="eyebrow">{localize(category, 'name', lang)}</p>}
+          <h1>
+            {name}
+            {product.new && <span class="badge">{t('products.new')}</span>}
+          </h1>
+          {summary && <p class="lead">{summary}</p>}
+          {description && <p class="desc">{description}</p>}
+
+          {
+            features.length > 0 && (
+              <>
+                <h2>{t('products.features')}</h2>
+                <ul>{features.map((f) => <li>{f}</li>)}</ul>
+              </>
+            )
+          }
+          {
+            applications.length > 0 && (
+              <>
+                <h2>{t('products.applications')}</h2>
+                <ul class="tags">{applications.map((a) => <li>{a}</li>)}</ul>
+              </>
+            )
+          }
+
+          <a class="btn" href={href(lang, '/contact')}>{t('products.inquiry')}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 28px;
+    color: var(--color-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+  .media :global(img) {
+    width: 100%;
+    border-radius: var(--radius);
+    object-fit: cover;
+  }
+  .thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .thumbs :global(img) {
+    aspect-ratio: 1;
+  }
+  h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  h2 {
+    font-size: 1.05rem;
+    margin-top: 28px;
+  }
+  .desc {
+    white-space: pre-line;
+  }
+  ul {
+    padding-left: 1.2em;
+    margin: 0;
+  }
+  .tags {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tags li {
+    background: var(--color-surface);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.875rem;
+  }
+  .btn {
+    margin-top: 32px;
+  }
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

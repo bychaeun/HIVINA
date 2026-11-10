@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import type { Lang } from '../../config/site';
+import { useT } from '../../i18n/ui';
+import { langPaths, localize } from '../../i18n/utils';
+
+export const getStaticPaths = langPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const history = (await getCollection('history')).map((e) => e.data).sort((a, b) => b.year - a.year);
+---
+
+<Base lang={lang} title={t('about.title')} description={t('about.lead')}>
+  <section class="page-head">
+    <div class="container">
+      <h1>{t('about.title')}</h1>
+      <p class="lead">{t('about.lead')}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="body">{t('about.body')}</p>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <h2>{t('about.history')}</h2>
+      <ol class="timeline">
+        {
+          history.map((h) => (
+            <li>
+              <span class="year">{h.year}</span>
+              <span>{localize(h, 'text', lang)}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .body {
+    font-size: 1.1rem;
+    max-width: 70ch;
+    margin: 0;
+  }
+  .timeline {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    border-left: 2px solid var(--color-line);
+  }
+  .timeline li {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    padding: 12px 0 12px 28px;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 21px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+  .year {
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 3.5em;
+  }
+</style>
