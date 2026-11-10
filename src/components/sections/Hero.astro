@@ -1,0 +1,241 @@
+---
+import type { Lang } from '../../config/site';
+import { useT } from '../../i18n/ui';
+import { href } from '../../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+const lines = t('home.title').split('\n');
+---
+
+<section class="hero">
+  <!-- 살아 움직이는 유기적 그라디언트 배경 -->
+  <div class="blobs" aria-hidden="true">
+    <span class="b1"></span><span class="b2"></span><span class="b3"></span>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <svg class="leaf" data-parallax="0.15" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M100 10C40 60 25 110 40 150c15 38 105 38 120 0 15-40 0-90-60-140Z" fill="none" stroke="currentColor" stroke-width="1"></path>
+    <path d="M100 30v160M100 80l-30-22M100 110l34-26M100 140l-36-24" stroke="currentColor" stroke-width="1" fill="none"></path>
+  </svg>
+
+  <div class="container content">
+    <p class="eyebrow">{t('home.eyebrow')}</p>
+    <h1>
+      {
+        lines.map((line, i) => (
+          <span class="line">
+            <span style={`--d:${i * 120 + 200}ms`}>{line}</span>
+          </span>
+        ))
+      }
+    </h1>
+    <p class="lead">{t('home.lead')}</p>
+    <div class="actions">
+      <a class="btn btn--leaf" href={href(lang, '/products')}>{t('home.cta.products')} <span class="arrow">→</span></a>
+      <a class="btn ghost" href={href(lang, '/contact')}>{t('home.cta.contact')}</a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"><span></span>{t('home.scroll')}</div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+    background: var(--forest);
+    color: var(--paper);
+    isolation: isolate;
+  }
+  .blobs {
+    position: absolute;
+    inset: -20%;
+    z-index: -2;
+    filter: blur(70px);
+  }
+  .blobs span {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    opacity: 0.75;
+  }
+  .b1 {
+    width: 55vmax;
+    height: 55vmax;
+    left: 45%;
+    top: 5%;
+    background: radial-gradient(circle, #2f8f5b, transparent 65%);
+    animation: drift1 18s ease-in-out infinite alternate;
+  }
+  .b2 {
+    width: 45vmax;
+    height: 45vmax;
+    left: 5%;
+    top: 40%;
+    background: radial-gradient(circle, #a6dc5c88, transparent 65%);
+    animation: drift2 22s ease-in-out infinite alternate;
+  }
+  .b3 {
+    width: 35vmax;
+    height: 35vmax;
+    left: 60%;
+    top: 55%;
+    background: radial-gradient(circle, #1f6f8b99, transparent 65%);
+    animation: drift3 26s ease-in-out infinite alternate;
+  }
+  @keyframes drift1 {
+    to {
+      transform: translate(-18%, 14%) scale(1.15);
+    }
+  }
+  @keyframes drift2 {
+    to {
+      transform: translate(22%, -18%) scale(0.9);
+    }
+  }
+  @keyframes drift3 {
+    to {
+      transform: translate(-25%, -10%) scale(1.2);
+    }
+  }
+  .grain {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .leaf {
+    position: absolute;
+    right: 6%;
+    top: 18%;
+    width: min(36vw, 460px);
+    color: rgb(166 220 92 / 0.35);
+    z-index: -1;
+    animation: sway 9s ease-in-out infinite alternate;
+  }
+  @keyframes sway {
+    from {
+      rotate: -4deg;
+    }
+    to {
+      rotate: 5deg;
+    }
+  }
+
+  .content {
+    padding-block: 120px 96px;
+  }
+  .eyebrow {
+    letter-spacing: 0.2em;
+    color: var(--leaf);
+    margin: 0 0 24px;
+    opacity: 0;
+    animation: fade 1s 0.1s var(--ease) forwards;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(40px, 7.6vw, 116px);
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+  }
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.06em;
+  }
+  .line > span {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: rise 1.2s var(--d) var(--ease) forwards;
+  }
+  .line:nth-child(2) > span {
+    color: var(--leaf);
+  }
+  .lead {
+    max-width: 560px;
+    color: rgb(245 242 234 / 0.8);
+    margin: 32px 0 40px;
+    opacity: 0;
+    animation: fade 1s 0.8s var(--ease) forwards;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    opacity: 0;
+    animation: fade 1s 1s var(--ease) forwards;
+  }
+  .ghost {
+    background: transparent;
+    border-color: rgb(245 242 234 / 0.5);
+    color: var(--paper);
+  }
+  @keyframes rise {
+    to {
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    translate: -50% 0;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .scroll span {
+    width: 1px;
+    height: 46px;
+    background: linear-gradient(var(--leaf), transparent);
+    animation: drip 2s ease-in-out infinite;
+    transform-origin: top;
+  }
+  @keyframes drip {
+    0% {
+      transform: scaleY(0);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+    100% {
+      transform: scaleY(1);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow,
+    .lead,
+    .actions {
+      opacity: 1;
+    }
+    .line > span {
+      transform: none;
+    }
+  }
+  @media (max-width: 600px) {
+    .scroll {
+      display: none;
+    }
+  }
+</style>

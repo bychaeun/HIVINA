@@ -1,12 +1,15 @@
 ---
+import Logo from './Logo.astro';
 import { LANGS, LANG_LABELS, type Lang } from '../config/site';
 import { useT } from '../i18n/ui';
 import { href, swapLang } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
+  /** true 면 어두운 히어로 위에서 투명 → 스크롤하면 밝은 배경 (홈 화면용) */
+  overDark?: boolean;
 }
-const { lang } = Astro.props;
+const { lang, overDark = false } = Astro.props;
 const t = useT(lang);
 
 /** 상단 메뉴 — 메뉴를 추가/삭제하려면 여기만 수정 */
@@ -14,22 +17,21 @@ const nav = [
   { path: '/about', label: t('nav.about') },
   { path: '/products', label: t('nav.products') },
   { path: '/catalogue', label: t('nav.catalogue') },
-  { path: '/contact', label: t('nav.contact') },
 ];
 const current = Astro.url.pathname;
+const short: Record<Lang, string> = { ko: 'KO', vi: 'VI', en: 'EN' };
 ---
 
-<header class="site-header">
+<header class:list={['site-header', { 'over-dark': overDark }]}>
   <div class="container bar">
-    <a class="logo" href={href(lang)} aria-label="HIVINA">
-      <span class="logo-mark">HI</span>VINA
-    </a>
+    <a class="home" href={href(lang)}><Logo /></a>
 
-    <div class="menu">
-      <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={t('nav.menu')}>
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="nav" id="site-nav" aria-label={t('nav.menu')}>
+    <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={t('nav.menu')}>
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="site-nav" aria-label={t('nav.menu')}>
+      <div class="links">
         {
           nav.map((item) => {
             const target = href(lang, item.path);
@@ -40,17 +42,26 @@ const current = Astro.url.pathname;
             );
           })
         }
-        <div class="langs" role="group" aria-label={t('nav.language')}>
+      </div>
+      <div class="right">
+        <div class="lang" role="group" aria-label={t('nav.language')}>
           {
             LANGS.map((l) => (
-              <a href={swapLang(current, l)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>
-                {LANG_LABELS[l]}
+              <a
+                href={swapLang(current, l)}
+                hreflang={l}
+                lang={l}
+                title={LANG_LABELS[l]}
+                aria-current={l === lang ? 'true' : undefined}
+              >
+                {short[l]}
               </a>
             ))
           }
         </div>
-      </nav>
-    </div>
+        <a class="cta" href={href(lang, '/contact')}>{t('nav.contact')}</a>
+      </div>
+    </nav>
   </div>
 </header>
 
@@ -59,87 +70,132 @@ const current = Astro.url.pathname;
   btn?.addEventListener('click', () => {
     const open = btn.getAttribute('aria-expanded') !== 'true';
     btn.setAttribute('aria-expanded', String(open));
+    btn.closest('.site-header')?.classList.toggle('menu-open', open);
   });
 </script>
 
 <style>
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(8px);
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    color: var(--forest);
+    background: rgb(245 242 234 / 0.86);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--color-line);
+    transition:
+      background 0.5s var(--ease),
+      color 0.5s var(--ease),
+      border-color 0.5s;
+  }
+  /* 홈: 히어로 위에서는 투명 */
+  .site-header.over-dark:not(.is-scrolled):not(.menu-open) {
+    background: transparent;
+    backdrop-filter: none;
+    border-color: transparent;
+    color: var(--paper);
   }
   .bar {
-    height: var(--header-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: var(--header-h);
+    gap: 24px;
   }
-  .logo {
-    font-weight: 700;
-    font-size: 1.35rem;
-    letter-spacing: 0.06em;
+  .home {
     text-decoration: none;
-    color: var(--color-primary);
   }
-  .logo-mark {
-    color: var(--color-accent);
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+  .links {
+    display: flex;
+    gap: 34px;
+  }
+  .links a {
+    position: relative;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: var(--leaf);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease);
+  }
+  .links a:hover::after,
+  .links a[aria-current='page']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .lang {
+    display: flex;
+    padding: 4px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .lang a {
+    padding: 6px 10px;
+    border-radius: 999px;
+    opacity: 0.65;
+    text-decoration: none;
+    transition:
+      opacity 0.3s,
+      background 0.3s;
+  }
+  .lang a[aria-current] {
+    opacity: 1;
+    background: var(--leaf);
+    color: var(--forest);
+  }
+  .cta {
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--leaf);
+    color: var(--forest);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
   }
   .toggle {
     display: none;
     background: none;
     border: 0;
+    color: inherit;
     cursor: pointer;
-  }
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-  .nav > a {
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
-  .nav > a[aria-current='page'] {
-    color: var(--color-primary);
-    box-shadow: inset 0 -2px 0 var(--color-accent);
-  }
-  .langs {
-    display: flex;
-    gap: 4px;
-    padding-left: 20px;
-    border-left: 1px solid var(--color-line);
-  }
-  .langs a {
-    font-size: 0.8rem;
-    text-decoration: none;
-    padding: 4px 8px;
-    border-radius: 999px;
-    color: var(--color-muted);
-  }
-  .langs a[aria-current='true'] {
-    background: var(--color-primary);
-    color: var(--color-primary-contrast);
   }
 
   /* 모바일: 햄버거 버튼으로 메뉴 열고 닫기 */
-  @media (max-width: 860px) {
+  @media (max-width: 900px) {
     .toggle {
       display: grid;
       gap: 5px;
       padding: 10px;
     }
-    .toggle[aria-expanded='false'] + .nav {
-      display: none;
-    }
     .toggle span {
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--color-text);
+      background: currentColor;
+    }
+    .toggle[aria-expanded='false'] + .nav {
+      display: none;
     }
     .nav {
       position: absolute;
@@ -149,17 +205,24 @@ const current = Astro.url.pathname;
       flex-direction: column;
       align-items: stretch;
       gap: 0;
-      background: #fff;
+      background: var(--paper);
       border-bottom: 1px solid var(--color-line);
-      padding: 8px var(--gutter) 16px;
+      padding: 8px var(--gutter) 20px;
     }
-    .nav > a {
-      padding: 12px 0;
+    .links {
+      flex-direction: column;
+      gap: 0;
+    }
+    .links a {
+      padding: 14px 0;
       border-bottom: 1px solid var(--color-line);
     }
-    .langs {
-      border: 0;
-      padding: 12px 0 0;
+    .links a::after {
+      display: none;
+    }
+    .right {
+      padding-top: 16px;
+      justify-content: space-between;
     }
   }
 </style>

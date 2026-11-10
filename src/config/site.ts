@@ -27,6 +27,14 @@ export const COMPANY = {
     en: 'HI VINA Joint Stock Company',
   } satisfies Record<Lang, string>,
   founded: 2020,
+  /** 홈 화면 숫자 카운트업에 쓰이는 연도 */
+  rootsYear: 1997,
+  productionStart: 2021,
+  /** 관계사 링크 — 주소가 비어 있으면 버튼이 표시되지 않음 */
+  family: [
+    { name: 'HYOSAN', url: '' }, // TODO: 효산 홈페이지 주소 확인 후 입력
+    { name: 'ICC', url: 'http://www.eicc.co.kr/' },
+  ],
   address: {
     ko: '베트남 동나이성 짱봄군 장디엔사 장디엔 산업단지 4번로 3번 부지',
     vi: 'Lô số 3, đường số 4, KCN Giang Điền, xã Giang Điền, huyện Trảng Bom, tỉnh Đồng Nai, Việt Nam',

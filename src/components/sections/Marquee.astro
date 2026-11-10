@@ -1,0 +1,46 @@
+---
+/** 흐르는 띠 — products.csv 의 영문 제품명으로 자동 구성됩니다. */
+import type { Product } from '../../lib/products';
+
+const { products } = Astro.props as { products: Product[] };
+const words = [...new Set(products.map((p) => p.name_en || p.name_ko).filter(Boolean)), 'Korea × Vietnam'];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    {[0, 1].map(() => words.map((w) => <span>{w}<i>✦</i></span>))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: var(--leaf);
+    color: var(--forest);
+    overflow: hidden;
+    padding: 22px 0;
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    animation: slide 36s linear infinite;
+  }
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 36px;
+    padding-right: 36px;
+    font-size: clamp(22px, 3vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  i {
+    font-style: normal;
+    font-size: 0.6em;
+  }
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

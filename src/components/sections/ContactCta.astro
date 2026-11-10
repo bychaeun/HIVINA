@@ -1,0 +1,45 @@
+---
+import type { Lang } from '../../config/site';
+import { useT } from '../../i18n/ui';
+import { href } from '../../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+---
+
+<section class="contact">
+  <div class="container">
+    <div class="box" data-reveal>
+      <h2 class="h2">{t('home.contact.title')}</h2>
+      <p>{t('home.contact.body')}</p>
+      <a class="btn btn--leaf" href={href(lang, '/contact')}>{t('home.cta.contact')} <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 0 0 clamp(80px, 10vw, 140px);
+  }
+  .box {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 1.5);
+    padding: clamp(48px, 8vw, 110px) clamp(24px, 6vw, 90px);
+    color: var(--paper);
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    background:
+      radial-gradient(60% 80% at 15% 0%, rgb(166 220 92 / 0.5), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, rgb(31 111 139 / 0.55), transparent 60%),
+      var(--forest);
+  }
+  .h2 {
+    max-width: 900px;
+  }
+  p {
+    color: rgb(245 242 234 / 0.75);
+    margin: 20px 0 36px;
+  }
+</style>

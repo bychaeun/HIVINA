@@ -1,0 +1,99 @@
+---
+import { COMPANY, type Lang } from '../../config/site';
+import { useT } from '../../i18n/ui';
+import { href } from '../../i18n/utils';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+const stats = [
+  { value: COMPANY.rootsYear, label: t('home.stat.roots') },
+  { value: COMPANY.founded, label: t('home.stat.founded') },
+  { value: COMPANY.productionStart, label: t('home.stat.production') },
+];
+---
+
+<section class="about">
+  <div class="container grid">
+    <div>
+      <span class="label" data-reveal>{t('home.about.label')}</span>
+      <h2 class="h2" data-reveal style="--i:1">{t('home.about.title')}</h2>
+    </div>
+    <div data-reveal style="--i:2">
+      <p class="body">{t('about.body')}</p>
+      <a class="more" href={href(lang, '/about')}>{t('home.about.more')} →</a>
+    </div>
+  </div>
+  <div class="container stats">
+    {
+      stats.map((s, i) => (
+        <div class="stat" data-reveal style={`--i:${i}`}>
+          <strong data-count={s.value}>{s.value}</strong>
+          <span>{s.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: clamp(96px, 14vw, 180px) 0 clamp(64px, 10vw, 120px);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(32px, 6vw, 96px);
+    align-items: end;
+  }
+  .h2 {
+    white-space: pre-line;
+    margin-top: 6px;
+  }
+  .body {
+    font-size: clamp(16px, 1.4vw, 19px);
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+  .more {
+    color: var(--moss);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: clamp(56px, 8vw, 110px);
+  }
+  .stat {
+    padding: 32px 24px 0 0;
+    display: grid;
+    gap: 6px;
+    border-top: 1px solid var(--color-line);
+  }
+  .stat + .stat {
+    padding-left: 24px;
+    border-left: 1px solid var(--color-line);
+  }
+  strong {
+    font-size: clamp(40px, 6vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--forest);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat > span {
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  @media (max-width: 760px) {
+    .grid,
+    .stats {
+      grid-template-columns: 1fr;
+    }
+    .stat + .stat {
+      padding-left: 0;
+      border-left: 0;
+      margin-top: 24px;
+    }
+  }
+</style>

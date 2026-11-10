@@ -68,11 +68,26 @@ content/
 ## 그 밖에 고칠 곳
 | 하고 싶은 것 | 파일 |
 |---|---|
-| 회사 주소·전화·이메일·기본 언어 | `src/config/site.ts` |
-| 메뉴·버튼 등 고정 문구 번역 | `src/i18n/ui.ts` (ko에 키를 추가하면 vi/en 누락 시 빌드 오류) |
-| 색상·글꼴 | `src/styles/global.css` 맨 위 `:root` |
+| 회사 주소·전화·이메일·기본 언어·관계사 링크 | `src/config/site.ts` |
+| 메뉴·버튼·홈 화면 문구 번역 | `src/i18n/ui.ts` (ko에 키를 추가하면 vi/en 누락 시 빌드 오류) |
+| 색상·글꼴 | `src/styles/global.css` 맨 위 `:root` (딥그린 `--forest`, 라임 `--leaf` 등) |
+| 홈 화면 섹션 순서·추가·삭제 | `src/pages/[lang]/index.astro` |
+| 각 섹션 디자인 | `src/components/sections/*.astro` |
+| 스크롤 모션 | `src/scripts/motion.ts` |
 | 상단 메뉴 항목 | `src/components/Header.astro`의 `nav` |
+| 로고 | `src/components/Logo.astro`, `public/favicon.svg` (현재 임시 로고) |
 | CSV 열 추가 | `src/content.config.ts` schema에 같은 이름 추가 |
+
+### 홈 화면에서 자동으로 채워지는 것
+- 흐르는 띠(Marquee): `products.csv`의 영문 제품명
+- 제품군 카드: `categories.csv` + 각 제품군의 제품 목록. 대표 사진은 그 제품군에서 사진이 있는 첫 제품
+- 숫자 카운트업: `site.ts`의 연도(1997 효산 LPL 설립 / 2020 설립 / 2021 생산 시작)
+
+### 모션 (HTML 속성만 붙이면 됨)
+- `data-reveal`: 스크롤로 화면에 들어오면 떠오름. `style="--i:2"`로 순서 지연
+- `data-count="2020"`: 숫자 카운트업
+- `data-parallax="0.15"`: 스크롤 패럴랙스
+- OS의 "동작 줄이기" 설정이 켜져 있으면 모든 모션이 자동으로 꺼집니다.
 
 ## 개발
 ```bash
@@ -98,6 +113,8 @@ Node 22 이상이 필요합니다.
 - [ ] 제품 설명 실제 문구로 교체 (`[샘플 문구]` 표시 부분), 베트남어 번역 검수
 - [ ] 제품·패턴 사진
 - [ ] 대표 이메일 (`src/config/site.ts`)
-- [ ] 로고, 메인 비주얼, 디자인 톤
+- [ ] 실제 로고 SVG
+- [ ] 효산 홈페이지 주소 (`site.ts`의 `family`, 비어 있으면 버튼 숨김)
+- [ ] 홈 화면 문구 검수 (특히 친환경 섹션 3개 항목)
 - [ ] 효산·ICC 소개 방식
 - [ ] 문의 폼 필요 여부 (필요하면 Cloudflare로 메일 발송 구현 가능)

@@ -9,9 +9,11 @@ interface Props {
   lang: Lang;
   title?: string;
   description?: string;
+  /** 홈처럼 페이지 맨 위가 어두운 히어로일 때 true */
+  overDark?: boolean;
 }
 
-const { lang, title, description = '' } = Astro.props;
+const { lang, title, description = '', overDark = false } = Astro.props;
 const fullTitle = title ? `${title} | ${COMPANY.name}` : COMPANY.name;
 const site = Astro.site;
 ---
@@ -23,6 +25,9 @@ const site = Astro.site;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
+    <meta name="theme-color" content="#0e3b2c" />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {
       site &&
@@ -30,6 +35,8 @@ const site = Astro.site;
           <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(swapLang(Astro.url.pathname, l), site)} />
         ))
     }
+    <!-- 스크립트가 켜져 있을 때만 등장 모션용으로 요소를 숨김 (꺼져 있으면 그냥 보임) -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,10 +53,13 @@ const site = Astro.site;
     }
   </head>
   <body>
-    <Header lang={lang} />
-    <main>
+    <Header lang={lang} overDark={overDark} />
+    <main class:list={{ 'header-offset': !overDark }}>
       <slot />
     </main>
     <Footer lang={lang} />
+    <script>
+      import '../scripts/motion.ts';
+    </script>
   </body>
 </html>
