@@ -1,0 +1,18 @@
+---
+// 루트(/) 접속 시 브라우저 언어에 맞춰 /ko/, /vi/, /en/ 으로 이동
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HIVINA</title>
+    <meta http-equiv="refresh" content="1; url=/ko/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      var l = (navigator.language || 'ko').slice(0, 2);
+      location.replace('/' + (['ko', 'vi', 'en'].indexOf(l) > -1 ? l : 'ko') + '/');
+    </script>
+  </head>
+  <body style="background:#0e3b2c"></body>
+</html>

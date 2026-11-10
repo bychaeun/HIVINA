@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "HIVINA | A Sustainable Partner Growing in Vietnam",
+    "description": "HIVINA is a Korean-invested company in Vietnam, building sustainable manufacturing and trusted partnerships together with its sister company Hyosan."
+  },
+  "nav": {
+    "about": "About",
+    "business": "Business",
+    "sustainability": "Sustainability",
+    "family": "Family",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Korean Roots · Vietnamese Ground",
+    "title": ["Growing a", "greener tomorrow", "in Vietnam"],
+    "lead": "HIVINA is a sustainable partner connecting Korean expertise with Vietnam's potential.",
+    "cta": "Discover HIVINA",
+    "scroll": "Scroll"
+  },
+  "marquee": ["Sustainable", "Trusted Partner", "Korea × Vietnam", "Green Manufacturing", "Quality First"],
+  "about": {
+    "label": "About HIVINA",
+    "title": "Where technology, people and nature grow together",
+    "body": "HIVINA brings Korean-standard quality management and responsible business to Vietnam. Working closely with our sister company Hyosan, we aim to be a partner trusted by customers and communities alike.",
+    "stats": [
+      { "value": 2000, "suffix": "", "label": "Founded (sample)" },
+      { "value": 100, "suffix": "+", "label": "Employees (sample)" },
+      { "value": 30, "suffix": "+", "label": "Clients (sample)" }
+    ]
+  },
+  "business": {
+    "label": "Business",
+    "title": "What we do",
+    "items": [
+      { "no": "01", "title": "Business area 1", "desc": "To be replaced with real content after the meeting." },
+      { "no": "02", "title": "Business area 2", "desc": "A short, clear introduction to the core value of each product or service." },
+      { "no": "03", "title": "Business area 3", "desc": "Facilities, processes and quality, shown with photography." }
+    ]
+  },
+  "sustainability": {
+    "label": "Sustainability",
+    "title": "Production that cares for nature",
+    "body": "Energy efficiency, resource circulation, and a safe workplace. Three promises HIVINA keeps.",
+    "points": ["Improving energy efficiency", "Circular resources · Less waste", "A safe and healthy workplace"]
+  },
+  "family": {
+    "label": "Family Company",
+    "title": "With Hyosan, from one root",
+    "body": "HIVINA and Hyosan are sister companies grown from the same root, sharing strengths and growing together in Korea and Vietnam.",
+    "link": "Visit Hyosan"
+  },
+  "contact": {
+    "title": "Looking for a partner to grow with?",
+    "body": "We welcome enquiries about projects, partnerships and careers.",
+    "cta": "Contact us"
+  },
+  "footer": {
+    "address": "Address: to be added",
+    "rights": "All rights reserved."
+  },
+  "langName": "English"
+}

@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "HIVINA | 베트남에서 함께 성장하는 지속가능한 파트너",
+    "description": "HIVINA는 베트남에 기반을 둔 한국계 기업으로, 효산과 함께 지속가능한 제조와 신뢰의 파트너십을 만들어갑니다."
+  },
+  "nav": {
+    "about": "회사소개",
+    "business": "사업분야",
+    "sustainability": "지속가능경영",
+    "family": "형제기업",
+    "contact": "문의하기"
+  },
+  "hero": {
+    "eyebrow": "Korean Roots · Vietnamese Ground",
+    "title": ["더 푸른 내일을", "베트남에서", "함께 만듭니다"],
+    "lead": "HIVINA는 한국의 기술력과 베트남의 가능성을 잇는 지속가능한 파트너입니다.",
+    "cta": "HIVINA 알아보기",
+    "scroll": "스크롤"
+  },
+  "marquee": ["Sustainable", "Trusted Partner", "Korea × Vietnam", "Green Manufacturing", "Quality First"],
+  "about": {
+    "label": "About HIVINA",
+    "title": "기술과 사람, 그리고 자연이 함께 자라는 회사",
+    "body": "HIVINA는 베트남 현지에서 한국식 품질 관리와 책임 경영을 실천하는 기업입니다. 형제기업 효산과 긴밀히 협력하며, 고객과 지역사회 모두에게 신뢰받는 파트너가 되는 것을 목표로 합니다.",
+    "stats": [
+      { "value": 2000, "suffix": "", "label": "설립연도 (예시)" },
+      { "value": 100, "suffix": "+", "label": "임직원 (예시)" },
+      { "value": 30, "suffix": "+", "label": "협력 고객사 (예시)" }
+    ]
+  },
+  "business": {
+    "label": "Business",
+    "title": "우리가 하는 일",
+    "items": [
+      { "no": "01", "title": "사업분야 1", "desc": "미팅 후 실제 사업 내용으로 교체될 영역입니다." },
+      { "no": "02", "title": "사업분야 2", "desc": "제품·서비스의 핵심 가치를 짧고 명확하게 소개합니다." },
+      { "no": "03", "title": "사업분야 3", "desc": "설비, 공정, 품질 경쟁력을 사진과 함께 보여줍니다." }
+    ]
+  },
+  "sustainability": {
+    "label": "Sustainability",
+    "title": "자연을 생각하는 생산",
+    "body": "에너지 효율, 자원 순환, 안전한 작업 환경. HIVINA가 지키는 세 가지 약속입니다.",
+    "points": ["에너지 효율 개선", "자원 순환 · 폐기물 저감", "안전하고 건강한 일터"]
+  },
+  "family": {
+    "label": "Family Company",
+    "title": "효산과 함께, 하나의 뿌리에서",
+    "body": "HIVINA와 효산은 같은 뿌리에서 자란 형제기업입니다. 한국과 베트남 양국에서 서로의 강점을 나누며 함께 성장합니다.",
+    "link": "효산 바로가기"
+  },
+  "contact": {
+    "title": "함께 성장할 파트너를 찾고 계신가요?",
+    "body": "프로젝트, 협력, 채용 문의 모두 환영합니다.",
+    "cta": "문의하기"
+  },
+  "footer": {
+    "address": "주소: 미팅 후 입력 예정",
+    "rights": "All rights reserved."
+  },
+  "langName": "한국어"
+}

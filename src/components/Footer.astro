@@ -1,0 +1,20 @@
+---
+import Logo from './Logo.astro';
+import { t, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const d = t(lang);
+---
+<footer class="footer">
+  <div class="container inner">
+    <Logo />
+    <p>{d.footer.address}</p>
+    <p class="copy">© {new Date().getFullYear()} HIVINA. {d.footer.rights}</p>
+  </div>
+</footer>
+<style>
+  .footer { background: var(--ink); color: rgb(245 242 234 / .7); padding: 56px 0; font-size: 14px; }
+  .inner { display: grid; gap: 12px; }
+  .inner :global(.logo) { color: var(--paper); }
+  p { margin: 0; }
+  .copy { opacity: .6; }
+</style>

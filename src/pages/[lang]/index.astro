@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/sections/Hero.astro';
+import Marquee from '../../components/sections/Marquee.astro';
+import About from '../../components/sections/About.astro';
+import Business from '../../components/sections/Business.astro';
+import Sustainability from '../../components/sections/Sustainability.astro';
+import Family from '../../components/sections/Family.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { langs, type Lang } from '../../i18n';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+const lang = Astro.params.lang as Lang;
+---
+<Base lang={lang}>
+  <Hero lang={lang} />
+  <Marquee lang={lang} />
+  <About lang={lang} />
+  <Business lang={lang} />
+  <Sustainability lang={lang} />
+  <Family lang={lang} />
+  <Contact lang={lang} />
+</Base>

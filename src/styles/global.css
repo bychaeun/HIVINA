@@ -1,0 +1,72 @@
+/* ==========================================================
+   HIVINA design tokens — 색과 간격은 여기서만 바꾸면 전체에 반영됩니다.
+   ========================================================== */
+:root {
+  --forest: #0e3b2c;   /* 메인 딥그린 */
+  --moss: #2f6b4f;     /* 보조 그린 */
+  --leaf: #a6dc5c;     /* 포인트 라임 */
+  --mist: #dbe9df;     /* 연한 그린 */
+  --paper: #f5f2ea;    /* 배경 아이보리 */
+  --ink: #0d1a14;      /* 본문 텍스트 */
+  --ink-soft: #4a5a52;
+
+  --radius: 28px;
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1320px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --font: "Be Vietnam Pro", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.container { width: min(var(--max), 100% - var(--gutter) * 2); margin-inline: auto; }
+
+.label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--moss);
+}
+.label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 0 4px rgb(166 220 92 / 0.25); }
+
+.h2 { font-size: clamp(30px, 4.6vw, 64px); line-height: 1.12; letter-spacing: -0.03em; font-weight: 700; margin: 18px 0 0; }
+
+.btn {
+  --bg: var(--leaf); --fg: var(--forest);
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 26px; border-radius: 999px;
+  background: var(--bg); color: var(--fg); font-weight: 600;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -12px rgb(166 220 92 / 0.8); }
+.btn .arrow { transition: transform .5s var(--ease); }
+.btn:hover .arrow { transform: translateX(4px) rotate(-45deg); }
+
+/* ---------- 스크롤 등장 모션 ---------- */
+[data-reveal] {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 1s var(--ease), transform 1.1s var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+[data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-reveal] { opacity: 1; transform: none; }
+}

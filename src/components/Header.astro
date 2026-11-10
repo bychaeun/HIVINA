@@ -1,0 +1,46 @@
+---
+import Logo from './Logo.astro';
+import { t, langs, switchLangPath, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const d = t(lang);
+const path = Astro.url.pathname;
+const short: Record<Lang, string> = { ko: 'KO', vi: 'VI', en: 'EN' };
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href={`/${lang}/`}><Logo /></a>
+    <nav class="menu" aria-label="Main">
+      <a href="#about">{d.nav.about}</a>
+      <a href="#business">{d.nav.business}</a>
+      <a href="#sustainability">{d.nav.sustainability}</a>
+      <a href="#family">{d.nav.family}</a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        {langs.map((l) => (
+          <a href={switchLangPath(path, l)} hreflang={l} aria-current={l === lang ? 'true' : undefined} title={t(l).langName}>{short[l]}</a>
+        ))}
+      </div>
+      <a class="cta" href="#contact">{d.nav.contact}</a>
+    </div>
+  </div>
+</header>
+<style>
+  .site-header {
+    position: fixed; inset: 0 0 auto; z-index: 50; color: var(--paper);
+    transition: background .5s var(--ease), color .5s var(--ease), backdrop-filter .5s;
+  }
+  .site-header.is-scrolled { background: rgb(245 242 234 / 0.78); color: var(--forest); backdrop-filter: blur(14px); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+  .menu { display: flex; gap: 34px; font-size: 15px; font-weight: 500; }
+  .menu a { position: relative; }
+  .menu a::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 100%; height: 2px; background: var(--leaf); transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
+  .menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .right { display: flex; align-items: center; gap: 14px; }
+  .lang { display: flex; padding: 4px; border: 1px solid currentColor; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .lang a { padding: 6px 10px; border-radius: 999px; opacity: .65; transition: opacity .3s, background .3s; }
+  .lang a[aria-current] { opacity: 1; background: var(--leaf); color: var(--forest); }
+  .cta { padding: 10px 18px; border-radius: 999px; background: var(--leaf); color: var(--forest); font-size: 14px; font-weight: 600; }
+  @media (max-width: 900px) { .menu { display: none; } }
+  @media (max-width: 480px) { .cta { display: none; } }
+</style>

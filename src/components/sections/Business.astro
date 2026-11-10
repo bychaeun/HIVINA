@@ -1,0 +1,38 @@
+---
+import { t, type Lang } from '../../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const d = t(lang).business;
+---
+<section id="business" class="business">
+  <div class="container">
+    <span class="label" data-reveal>{d.label}</span>
+    <h2 class="h2" data-reveal style="--i:1">{d.title}</h2>
+    <div class="cards">
+      {d.items.map((it, i) => (
+        <article class="card" data-reveal style={`--i:${i}`}>
+          <!-- TODO: 실제 사진으로 교체 → <img src="/images/business-01.webp" alt="" /> -->
+          <div class="visual" data-parallax="0.06"><span>{it.no}</span></div>
+          <div class="text">
+            <h3>{it.title}</h3>
+            <p>{it.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .business { padding: clamp(80px, 12vw, 160px) 0; background: var(--mist); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+  .card { background: var(--paper); border-radius: var(--radius); overflow: hidden; transition: transform .7s var(--ease), box-shadow .7s var(--ease); }
+  .card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px -30px rgb(14 59 44 / .45); }
+  .visual { aspect-ratio: 4 / 3; display: grid; place-items: end start; padding: 24px; color: var(--paper); font-size: 64px; font-weight: 700; letter-spacing: -0.04em;
+    background: radial-gradient(120% 90% at 80% 10%, var(--leaf), transparent 55%), linear-gradient(160deg, var(--moss), var(--forest)); transition: filter .7s var(--ease); }
+  .card:nth-child(2) .visual { background: radial-gradient(120% 90% at 20% 0%, #7fd1c0, transparent 55%), linear-gradient(160deg, #2c6a62, var(--forest)); }
+  .card:nth-child(3) .visual { background: radial-gradient(120% 90% at 70% 100%, #e7d58a, transparent 55%), linear-gradient(160deg, #4f7a3a, var(--forest)); }
+  .card:hover .visual { filter: saturate(1.25) brightness(1.05); }
+  .text { padding: 28px; }
+  h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.02em; }
+  p { margin: 0; color: var(--ink-soft); }
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+</style>

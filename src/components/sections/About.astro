@@ -1,0 +1,37 @@
+---
+import { t, type Lang } from '../../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const d = t(lang).about;
+---
+<section id="about" class="about">
+  <div class="container grid">
+    <div>
+      <span class="label" data-reveal>{d.label}</span>
+      <h2 class="h2" data-reveal style="--i:1">{d.title}</h2>
+    </div>
+    <p class="body" data-reveal style="--i:2">{d.body}</p>
+  </div>
+  <div class="container stats">
+    {d.stats.map((s, i) => (
+      <div class="stat" data-reveal style={`--i:${i}`}>
+        <strong><span data-count={s.value}>{s.value}</span>{s.suffix}</strong>
+        <span>{s.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+<style>
+  .about { padding: clamp(96px, 14vw, 180px) 0 clamp(64px, 10vw, 120px); }
+  .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .body { font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-soft); margin: 0; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(56px, 8vw, 110px); border-top: 1px solid rgb(14 59 44 / .15); }
+  .stat { padding: 32px 24px 0 0; display: grid; gap: 6px; }
+  .stat + .stat { padding-left: 24px; border-left: 1px solid rgb(14 59 44 / .15); }
+  strong { font-size: clamp(40px, 6vw, 84px); line-height: 1; letter-spacing: -0.04em; color: var(--forest); }
+  .stat > span { color: var(--ink-soft); font-size: 14px; }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .stat + .stat { padding-left: 0; border-left: 0; border-top: 1px solid rgb(14 59 44 / .15); margin-top: 24px; }
+  }
+</style>

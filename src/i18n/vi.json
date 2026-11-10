@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "HIVINA | Đối tác bền vững cùng phát triển tại Việt Nam",
+    "description": "HIVINA là doanh nghiệp vốn Hàn Quốc tại Việt Nam, cùng công ty anh em Hyosan kiến tạo sản xuất bền vững và quan hệ đối tác tin cậy."
+  },
+  "nav": {
+    "about": "Giới thiệu",
+    "business": "Lĩnh vực",
+    "sustainability": "Phát triển bền vững",
+    "family": "Công ty anh em",
+    "contact": "Liên hệ"
+  },
+  "hero": {
+    "eyebrow": "Korean Roots · Vietnamese Ground",
+    "title": ["Cùng kiến tạo", "một tương lai xanh", "tại Việt Nam"],
+    "lead": "HIVINA là đối tác bền vững kết nối công nghệ Hàn Quốc với tiềm năng Việt Nam.",
+    "cta": "Khám phá HIVINA",
+    "scroll": "Cuộn xuống"
+  },
+  "marquee": ["Sustainable", "Trusted Partner", "Korea × Vietnam", "Green Manufacturing", "Quality First"],
+  "about": {
+    "label": "About HIVINA",
+    "title": "Nơi công nghệ, con người và thiên nhiên cùng phát triển",
+    "body": "HIVINA áp dụng quản lý chất lượng và kinh doanh có trách nhiệm theo tiêu chuẩn Hàn Quốc ngay tại Việt Nam. Hợp tác chặt chẽ với công ty anh em Hyosan, chúng tôi hướng tới trở thành đối tác đáng tin cậy của khách hàng và cộng đồng.",
+    "stats": [
+      { "value": 2000, "suffix": "", "label": "Năm thành lập (ví dụ)" },
+      { "value": 100, "suffix": "+", "label": "Nhân viên (ví dụ)" },
+      { "value": 30, "suffix": "+", "label": "Khách hàng (ví dụ)" }
+    ]
+  },
+  "business": {
+    "label": "Business",
+    "title": "Chúng tôi làm gì",
+    "items": [
+      { "no": "01", "title": "Lĩnh vực 1", "desc": "Nội dung sẽ được cập nhật sau buổi họp." },
+      { "no": "02", "title": "Lĩnh vực 2", "desc": "Giới thiệu ngắn gọn giá trị cốt lõi của sản phẩm và dịch vụ." },
+      { "no": "03", "title": "Lĩnh vực 3", "desc": "Thể hiện năng lực thiết bị, quy trình và chất lượng bằng hình ảnh." }
+    ]
+  },
+  "sustainability": {
+    "label": "Sustainability",
+    "title": "Sản xuất vì thiên nhiên",
+    "body": "Hiệu quả năng lượng, tuần hoàn tài nguyên, môi trường làm việc an toàn. Ba cam kết của HIVINA.",
+    "points": ["Nâng cao hiệu quả năng lượng", "Tuần hoàn tài nguyên · Giảm chất thải", "Nơi làm việc an toàn và lành mạnh"]
+  },
+  "family": {
+    "label": "Family Company",
+    "title": "Cùng Hyosan, chung một gốc rễ",
+    "body": "HIVINA và Hyosan là hai công ty anh em cùng chung gốc rễ, chia sẻ thế mạnh và cùng phát triển tại Hàn Quốc và Việt Nam.",
+    "link": "Đến Hyosan"
+  },
+  "contact": {
+    "title": "Bạn đang tìm kiếm đối tác để cùng phát triển?",
+    "body": "Chúng tôi luôn chào đón mọi liên hệ về dự án, hợp tác và tuyển dụng.",
+    "cta": "Liên hệ"
+  },
+  "footer": {
+    "address": "Địa chỉ: sẽ cập nhật",
+    "rights": "All rights reserved."
+  },
+  "langName": "Tiếng Việt"
+}
