@@ -1,15 +1,60 @@
 ---
-// 임시 로고 — 실제 로고 SVG를 받으면 교체
+/**
+ * HIVINA 공식 로고 (Basic type, 원본: brand/hivina-logo-*.svg)
+ * - 심볼(초록 두 면)은 브랜드 그라디언트 그대로
+ * - 글자(HiVINA)는 currentColor → 어두운 배경에서는 흰색, 밝은 배경에서는 검정으로 자동 전환
+ *   (부모 요소의 color 를 따름. 기본값은 CSS 변수 --logo-text)
+ */
+interface Props {
+  /** 같은 페이지에 로고가 여러 번 나올 때 그라디언트 id 충돌 방지용 */
+  id?: string;
+  height?: number;
+}
+const { id = 'logo', height = 28 } = Astro.props;
+const gA = `${id}-grad-a`;
+const gB = `${id}-grad-b`;
+const width = Math.round((height * 1901.68) / 291.32);
 ---
-<span class="logo" aria-label="HIVINA">
-  <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
-    <path d="M16 2C8 8 5 14 5 19a11 11 0 0 0 22 0c0-5-3-11-11-17Z" fill="currentColor" opacity=".18"/>
-    <path d="M16 6c-5 5-7 9-7 13a7 7 0 0 0 14 0c0-4-2-8-7-13Z" fill="currentColor"/>
-    <path d="M16 12v16" stroke="var(--leaf)" stroke-width="2" stroke-linecap="round"/>
-  </svg>
-  <b>HIVINA</b>
-</span>
+
+<svg
+  class="logo"
+  viewBox="0 0 1901.68 291.32"
+  width={width}
+  height={height}
+  role="img"
+  aria-label="HI VINA"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id={gA} x1="163.31" y1="155.87" x2="408.27" y2="155.87" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00c256"></stop>
+      <stop offset="1" stop-color="#008a30"></stop>
+    </linearGradient>
+    <linearGradient id={gB} x1="0" y1="155.29" x2="163.31" y2="155.29" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#008a30"></stop>
+      <stop offset="1" stop-color="#006e3c"></stop>
+    </linearGradient>
+  </defs>
+  <!-- 심볼 -->
+  <polygon fill={`url(#${gB})`} points="0 290.17 163.31 169.68 163.31 20.41 0 140.9 0 290.17"></polygon>
+  <polygon fill={`url(#${gA})`} points="408.27 291.32 163.31 169.68 163.31 20.41 408.27 142.05 408.27 291.32"></polygon>
+  <!-- 글자 -->
+  <g fill="currentColor">
+    <polygon points="756.08 140.24 618.37 140.24 618.37 20.42 572.25 20.42 572.25 290.9 618.37 290.9 618.37 183.9 756.08 183.9 756.08 290.9 802.19 290.9 802.19 20.42 756.08 20.42 756.08 140.24"></polygon>
+    <path d="M866.98,0c-16.57,0-29.56,12.9-29.56,29.36s12.99,29.17,29.56,29.17,29.56-13.09,29.56-29.17-13.26-29.36-29.56-29.36Z"></path>
+    <rect x="844.1" y="82.17" width="45.16" height="208.72"></rect>
+    <path d="M1852.87,290.37h48.81l-109.76-270.15h-39.81l-109.23,270.68h49.21l24.06-62.27h112.43l24.29,61.75ZM1733.19,184.52l38.68-100.11,39.37,100.11h-78.05Z"></path>
+    <polygon points="1137.74 226.69 1056.74 20.74 1007.93 20.74 1117.69 290.89 1157.51 290.89 1266.73 20.21 1217.52 20.21 1137.74 226.69"></polygon>
+    <rect x="1302.1" y="20.21" width="45.16" height="270.68"></rect>
+    <polygon points="1574.03 212.43 1447.8 20.49 1402.39 20.49 1402.39 289.97 1445.87 289.97 1445.87 97.67 1572.45 289.97 1617.87 289.97 1617.87 20.49 1574.03 20.49 1574.03 212.43"></polygon>
+  </g>
+</svg>
+
 <style>
-  .logo { display: inline-flex; align-items: center; gap: 10px; }
-  b { font-size: 20px; letter-spacing: 0.08em; font-weight: 700; }
+  .logo {
+    display: block;
+    width: auto;
+    color: var(--logo-text, #000);
+    transition: color 0.5s var(--ease);
+  }
 </style>

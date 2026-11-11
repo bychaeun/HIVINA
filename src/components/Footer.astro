@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro';
 import { COMPANY, type Lang } from '../config/site';
 import { useT } from '../i18n/ui';
 
@@ -13,6 +14,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container inner">
     <div>
+      <div class="flogo"><Logo id="footer-logo" height={24} /></div>
       <p class="name">{COMPANY.legalName[lang]}</p>
       <p>{COMPANY.address[lang]}</p>
       <p>
@@ -26,6 +28,7 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
+    --logo-text: #fff;
     background: var(--color-primary);
     color: rgba(255, 255, 255, 0.78);
     font-size: 0.875rem;
@@ -40,6 +43,9 @@ const year = new Date().getFullYear();
   }
   p {
     margin: 0 0 4px;
+  }
+  .flogo {
+    margin-bottom: 20px;
   }
   .name {
     color: #fff;

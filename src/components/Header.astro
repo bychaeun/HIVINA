@@ -24,7 +24,7 @@ const short: Record<Lang, string> = { ko: 'KO', vi: 'VI', en: 'EN' };
 
 <header class:list={['site-header', { 'over-dark': overDark }]}>
   <div class="container bar">
-    <a class="home" href={href(lang)}><Logo /></a>
+    <a class="home" href={href(lang)}><Logo id="header-logo" height={26} /></a>
 
     <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={t('nav.menu')}>
       <span></span><span></span><span></span>
@@ -80,6 +80,7 @@ const short: Record<Lang, string> = { ko: 'KO', vi: 'VI', en: 'EN' };
     inset: 0 0 auto;
     z-index: 50;
     color: var(--forest);
+    --logo-text: #000;
     background: rgb(245 242 234 / 0.86);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--color-line);
@@ -94,6 +95,7 @@ const short: Record<Lang, string> = { ko: 'KO', vi: 'VI', en: 'EN' };
     backdrop-filter: none;
     border-color: transparent;
     color: var(--paper);
+    --logo-text: #fff;
   }
   .bar {
     display: flex;

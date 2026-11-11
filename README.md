@@ -75,7 +75,7 @@ content/
 | 각 섹션 디자인 | `src/components/sections/*.astro` |
 | 스크롤 모션 | `src/scripts/motion.ts` |
 | 상단 메뉴 항목 | `src/components/Header.astro`의 `nav` |
-| 로고 | `src/components/Logo.astro`, `public/favicon.svg` (현재 임시 로고) |
+| 로고 | `src/components/Logo.astro`, `public/favicon.svg` (원본 SVG 6종은 `brand/` 폴더) |
 | CSV 열 추가 | `src/content.config.ts` schema에 같은 이름 추가 |
 
 ### 홈 화면에서 자동으로 채워지는 것
@@ -113,7 +113,6 @@ Node 22 이상이 필요합니다.
 - [ ] 제품 설명 실제 문구로 교체 (`[샘플 문구]` 표시 부분), 베트남어 번역 검수
 - [ ] 제품·패턴 사진
 - [ ] 대표 이메일 (`src/config/site.ts`)
-- [ ] 실제 로고 SVG
 - [ ] 효산 홈페이지 주소 (`site.ts`의 `family`, 비어 있으면 버튼 숨김)
 - [ ] 홈 화면 문구 검수 (특히 친환경 섹션 3개 항목)
 - [ ] 효산·ICC 소개 방식
