@@ -70,7 +70,7 @@ content/
 |---|---|
 | 회사 주소·전화·이메일·기본 언어·관계사 링크 | `src/config/site.ts` |
 | 메뉴·버튼·홈 화면 문구 번역 | `src/i18n/ui.ts` (ko에 키를 추가하면 vi/en 누락 시 빌드 오류) |
-| 색상·글꼴 | `src/styles/global.css` 맨 위 `:root` (딥그린 `--forest`, 라임 `--leaf` 등) |
+| 색상·글꼴 | `src/styles/global.css` 맨 위 `:root` (로고 초록 `--leaf` #00c256, 진한 배경 `--forest` 등) |
 | 홈 화면 섹션 순서·추가·삭제 | `src/pages/[lang]/index.astro` |
 | 각 섹션 디자인 | `src/components/sections/*.astro` |
 | 스크롤 모션 | `src/scripts/motion.ts` |

@@ -2,22 +2,24 @@
    HIVINA design tokens — 색·글꼴·간격은 여기 :root 만 바꾸면 전체에 반영됩니다.
    ========================================================== */
 :root {
-  /* 브랜드 팔레트 */
-  --forest: #0e3b2c; /* 메인 딥그린 */
-  --moss: #2f6b4f; /* 보조 그린 (흰 배경 위 강조 글자) */
-  --leaf: #a6dc5c; /* 포인트 라임 (어두운 배경 위 / 채움용) */
-  --mist: #dbe9df; /* 연한 그린 배경 */
-  --paper: #f5f2ea; /* 아이보리 배경 */
-  --ink: #0d1a14; /* 본문 텍스트 */
-  --ink-soft: #4a5a52;
+  /* 브랜드 팔레트 — HI VINA BI 로고 색 기준 (brand/ 폴더 원본 SVG) */
+  --leaf: #00c256; /* 로고 밝은 초록 · 포인트, 버튼, 어두운 배경 위 강조 */
+  --brand-mid: #008a30; /* 로고 중간 초록 */
+  --brand-deep: #006e3c; /* 로고 진한 초록 */
+  --moss: #007b34; /* 로고 Solid type 초록 · 밝은 배경 위 강조 글자 (대비 확보) */
+  --forest: #04301c; /* 로고 초록을 어둡게 낸 메인 배경색 (히어로, 푸터) */
+  --mist: #e1f1e6; /* 연한 초록 배경 */
+  --paper: #f6f7f3; /* 기본 배경 */
+  --ink: #0b1a12; /* 본문 텍스트 */
+  --ink-soft: #4a5a51;
 
   /* 컴포넌트에서 쓰는 이름 (팔레트를 참조) */
   --color-bg: var(--paper);
-  --color-surface: #ebf1ea;
+  --color-surface: #ecf3ee;
   --color-card: #ffffff;
   --color-text: var(--ink);
   --color-muted: var(--ink-soft);
-  --color-line: rgb(14 59 44 / 0.14);
+  --color-line: rgb(4 48 28 / 0.12);
   --color-primary: var(--forest);
   --color-primary-contrast: var(--paper);
   --color-accent: var(--moss);
@@ -114,7 +116,7 @@ h3 {
   height: 8px;
   border-radius: 50%;
   background: var(--leaf);
-  box-shadow: 0 0 0 4px rgb(166 220 92 / 0.25);
+  box-shadow: 0 0 0 4px rgb(0 194 86 / 0.25);
 }
 
 .h2 {
@@ -166,7 +168,7 @@ h3 {
 }
 .btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 14px 30px -14px rgb(14 59 44 / 0.6);
+  box-shadow: 0 14px 30px -14px rgb(4 48 28 / 0.6);
 }
 .btn--leaf {
   --bg: var(--leaf);
@@ -205,7 +207,7 @@ h3 {
   place-items: center;
   aspect-ratio: 4 / 3;
   background:
-    radial-gradient(120% 90% at 80% 10%, rgb(166 220 92 / 0.35), transparent 55%),
+    radial-gradient(120% 90% at 80% 10%, rgb(0 194 86 / 0.35), transparent 55%),
     linear-gradient(160deg, var(--mist), #c9dccf);
   color: var(--moss);
   font-size: 0.85rem;
