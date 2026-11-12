@@ -1,0 +1,167 @@
+/* Shared design review refinements for the localized canvas pages. */
+:root{--motion-ease:cubic-bezier(.22,.75,.2,1)}
+[hidden]{display:none!important}
+
+/* A full first screen, followed by ordinary page scrolling. */
+[data-page="home"] #top .hero{height:100svh;min-height:100svh;max-height:none;padding-top:120px;padding-bottom:40px}
+[data-page="home"] .hero .hsl{object-fit:cover}
+
+/* Once the text is visible, writing runs on a clock, never on scroll progress.
+   Revealing the shaped line preserves the connected cursive glyphs. */
+.qsec .wrap,.qsec .qt,.qsec .ql,.qsec .qts{animation:none!important;animation-timeline:auto!important;clip-path:none;transform:none!important}
+.qsec[data-write-ready] .ql{clip-path:inset(-20% 100% -20% -5%);opacity:0}
+.qsec[data-write-ready].quote-visible .ql{animation:quote-write 2.6s linear .15s both!important}
+.qsec[data-write-ready].quote-visible .ql+.ql{animation-delay:2.8s!important;animation-duration:3s!important}
+.qsec[data-write-ready] .qts{opacity:0;transition:opacity 1.4s ease 5.2s}
+.qsec[data-write-ready].quote-visible .qts{opacity:1}
+@keyframes quote-write{0%{clip-path:inset(-20% 100% -20% -5%);opacity:0}5%{opacity:1}100%{clip-path:inset(-20% -5% -20% -5%);opacity:1}}
+
+/* Raise the actions and keep a quiet, repeating scroll cue at the foot. */
+[data-page="home"] .hbt{bottom:82px}
+.hero-scroll{position:absolute;z-index:3;bottom:18px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:64px;min-height:58px;color:#fff;text-shadow:0 1px 8px #0006}
+.hero-scroll:hover{color:#fff}
+.hero-scroll svg{width:24px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 4px #0004)}
+.hero-scroll .mouse-wheel{animation:mouse-scroll 1.8s ease-in-out infinite}
+.hero-scroll span{font-size:9px;letter-spacing:.22em;font-weight:500}
+@keyframes mouse-scroll{0%,67%,100%{transform:translateY(0);opacity:1}26%{transform:translateY(3px);opacity:.6}50%{transform:translateY(-.6px);opacity:1}}
+
+/* Globe SVG and meridian animation adapted from AnimateIcons GlobeIcon (MIT).
+   https://github.com/Avijit07x/animateicons/blob/main/icons/lucide/globe-icon.tsx */
+.lng{position:relative;display:flex;align-items:center;padding:4px 6px;border-radius:999px;background:#f1f3ee;font-size:13px;font-weight:600;gap:2px;isolation:isolate;flex-shrink:0}
+.language-globe{color:#111;display:flex;align-items:center;justify-content:center;width:31px;height:36px;margin-right:3px;flex:none}
+.globe-meridian{transform-box:view-box;transform-origin:12px 12px}
+.lng:hover .globe-meridian,.lng:focus-within .globe-meridian{animation:globe-turn 1s ease-in-out}
+@keyframes globe-turn{0%,100%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+.lng a{position:relative;z-index:1;min-width:44px!important;min-height:36px;display:flex;align-items:center;justify-content:center;border-radius:999px;transition:color .25s;background:transparent!important;color:#33423a!important}
+.lng a[aria-current="page"]{color:#fff!important}
+.selection-indicator{position:absolute;z-index:0;left:0;top:0;border-radius:999px;background:#14201a;pointer-events:none;transition:transform .38s var(--motion-ease),width .38s var(--motion-ease),height .38s var(--motion-ease);will-change:transform}
+.lng .selection-indicator{view-transition-name:language-selection}
+.tbs.has-indicator{position:relative;isolation:isolate}
+.tbs.has-indicator .tb{position:relative;z-index:1;background:transparent;transition:color .25s,border-color .25s}
+.tbs.has-indicator .tb.on{color:#fff;border-color:transparent}
+.lng a:focus-visible,.lpm-tab:focus-visible,.tb:focus-visible{outline:2px solid #006e3c;outline-offset:3px}
+
+/* Native cross-document navigation gets the same soft lateral movement. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:page-leave .28s ease both}
+::view-transition-new(root){animation:page-arrive .42s var(--motion-ease) both}
+@keyframes page-leave{to{opacity:0;transform:translateX(-16px)}}
+@keyframes page-arrive{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+
+/* Products: secondary navigation, working design links and edge-to-edge image. */
+.lpm-subnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 0 22px;margin:-14px 0 36px;border-bottom:1px solid #dde1da}
+.lpm-tab{font:inherit;font-size:14px;min-height:42px;padding:8px 15px;border:0;border-radius:30px;cursor:pointer;background:transparent;color:#647066;transition:color .25s,background .25s}
+.lpm-tab:hover,.lpm-tab.on{color:#006e3c;background:#edf4ee}
+.lpm-tab.on{font-weight:600}
+.lpm-subnav.has-indicator{position:relative;isolation:isolate}
+.lpm-subnav.has-indicator .lpm-tab{position:relative;z-index:1;background:transparent}
+.lpm-subnav .selection-indicator{background:#edf4ee}
+.lpm-divider{height:18px;width:1px;background:#cbd1c8;margin:0 10px}
+.lpm-design-label{font-size:12px;color:#899087;letter-spacing:.06em;margin-right:2px}
+.lpm-design-panel{animation:product-arrive .5s var(--motion-ease) both}
+[data-panel]>.fa,[data-panel]>.fb{animation:product-arrive .5s var(--motion-ease) both}
+@keyframes product-arrive{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.design-panel-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:32px}
+.lpm-design-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 22px}
+.design-sample{position:relative;display:block;font-size:13px}
+.design-sample>.swc{margin-bottom:12px;border-radius:14px}
+.design-sample>.ic{position:absolute;right:0;bottom:0;width:18px;height:18px;color:#006e3c;transition:transform .3s}
+.design-sample:hover>.ic,.all-products-link:hover>.ic{transform:translateX(5px)}
+.all-products-link{display:inline-flex;align-items:center;gap:14px;color:inherit}
+.all-products-link .ic{width:22px;height:22px;transition:transform .3s}
+.design-panel-heading .all-products-link{font-size:14px;color:#006e3c}
+[data-page="products"] .mv3>div:first-child{transform:translateY(20px)}
+.mv3 [data-act="mv-replay"]{display:inline-flex;align-items:center;justify-content:center;width:40px;min-height:40px!important;padding:0!important;border-radius:50%;text-decoration:none!important;transition:background .25s,transform .35s}
+.mv3 [data-act="mv-replay"]:hover{background:#edf4ee;transform:rotate(30deg)}
+.mv3 [data-act="mv-replay"] svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+[data-page="products"] .product-bleed{margin-right:calc(-1 * max(40px,50cqw - 580px));border-radius:24px 0 0 24px}
+
+/* Keep capsule clipping, closer to the source portraits' 2:3 proportions. */
+.gal .gi{width:220px;height:360px;border-radius:999px}
+.gal .gi:hover{width:250px;border-radius:999px}
+.gal .gi img,.gal .gi:hover img{transform:none}
+
+/* Projects use the same masthead and editorial structure as News. */
+.project-featured>.wrap>.h2{margin-bottom:36px}
+.project-featured .split{gap:40px;align-items:stretch}
+.project-feature-image{position:relative;aspect-ratio:16/10;border-radius:24px;overflow:hidden;background:#e9ede6}
+.project-feature-image .pjs{transform:none}
+.manual-preview .pjs{transition:none;transform:scale(1)}
+.manual-preview [data-pj-text]{animation:none}
+[data-page="home"] #projects .h2{max-width:24ch;text-wrap:balance}
+.pjw .pjt{max-width:24ch;text-wrap:balance}
+:is(html[lang="vi"],html[lang="en"]) #partners .h2{font-size:34px;line-height:1.35;text-wrap:balance;max-width:1060px;margin-inline:auto}
+.project-featured [data-pj-text]{padding:22px 0 0}
+.project-featured [data-pj-date]{color:#6b746d!important;font-size:13px!important}
+.project-featured .pjt{font-size:25px;line-height:1.35;margin:8px 0 0}
+.project-feature-list{display:flex;flex-direction:column;justify-content:space-between}
+.project-feature-list .pjb{color:#687267;border-top:1px solid #dde1da;padding:16px 0;display:grid;grid-template-columns:32px 1fr;align-items:center;gap:18px;min-height:0;flex:initial;font-size:15px;transition:color .3s,padding-left .3s}
+.project-feature-list .pjb.on{color:#006e3c;border-color:#006e3c;padding-left:12px}
+.project-feature-list .pjb b{font-size:11px;color:#8a9387}
+.project-grid,.news-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.project-grid .card,.news-grid .card{border-radius:18px;min-width:0}
+.project-grid .card>.zoom{height:auto;aspect-ratio:4/3}
+.project-grid .card>div:last-child,.news-grid .card>div:last-child{padding:18px!important}
+.project-grid h3,.news-grid h3{font-size:16px!important;line-height:1.45!important}
+.project-grid .mut,.news-grid .card .mut{font-size:12px!important}
+
+/* One factory still, then a full video, repeating without an empty frame. */
+.hxl .history-photo{opacity:1;animation:none;transform:none;transition:opacity 1.2s ease;z-index:1}
+.hxl .hvid{opacity:0;transition:opacity 1.2s ease;z-index:0}
+.hxl.video-visible .history-photo{opacity:0}
+.hxl.video-visible .hvid{opacity:1}
+.hxl .hxt{z-index:2}
+.history-flow .whl{transition:none!important}
+.history-flow .whc{display:none}
+.history-flow .wr{border-top:1px solid rgba(255,255,255,.25)}
+.history-flow .wr.d0{border-color:rgba(255,255,255,.5)}
+.history-flow .hd.on .dt{background:transparent;box-shadow:none;transform:none}
+.history-cursor{position:absolute;left:0;top:0;width:13px;height:13px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.25);pointer-events:none;will-change:transform}
+[data-page="about"] .phero>img{object-position:center 52%}
+
+@container(max-width:1100px){
+  .project-grid,.news-grid{gap:18px}
+  .project-grid h3,.news-grid h3{font-size:14px!important}
+  .nav{gap:20px}
+}
+@container(max-width:900px){
+  [data-page="home"] #top .hero{height:100svh;min-height:100svh;padding-top:110px;padding-bottom:28px}
+  [data-page="home"] .hbt{bottom:76px}
+  .hero-scroll{bottom:12px}
+  :is(html[lang="vi"],html[lang="en"]) #partners .h2{font-size:21px}
+  .lng{gap:0;padding:4px}
+  .lng a{min-width:33px!important;font-size:11px}
+  .language-globe{width:23px;margin-right:2px}
+  .language-globe svg{width:17px;height:17px}
+  .glass .wrap{gap:8px!important}
+  .lpm-subnav{margin-top:-8px;margin-bottom:28px;gap:4px}
+  .lpm-tab{font-size:12px;padding:8px 11px}
+  .lpm-divider{margin:0 6px}
+  .lpm-design-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}
+  .design-panel-heading{align-items:start}
+  .design-panel-heading .all-products-link{font-size:11px;gap:6px}
+  [data-page="products"] .product-bleed{margin-right:-20px}
+  [data-page="products"] .mv3>div:first-child{transform:translateY(12px)}
+  .gal .gi{width:150px;height:240px}
+  .gal .gi:hover{width:170px;border-radius:999px}
+  .project-feature-image{aspect-ratio:4/3;border-radius:18px}
+  .project-featured .split{gap:28px}
+  .project-featured .pjt{font-size:22px}
+  .project-feature-list .pjb{padding:14px 0;grid-template-columns:25px 1fr;font-size:13px}
+  .project-grid,.news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;overflow:visible;margin:0;padding:0;scroll-snap-type:none}
+  .project-grid .card>div:last-child,.news-grid .card>div:last-child{padding:14px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important}
+  .selection-indicator,.qsec .qt,.qsec .qts,.history-photo,.hvid{transition:none!important}
+  .qsec[data-write-ready] .ql,.qsec[data-write-ready] .qts{animation:none!important;clip-path:none!important;opacity:1;transition:none}
+  .hero-scroll .mouse-wheel{animation:none}
+  .lpm-design-panel,.globe-meridian{animation:none!important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
+@container(max-width:400px){
+  .glass .wrap{padding:0 10px}
+  .glass img{height:15px!important;margin-left:2px!important}
+  .lng a{min-width:29px!important}
+  .language-globe{width:20px}
+}

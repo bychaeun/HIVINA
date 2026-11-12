@@ -2,11 +2,11 @@
  * 사이트 전체 설정 — 회사 정보·연락처·언어는 여기 한 곳만 고치면 모든 페이지에 반영됩니다.
  */
 
-export const LANGS = ['ko', 'vi', 'en'] as const;
+export const LANGS = ['vi', 'en', 'ko'] as const;
 export type Lang = (typeof LANGS)[number];
 
-/** 루트(/) 접속 시 브라우저 언어를 알 수 없을 때 보낼 기본 언어 */
-export const DEFAULT_LANG: Lang = 'ko';
+/** 루트(/)의 첫 화면은 베트남어로 표시합니다. */
+export const DEFAULT_LANG: Lang = 'vi';
 
 /** 번역이 비어 있을 때 대신 보여줄 언어 순서 */
 export const FALLBACK_ORDER: Lang[] = ['ko', 'en', 'vi'];

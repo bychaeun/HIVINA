@@ -14,11 +14,7 @@
 <a href="/en/contact/">Contact us</a>
 </nav>
 <div style="display: flex; align-items: center; gap: 12px">
-<div class="lng" style="display: flex; align-items: center; padding: 4px; border-radius: 999px; background: #F1F3EE; font-size: 13px; font-weight: 600">
-<a href="/ko/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">KO</a>
-<a href="/vi/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">VI</a>
-<a href="/en/" aria-current="page" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #14201A; color: #fff">EN</a>
-</div>
+<div class="lng" aria-label="Language"><span class="language-globe" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path class="globe-meridian" d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><a lang="vi" hreflang="vi" href="/vi/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">VI</a><a lang="en" hreflang="en" href="/en/" aria-current="page" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #14201A; color: #fff">EN</a><a lang="ko" hreflang="ko" href="/ko/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">KO</a></div>
 <a class="btn cat hv" href="/en/catalogue/" style="min-height: 44px; padding: 0 20px; font-size: 14px; background: var(--g,#0A7A3B); color: #fff"><svg class="ic i-pop" style="width: 18px; height: 18px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Catalogue</a>
 <button class="btn burger" type="button" aria-label="Open menu" data-act="menu" aria-expanded="false" style="min-height: 44px; width: 44px; padding: 0; justify-content: center; background: #F1F3EE; color: #14201A"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </div>
@@ -66,11 +62,11 @@
 <a class="btn" href="/en/contact/" style="background: rgba(0,0,0,.28); color: #fff; border: 1px solid rgba(255,255,255,.7); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px)">Contact us</a>
 </div>
 </div>
-</div>
+<a class="hero-scroll" href="#intro-quote" aria-label="Scroll down"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="7"/><path class="mouse-wheel" d="M12 6v4"/></svg><span>SCROLL</span></a></div>
 </section>
 
 <!-- Quote -->
-<section class="qsec">
+<section class="qsec" id="intro-quote">
 <div class="wrap">
 <p class="qt"><span class="ql">“Protect human life &amp;</span><span class="ql">Improve the quality of living”</span></p>
 </div>
@@ -161,7 +157,7 @@
 <section id="history" style="background: #10261B; color: #fff">
 <div class="hx">
 <div class="hxl">
-<video class="hvid" src="/home/video/hivina-film.mp4" poster="/home/img/film-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+<img class="history-photo" src="/home/img/factory-full.webp" alt="Hi VINA factory" loading="lazy"><video class="hvid" data-history-video src="/home/video/hivina-film.mp4" poster="/home/img/factory-full.webp" muted playsinline preload="none" aria-hidden="true"></video>
 <div class="hxt"><h2 class="lb" style="color: #fff">Company History</h2></div>
 </div>
 <div class="hdl" role="tablist" aria-label="Company history">
@@ -193,7 +189,7 @@
 <div data-slot="3d-motion" class="mv3" data-mv style="position: relative; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px">
 <span class="mut" role="status" aria-live="polite" data-mv-hint>Layers are stacking</span>
-<button type="button" data-act="mv-replay" style="min-height: 44px; padding: 0 4px; border: 0; background: none; font: inherit; font-weight: 600; color: var(--g,#0A7A3B); cursor: pointer; text-decoration: underline; text-underline-offset: 4px">Replay the assembly ↻</button>
+<button type="button" data-act="mv-replay" style="min-height: 44px; padding: 0 4px; border: 0; background: none; font: inherit; font-weight: 600; color: var(--g,#0A7A3B); cursor: pointer; text-decoration: underline; text-underline-offset: 4px" aria-label="Replay the assembly ↻" title="Replay the assembly ↻"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M19.3 8a8 8 0 1 0 .3 7"/></svg></button>
 </div>
 <div class="mvh">
 <model-viewer src="/models/lpm-assembly.glb" alt="Core board, woodgrain decorative paper and translucent resin sheet. Click to separate the layers." camera-controls="" disable-pan="" disable-tap="" disable-zoom="" camera-orbit="-30deg 62deg 8.9m" camera-target="0m 0.0085m 0m" field-of-view="32deg" environment-image="neutral" exposure="1" shadow-intensity="0.55" shadow-softness="1" interaction-prompt="none" min-camera-orbit="auto 15deg 4.5m" max-camera-orbit="auto 85deg 10m" touch-action="pan-y" animation-name="Assemble" animation-crossfade-duration="0" tabindex="0" style="display: block; width: 100%; height: 100%; cursor: pointer; background: transparent">
@@ -215,7 +211,7 @@
 <!-- Projects -->
 <section id="projects" style="background: #10261B; color: #fff">
 <div class="pjw">
-<img class="pjs on" src="/home/img/pj1.jpg" alt="JW Marriott Phu Quoc Emerald Bay"><img class="pjs" src="/home/img/pj2.jpg" alt="Vinhomes Smart City Tay Mo" loading="lazy"><img class="pjs" src="/home/img/pj3.jpg" alt="The Privia Khang Dien" loading="lazy"><img class="pjs" src="/home/img/pj4.jpg" alt="The Ocean Resort Quy Nhon" loading="lazy"><img class="pjs" src="/home/img/pj5.jpg" alt="Filmore Da Nang" loading="lazy"><img class="pjs" src="/home/img/pj6.jpg" alt="L7 West Lake Hanoi By Lotte" loading="lazy">
+<img class="pjs on" src="/home/img/pj1-full.webp" alt="JW Marriott Phu Quoc Emerald Bay"><img class="pjs" src="/home/img/pj2-full.webp" alt="Vinhomes Smart City Tay Mo" loading="lazy"><img class="pjs" src="/home/img/pj3-full.webp" alt="The Privia Khang Dien" loading="lazy"><img class="pjs" src="/home/img/pj4-full.webp" alt="The Ocean Resort Quy Nhon" loading="lazy"><img class="pjs" src="/home/img/pj5-full.webp" alt="Filmore Da Nang" loading="lazy"><img class="pjs" src="/home/img/pj6-full.webp" alt="L7 West Lake Hanoi By Lotte" loading="lazy">
 <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.05) 32%, rgba(0,0,0,.1) 52%, rgba(0,0,0,.88) 100%)"></div>
 <div class="wrap" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-top: 56px; padding-bottom: 36px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 20px">
@@ -229,7 +225,7 @@
 <div class="pjn" role="tablist">
 <button class="pjb on" type="button" role="tab" aria-selected="true" data-pj="0"><b>01</b>JW Marriott Phu Quoc Emerald Bay</button><button class="pjb" type="button" role="tab" aria-selected="false" data-pj="1"><b>02</b>Vinhomes Smart City Tay Mo</button><button class="pjb" type="button" role="tab" aria-selected="false" data-pj="2"><b>03</b>The Privia Khang Dien</button><button class="pjb" type="button" role="tab" aria-selected="false" data-pj="3"><b>04</b>The Ocean Resort Quy Nhon</button><button class="pjb" type="button" role="tab" aria-selected="false" data-pj="4"><b>05</b>Filmore Da Nang</button><button class="pjb" type="button" role="tab" aria-selected="false" data-pj="5"><b>06</b>L7 West Lake Hanoi By Lotte</button>
 </div>
-<a class="pill hv" href="#">All projects<svg class="ic i-nudge" style="width: 20px; height: 20px" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<a class="pill hv" href="/en/projects/">All projects<svg class="ic i-nudge" style="width: 20px; height: 20px" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </div>
 </div>
 </div>
@@ -321,4 +317,4 @@
 </footer>
 
 </div>
-<script type="application/json" id="hv-home-data">{"mail": "hivina0835@gmail.com", "history": [["1997", "Founded Hyosan LPL Co., Ltd. & commenced surface material production (Incheon, South Korea)"], ["2002", "Founded ICC (established Korea’s first & largest simultaneous production line for Finishing Foil and LPM)"], ["2014", "Awarded the Minister of Trade, Industry and Energy’s Commendation"], ["2015", "Patent application (Super PET UV Foil & LPM for coating)"], ["2017", "Developed HI FLEX low-bending LPM & registered patent for Fire-Retardant LPM FF"], ["2020", "Founded JF Chem (specialized resin production / achieved vertical integration of raw materials)"], ["2020", "Founded HI-VINA JSC in Vietnam (joint venture by Hyosan & ICC). Installed advanced machinery & commenced supply of high-quality LPM and MFB to the Vietnamese market"], ["2025", "Installed Production Line No. 2 (6-foot impregnation line) at HI-VINA Vietnam factory"], ["2025", "Official launch of ‘Hyosan Group’ and transition into the unified global corporate structure"]], "projects": [["/home/img/pj1.jpg", "JW Marriott Phu Quoc Emerald Bay", "29/08/2026"], ["/home/img/pj2.jpg", "Vinhomes Smart City Tay Mo", "29/07/2025"], ["/home/img/pj3.jpg", "The Privia Khang Dien", "24/07/2025"], ["/home/img/pj4.jpg", "The Ocean Resort Quy Nhon", "21/07/2025"], ["/home/img/pj5.jpg", "Filmore Da Nang", "16/11/2024"], ["/home/img/pj6.jpg", "L7 West Lake Hanoi By Lotte", "30/07/2024"]], "hint": {"busy": "Layers are stacking", "assembled": "Click the model to explore its layers · drag to rotate", "expanded": "Click again to reassemble", "expanding": "Separating the layers", "collapsing": "Merging into one surface", "error": "The 3D model could not be loaded."}}</script>
+<script type="application/json" id="hv-home-data">{"mail": "hivina0835@gmail.com", "history": [["1997", "Founded Hyosan LPL Co., Ltd. & commenced surface material production (Incheon, South Korea)"], ["2002", "Founded ICC (established Korea’s first & largest simultaneous production line for Finishing Foil and LPM)"], ["2014", "Awarded the Minister of Trade, Industry and Energy’s Commendation"], ["2015", "Patent application (Super PET UV Foil & LPM for coating)"], ["2017", "Developed HI FLEX low-bending LPM & registered patent for Fire-Retardant LPM FF"], ["2020", "Founded JF Chem (specialized resin production / achieved vertical integration of raw materials)"], ["2020", "Founded HI-VINA JSC in Vietnam (joint venture by Hyosan & ICC). Installed advanced machinery & commenced supply of high-quality LPM and MFB to the Vietnamese market"], ["2025", "Installed Production Line No. 2 (6-foot impregnation line) at HI-VINA Vietnam factory"], ["2025", "Official launch of ‘Hyosan Group’ and transition into the unified global corporate structure"]], "projects": [["/home/img/pj1-full.webp", "JW Marriott Phu Quoc Emerald Bay", "29/08/2026"], ["/home/img/pj2-full.webp", "Vinhomes Smart City Tay Mo", "29/07/2025"], ["/home/img/pj3-full.webp", "The Privia Khang Dien", "24/07/2025"], ["/home/img/pj4-full.webp", "The Ocean Resort Quy Nhon", "21/07/2025"], ["/home/img/pj5-full.webp", "Filmore Da Nang", "16/11/2024"], ["/home/img/pj6-full.webp", "L7 West Lake Hanoi By Lotte", "30/07/2024"]], "hint": {"busy": "Layers are stacking", "assembled": "Click the model to explore its layers · drag to rotate", "expanded": "Click again to reassemble", "expanding": "Separating the layers", "collapsing": "Merging into one surface", "error": "The 3D model could not be loaded."}}</script>

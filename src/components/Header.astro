@@ -10,7 +10,7 @@ const t=useT(lang), c=COPY[lang];
 const current=Astro.url.pathname;
 const isNotFound=/^\/404(?:\/?|\.html)$/.test(current);
 const isCurrent=(path:string)=>current.replace(/\/$/,'')===href(lang,path).replace(/\/$/,'')||current.startsWith(href(lang,path));
-const languages: Lang[]=['ko','en','vi'];
+const languages: Lang[]=['vi','en','ko'];
 const short={ko:'KR',en:'EN',vi:'VN'};
 ---
 <header class:list={['site-header',{'over-dark':overDark}]}>

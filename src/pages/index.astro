@@ -1,29 +1,21 @@
 ---
 /**
- * 루트(/) 접속 시 브라우저 언어에 맞는 페이지로 이동합니다.
- * 한국어 브라우저 → /ko/, 베트남어 → /vi/, 그 외 → 영어(/en/). 스크립트가 꺼져 있으면 DEFAULT_LANG.
+ * 루트(/)의 첫 화면은 베트남어입니다. 언어 선택 후에는 선택한 URL을 사용합니다.
  */
-import { DEFAULT_LANG, LANGS } from '../config/site';
+import { DEFAULT_LANG } from '../config/site';
 const fallback = `/${DEFAULT_LANG}/`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HIVINA</title>
     <meta http-equiv="refresh" content={`1; url=${fallback}`} />
     <link rel="canonical" href={fallback} />
-    <script is:inline define:vars={{ langs: LANGS, fallback }}>
-      const prefs = navigator.languages || [navigator.language || ''];
-      let target = '/en/';
-      for (const p of prefs) {
-        const code = p.slice(0, 2).toLowerCase();
-        if (langs.includes(code)) { target = `/${code}/`; break; }
-      }
-      if (!langs.includes('en') && target === '/en/') target = fallback;
-      location.replace(target);
+    <script is:inline define:vars={{ fallback }}>
+      location.replace(fallback + location.search + location.hash);
     </script>
   </head>
   <body>

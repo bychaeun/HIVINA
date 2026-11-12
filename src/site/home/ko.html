@@ -14,11 +14,7 @@
 <a href="/ko/contact/">문의하기</a>
 </nav>
 <div style="display: flex; align-items: center; gap: 12px">
-<div class="lng" style="display: flex; align-items: center; padding: 4px; border-radius: 999px; background: #F1F3EE; font-size: 13px; font-weight: 600">
-<a href="/ko/" aria-current="page" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #14201A; color: #fff">KO</a>
-<a href="/vi/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">VI</a>
-<a href="/en/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">EN</a>
-</div>
+<div class="lng" aria-label="Language"><span class="language-globe" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path class="globe-meridian" d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><a lang="vi" hreflang="vi" href="/vi/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">VI</a><a lang="en" hreflang="en" href="/en/" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: #33423A">EN</a><a lang="ko" hreflang="ko" href="/ko/" aria-current="page" style="min-width: 40px; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #14201A; color: #fff">KO</a></div>
 <a class="btn cat hv" href="/ko/catalogue/" style="min-height: 44px; padding: 0 20px; font-size: 14px; background: var(--g,#0A7A3B); color: #fff"><svg class="ic i-pop" style="width: 18px; height: 18px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>카탈로그</a>
 <button class="btn burger" type="button" aria-label="메뉴 열기" data-act="menu" aria-expanded="false" style="min-height: 44px; width: 44px; padding: 0; justify-content: center; background: #F1F3EE; color: #14201A"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </div>
@@ -66,11 +62,11 @@
 <a class="btn" href="/ko/contact/" style="background: rgba(0,0,0,.28); color: #fff; border: 1px solid rgba(255,255,255,.7); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px)">문의하기</a>
 </div>
 </div>
-</div>
+<a class="hero-scroll" href="#intro-quote" aria-label="아래로 스크롤"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="7"/><path class="mouse-wheel" d="M12 6v4"/></svg><span>SCROLL</span></a></div>
 </section>
 
 <!-- Quote -->
-<section class="qsec">
+<section class="qsec" id="intro-quote">
 <div class="wrap">
 <p class="qt"><span class="ql">“Protect human life &amp;</span><span class="ql">Improve the quality of living”</span></p>
 <p class="qts">인간의 삶을 보호하고, 삶의 질을 높입니다</p>
@@ -162,7 +158,7 @@
 <section id="history" style="background: #10261B; color: #fff">
 <div class="hx">
 <div class="hxl">
-<video class="hvid" src="/home/video/hivina-film.mp4" poster="/home/img/film-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+<img class="history-photo" src="/home/img/factory-full.webp" alt="Hi VINA factory" loading="lazy"><video class="hvid" data-history-video src="/home/video/hivina-film.mp4" poster="/home/img/factory-full.webp" muted playsinline preload="none" aria-hidden="true"></video>
 <div class="hxt"><h2 class="lb" style="color: #fff">Company History</h2></div>
 </div>
 <div class="hdl" role="tablist" aria-label="회사 연혁">
@@ -194,7 +190,7 @@
 <div data-slot="3d-motion" class="mv3" data-mv style="position: relative; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px">
 <span class="mut" role="status" aria-live="polite" data-mv-hint>소재가 쌓이고 있습니다</span>
-<button type="button" data-act="mv-replay" style="min-height: 44px; padding: 0 4px; border: 0; background: none; font: inherit; font-weight: 600; color: var(--g,#0A7A3B); cursor: pointer; text-decoration: underline; text-underline-offset: 4px">쌓이는 과정 다시 보기 ↻</button>
+<button type="button" data-act="mv-replay" style="min-height: 44px; padding: 0 4px; border: 0; background: none; font: inherit; font-weight: 600; color: var(--g,#0A7A3B); cursor: pointer; text-decoration: underline; text-underline-offset: 4px" aria-label="쌓이는 과정 다시 보기 ↻" title="쌓이는 과정 다시 보기 ↻"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M19.3 8a8 8 0 1 0 .3 7"/></svg></button>
 </div>
 <div class="mvh">
 <model-viewer src="/models/lpm-assembly.glb" alt="코어재, 나뭇결 모양지, 반투명 수지 시트. 클릭하면 구성 요소가 펼쳐집니다." camera-controls="" disable-pan="" disable-tap="" disable-zoom="" camera-orbit="-30deg 62deg 8.9m" camera-target="0m 0.0085m 0m" field-of-view="32deg" environment-image="neutral" exposure="1" shadow-intensity="0.55" shadow-softness="1" interaction-prompt="none" min-camera-orbit="auto 15deg 4.5m" max-camera-orbit="auto 85deg 10m" touch-action="pan-y" animation-name="Assemble" animation-crossfade-duration="0" tabindex="0" style="display: block; width: 100%; height: 100%; cursor: pointer; background: transparent">
@@ -216,7 +212,7 @@
 <!-- Projects -->
 <section id="projects" style="background: #10261B; color: #fff">
 <div class="pjw">
-<img class="pjs on" src="/home/img/pj1.jpg" alt="JW Marriott Phu Quoc Emerald Bay"><img class="pjs" src="/home/img/pj2.jpg" alt="Vinhomes Smart City Tay Mo" loading="lazy"><img class="pjs" src="/home/img/pj3.jpg" alt="The Privia Khang Dien" loading="lazy"><img class="pjs" src="/home/img/pj4.jpg" alt="The Ocean Resort Quy Nhon" loading="lazy"><img class="pjs" src="/home/img/pj5.jpg" alt="Filmore Da Nang" loading="lazy"><img class="pjs" src="/home/img/pj6.jpg" alt="L7 West Lake Hanoi By Lotte" loading="lazy">
+<img class="pjs on" src="/home/img/pj1-full.webp" alt="JW Marriott Phu Quoc Emerald Bay"><img class="pjs" src="/home/img/pj2-full.webp" alt="Vinhomes Smart City Tay Mo" loading="lazy"><img class="pjs" src="/home/img/pj3-full.webp" alt="The Privia Khang Dien" loading="lazy"><img class="pjs" src="/home/img/pj4-full.webp" alt="The Ocean Resort Quy Nhon" loading="lazy"><img class="pjs" src="/home/img/pj5-full.webp" alt="Filmore Da Nang" loading="lazy"><img class="pjs" src="/home/img/pj6-full.webp" alt="L7 West Lake Hanoi By Lotte" loading="lazy">
 <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.05) 32%, rgba(0,0,0,.1) 52%, rgba(0,0,0,.88) 100%)"></div>
 <div class="wrap" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding-top: 56px; padding-bottom: 36px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 20px">
@@ -322,4 +318,4 @@
 </footer>
 
 </div>
-<script type="application/json" id="hv-home-data">{"mail": "hivina0835@gmail.com", "history": [["1997", "효산 LPL㈜ 설립, 표면 마감재 생산 개시 (대한민국 인천)"], ["2002", "ICC 설립 — 국내 최초·최대 규모의 피니싱 포일·LPM 동시 생산 라인 구축"], ["2014", "산업통상자원부 장관 표창 수상"], ["2015", "특허 출원 (Super PET UV 포일 및 코팅용 LPM)"], ["2017", "저휨 LPM ‘HI FLEX’ 개발, 난연 LPM FF 특허 등록"], ["2020", "JF Chem 설립 — 수지 전문 생산, 원자재 수직 계열화 달성"], ["2020", "베트남 HI-VINA JSC 설립 (효산·ICC 합작). 첨단 설비 도입, 베트남 시장에 고품질 LPM·MFB 공급 개시"], ["2025", "HI-VINA 베트남 공장 제2 생산 라인(6피트 함침 라인) 설치"], ["2025", "‘효산그룹’ 공식 출범, 통합 글로벌 기업 체제로 전환"]], "projects": [["/home/img/pj1.jpg", "JW Marriott Phu Quoc Emerald Bay", "29/08/2026"], ["/home/img/pj2.jpg", "Vinhomes Smart City Tay Mo", "29/07/2025"], ["/home/img/pj3.jpg", "The Privia Khang Dien", "24/07/2025"], ["/home/img/pj4.jpg", "The Ocean Resort Quy Nhon", "21/07/2025"], ["/home/img/pj5.jpg", "Filmore Da Nang", "16/11/2024"], ["/home/img/pj6.jpg", "L7 West Lake Hanoi By Lotte", "30/07/2024"]], "hint": {"busy": "소재가 쌓이고 있습니다", "assembled": "모델을 눌러 구성을 살펴보세요 · 드래그하여 회전", "expanded": "다시 누르면 합쳐집니다", "expanding": "구성 요소를 펼치고 있습니다", "collapsing": "하나의 표면으로 합쳐지고 있습니다", "error": "3D 모델을 불러오지 못했습니다."}}</script>
+<script type="application/json" id="hv-home-data">{"mail": "hivina0835@gmail.com", "history": [["1997", "효산 LPL㈜ 설립, 표면 마감재 생산 개시 (대한민국 인천)"], ["2002", "ICC 설립 — 국내 최초·최대 규모의 피니싱 포일·LPM 동시 생산 라인 구축"], ["2014", "산업통상자원부 장관 표창 수상"], ["2015", "특허 출원 (Super PET UV 포일 및 코팅용 LPM)"], ["2017", "저휨 LPM ‘HI FLEX’ 개발, 난연 LPM FF 특허 등록"], ["2020", "JF Chem 설립 — 수지 전문 생산, 원자재 수직 계열화 달성"], ["2020", "베트남 HI-VINA JSC 설립 (효산·ICC 합작). 첨단 설비 도입, 베트남 시장에 고품질 LPM·MFB 공급 개시"], ["2025", "HI-VINA 베트남 공장 제2 생산 라인(6피트 함침 라인) 설치"], ["2025", "‘효산그룹’ 공식 출범, 통합 글로벌 기업 체제로 전환"]], "projects": [["/home/img/pj1-full.webp", "JW Marriott Phu Quoc Emerald Bay", "29/08/2026"], ["/home/img/pj2-full.webp", "Vinhomes Smart City Tay Mo", "29/07/2025"], ["/home/img/pj3-full.webp", "The Privia Khang Dien", "24/07/2025"], ["/home/img/pj4-full.webp", "The Ocean Resort Quy Nhon", "21/07/2025"], ["/home/img/pj5-full.webp", "Filmore Da Nang", "16/11/2024"], ["/home/img/pj6-full.webp", "L7 West Lake Hanoi By Lotte", "30/07/2024"]], "hint": {"busy": "소재가 쌓이고 있습니다", "assembled": "모델을 눌러 구성을 살펴보세요 · 드래그하여 회전", "expanded": "다시 누르면 합쳐집니다", "expanding": "구성 요소를 펼치고 있습니다", "collapsing": "하나의 표면으로 합쳐지고 있습니다", "error": "3D 모델을 불러오지 못했습니다."}}</script>

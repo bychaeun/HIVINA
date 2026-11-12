@@ -41,10 +41,12 @@ const site = Astro.site;
     />
     {preload && <link rel="preload" as="image" href={preload} />}
     <link rel="stylesheet" href={`/home/${css}.css`} />
+    <link rel="stylesheet" href="/home/refinements.css" />
     {model && <script is:inline type="module" src="/3d/vendor/model-viewer.min.js"></script>}
   </head>
-  <body>
+  <body data-page={css}>
     <Fragment set:html={html} />
     <script is:inline src="/home/home.js" defer></script>
+    <script is:inline src="/home/refinements.js" defer></script>
   </body>
 </html>
