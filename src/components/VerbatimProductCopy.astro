@@ -1,0 +1,18 @@
+---
+import { productBody,productDescription } from '../data/product-copy';
+import { productNames } from '../data/website';
+import type { Lang } from '../config/site';
+const {id,lang}=Astro.props as {id:string;lang:Lang};
+const lead=productDescription(id,lang);
+const headings=new Set([...Object.values(productNames),'Various Design Expressions','Excellent Durability','Eco-Friendly Material','Cost Competitiveness','Super Foil','1. Pre Foil (Green Foil)','2. 3D Pre Foil (3D Foil)','1. Post Foil','2. Super Foil']);
+const markers=new Set(['Key Strengths of the Product','PRODUCT LINEUP']);
+const blocks:{title:string;lines:string[];marker:boolean}[]=[];
+for(const line of productBody(id).filter(line=>line!==lead)){
+ if(headings.has(line)||markers.has(line))blocks.push({title:line,lines:[],marker:markers.has(line)});
+ else {if(!blocks.length)blocks.push({title:'',lines:[],marker:false});blocks.at(-1)!.lines.push(line);}
+}
+---
+<div class="source-copy">{blocks.map(block=>block.marker?<section class="source-section"><h2>{block.title}</h2>{block.lines.map(line=><p>{line}</p>)}</section>:block.title?<details class="source-block"><summary>{block.title}<span aria-hidden="true">+</span></summary><div>{block.lines.map(line=><p>{line}</p>)}</div></details>:<div class="source-prefix">{block.lines.map(line=><p>{line}</p>)}</div>)}</div>
+<style>
+.source-copy{font-size:13px;line-height:1.9;color:var(--ink-soft);margin-bottom:30px;}.source-copy p{margin:0 0 12px;}.source-section{padding:28px 0 14px;}.source-section h2{font-size:18px;font-weight:400;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}.source-block{border-top:1px solid var(--color-line);}.source-block:last-child{border-bottom:1px solid var(--color-line);}.source-block summary{list-style:none;display:flex;align-items:baseline;justify-content:space-between;gap:24px;cursor:pointer;font-size:15px;color:var(--ink);padding-block:18px;}.source-block summary::-webkit-details-marker{display:none;}.source-block summary>span{font-size:18px;font-weight:400;color:var(--ink-soft);transition:rotate .25s;}.source-block[open] summary>span{rotate:45deg;}.source-block>div{padding-bottom:12px;max-width:75ch;}.source-prefix{font-size:12px;}
+</style>

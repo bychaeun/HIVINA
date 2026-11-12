@@ -32,19 +32,18 @@ export const COMPANY = {
   productionStart: 2021,
   /** 관계사 링크 — 주소가 비어 있으면 버튼이 표시되지 않음 */
   family: [
-    { name: 'HYOSAN', url: '' }, // TODO: 효산 홈페이지 주소 확인 후 입력
-    { name: 'ICC', url: 'http://www.eicc.co.kr/' },
+    { name: 'HYOSAN', url: 'http://hslpl.com/en/mainen/' },
+    { name: 'ICC', url: 'https://en-eicc.imweb.me/' },
   ],
   address: {
-    ko: '베트남 동나이성 짱봄군 장디엔사 장디엔 산업단지 4번로 3번 부지',
-    vi: 'Lô số 3, đường số 4, KCN Giang Điền, xã Giang Điền, huyện Trảng Bom, tỉnh Đồng Nai, Việt Nam',
-    en: 'Lot 3, Road No. 4, Giang Dien Industrial Park, Giang Dien Commune, Trang Bom District, Dong Nai Province, Vietnam',
+    ko: '베트남 동나이시 짱봄동 장디엔 산업단지 4번로 03번 부지',
+    vi: 'Lô 03, Đường số 4, KCN Giang Điền, phường Trảng Bom, Đồng Nai, Việt Nam',
+    en: 'Lot No. 03, Road No. 4, Giang Dien Industrial Park, Trang Bom Ward, Dong Nai City, Vietnam',
   } satisfies Record<Lang, string>,
   /** 지도 검색어 (Google 지도 임베드에 사용) */
   mapQuery: 'Giang Dien Industrial Park, Trang Bom, Dong Nai, Vietnam',
-  phone: '0251 3686 731',
+  phone: '+84-251-368-6731',
   fax: '0251 3686 732',
-  /** TODO: 미팅 후 대표 이메일 입력 (비워두면 화면에 표시되지 않음) */
-  email: '',
+  email: 'hivina0835@gmail.com',
   facebook: 'https://www.facebook.com/Melaminepaper.Hivina',
 };

@@ -1,0 +1,8 @@
+---
+import EditorialArticle from '../../../components/EditorialArticle.astro';
+import { LANGS,type Lang } from '../../../config/site';
+import { source } from '../../../data/website';
+export function getStaticPaths(){return LANGS.flatMap(lang=>source.news.map(article=>({params:{lang,id:article.slug},props:{slug:article.slug}})));}
+const lang=Astro.params.lang as Lang;
+---
+<EditorialArticle lang={lang} type="news" slug={Astro.props.slug} />

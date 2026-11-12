@@ -1,153 +1,36 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../../../layouts/Base.astro';
+import ProductTree from '../../../components/ProductTree.astro';
+import SourceImage from '../../../components/SourceImage.astro';
+import VerbatimProductCopy from '../../../components/VerbatimProductCopy.astro';
+import { Image } from 'astro:assets';
 import { LANGS, type Lang } from '../../../config/site';
-import { useT } from '../../../i18n/ui';
-import { href, localize } from '../../../i18n/utils';
-import { getCategories, getProducts, type Product } from '../../../lib/products';
-
-/** products.csv 의 각 행 × 언어 수만큼 상세 페이지가 자동 생성됩니다. */
-export async function getStaticPaths() {
-  const products = await getProducts();
-  return LANGS.flatMap((lang) => products.map((product) => ({ params: { lang, id: product.id }, props: { product } })));
-}
-
-const lang = Astro.params.lang as Lang;
-const { product } = Astro.props as { product: Product };
-const t = useT(lang);
-const category = (await getCategories()).find((c) => c.id === product.categoryId);
-
-const name = localize(product, 'name', lang);
-const summary = localize(product, 'summary', lang);
-const description = localize(product, 'description', lang);
-const features = localize<string[]>(product, 'features', lang);
-const applications = localize<string[]>(product, 'applications', lang);
-const [cover, ...gallery] = product.images;
+import { COPY, families, productNames, source, sourceImage, sourceImageByUrl } from '../../../data/website';
+import { products, productDescription, productCover } from '../../../data/product-copy';
+import { href } from '../../../i18n/utils';
+export function getStaticPaths(){return LANGS.flatMap(lang=>products.map(product=>({params:{lang,id:product.slug},props:{id:product.slug}})));}
+const lang=Astro.params.lang as Lang, c=COPY[lang];
+const {id}=Astro.props as {id:string};
+const product=products.find(p=>p.slug===id)!;
+const family=product.family;
+const cover=productCover(id)||(family&&sourceImageByUrl(family.image));
+const gallery=product.images.filter(f=>!f.endsWith('.svg')).filter(f=>sourceImage(f)?.src!==cover?.src).slice(0,8);
+const children=id==='lpm'?['standard-lpm','lpm-special']:id==='lpm-special'?families[0].children.filter(s=>!['standard-lpm','lpm-special'].includes(s)):family?.id===id?family.children:[];
+const group=id==='tambour-board'?'tambour-board':undefined;
 ---
-
-<Base lang={lang} title={name} description={summary}>
-  <section class="section">
-    <div class="container">
-      <a class="back" href={href(lang, '/products')}>← {t('products.back')}</a>
-
-      <div class="layout">
-        <div class="media">
-          {
-            cover ? (
-              <Image src={cover} alt={name} widths={[480, 960]} sizes="(max-width: 860px) 100vw, 560px" loading="eager" />
-            ) : (
-              <div class="placeholder">{t('products.noImage')}</div>
-            )
-          }
-          {
-            gallery.length > 0 && (
-              <div class="thumbs">
-                {gallery.map((img, i) => (
-                  <Image src={img} alt={`${name} ${i + 2}`} widths={[240, 480]} sizes="160px" />
-                ))}
-              </div>
-            )
-          }
-        </div>
-
-        <div class="info">
-          {category && <p class="eyebrow">{localize(category, 'name', lang)}</p>}
-          <h1>
-            {name}
-            {product.new && <span class="badge">{t('products.new')}</span>}
-          </h1>
-          {summary && <p class="lead">{summary}</p>}
-          {description && <p class="desc">{description}</p>}
-
-          {
-            features.length > 0 && (
-              <>
-                <h2>{t('products.features')}</h2>
-                <ul>{features.map((f) => <li>{f}</li>)}</ul>
-              </>
-            )
-          }
-          {
-            applications.length > 0 && (
-              <>
-                <h2>{t('products.applications')}</h2>
-                <ul class="tags">{applications.map((a) => <li>{a}</li>)}</ul>
-              </>
-            )
-          }
-
-          <a class="btn" href={href(lang, '/contact')}>{t('products.inquiry')}</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<Base lang={lang} title={product.name} description={productDescription(id,lang)}>
+  <header class="page-head"><div class="container"><a class="micro breadcrumb" href={href(lang,'/products')}>{c.products} / {family?.name||product.name}</a><h1>{product.name}</h1></div></header>
+  <div class="container section product-layout"><ProductTree lang={lang} current={id}/><article>
+    {cover&&<div class="detail-cover" data-reveal="image"><Image src={cover} alt={product.name} width={1300} height={720} fit="cover" format="webp" loading="eager"/></div>}
+    <div class="product-intro" data-reveal><div><p class="micro">{c.specifications}</p><h2>{product.name}</h2></div><p>{productDescription(id,lang)}</p></div>
+    <VerbatimProductCopy id={id} lang={lang}/>
+    {children.length>0&&<section class="lineup"><p class="micro">PRODUCT LINEUP</p>{children.map(child=><a href={href(lang,`/products/${child}`)}><h3>{productNames[child]}</h3><span aria-hidden="true">↗</span></a>)}</section>}
+    {(id==='lpm'||id==='standard-lpm')&&<div class="decor-links">{(['wood','solid','fabric','stone'] as const).map(g=><a href={`${href(lang,'/catalogue')}?group=${g}`}><span>{c.groups[g]}</span><span>↗</span></a>)}</div>}
+    {group&&<div class="mini-decors">{source.decors.filter(d=>d.group===group).map(d=><a href={href(lang,`/design/${d.slug}`)}><SourceImage file={d.image} alt={d.name} width={500} height={500}/><span>{d.name}</span></a>)}</div>}
+    {gallery.length>0&&!['standard-lpm','tambour-board'].includes(id)&&<div class="technical-gallery">{gallery.map(file=><SourceImage file={file} alt={product.name} width={1000}/>)}</div>}
+    <div class="product-actions"><a class="btn" href={`${href(lang,'/contact')}?product=${encodeURIComponent(product.name)}`}>{c.contact}<span>↗</span></a><a class="editorial-link" href={href(lang,'/catalogue')}>{c.browse}<span>↗</span></a></div>
+  </article></div>
 </Base>
-
 <style>
-  .back {
-    display: inline-block;
-    margin-bottom: 28px;
-    color: var(--color-muted);
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-  .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(28px, 5vw, 64px);
-    align-items: start;
-  }
-  .media :global(img) {
-    width: 100%;
-    border-radius: var(--radius);
-    object-fit: cover;
-  }
-  .thumbs {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .thumbs :global(img) {
-    aspect-ratio: 1;
-  }
-  h1 {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-  }
-  h2 {
-    font-size: 1.05rem;
-    margin-top: 28px;
-  }
-  .desc {
-    white-space: pre-line;
-  }
-  ul {
-    padding-left: 1.2em;
-    margin: 0;
-  }
-  .tags {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .tags li {
-    background: var(--color-surface);
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 0.875rem;
-  }
-  .btn {
-    margin-top: 32px;
-  }
-  @media (max-width: 860px) {
-    .layout {
-      grid-template-columns: 1fr;
-    }
-  }
+.product-layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(32px,5vw,72px);}.breadcrumb{text-decoration:none;display:inline-block;}.detail-cover{overflow:hidden;border-radius:16px;background:#e9ece5;}.detail-cover>img{width:100%;max-height:460px;object-fit:cover;}.product-intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;padding-block:36px;}.product-intro h2{font-size:27px;font-weight:400;}.product-intro>p{font-size:14px;line-height:1.95;color:var(--ink-soft);margin:0;}.lineup{padding-block:10px 30px;}.lineup>a{display:grid;grid-template-columns:1fr 1.3fr 20px;gap:24px;text-decoration:none;padding:24px 0;border-top:1px solid var(--color-line);align-items:baseline;}.lineup h3{font-size:19px;font-weight:400;margin:0;}.lineup p{font-size:12px;line-height:1.9;color:var(--ink-soft);margin:0;}.lineup>a:hover h3{color:var(--moss);}.decor-links{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 32px;}.decor-links>a{flex:1;min-width:110px;display:flex;justify-content:space-between;gap:22px;text-decoration:none;border:1px solid var(--color-line);border-radius:6px;padding:15px;font-size:12px;}.technical-gallery{display:grid;gap:18px;margin:30px 0;}.technical-gallery :global(img){width:100%;height:auto;max-height:600px;object-fit:contain;background:#fff;}.product-actions{border-top:1px solid var(--color-line);padding-top:30px;display:flex;align-items:center;gap:30px;}.mini-decors{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:32px;}.mini-decors a{text-decoration:none;font-size:12px;}.mini-decors :global(img){aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:12px;}@media(max-width:900px){.product-layout{grid-template-columns:1fr;}}@media(max-width:600px){.product-intro{grid-template-columns:1fr;gap:10px;}.lineup>a{grid-template-columns:1fr 20px;gap:12px;}.lineup p{grid-row:2;}.mini-decors{grid-template-columns:1fr 1fr;}.product-actions{align-items:start;flex-direction:column;gap:18px;}}
 </style>

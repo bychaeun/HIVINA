@@ -1,0 +1,8 @@
+---
+import { Image } from 'astro:assets';
+import { sourceImage } from '../data/website';
+interface Props { file?: string; alt?: string; width?: number; height?: number; eager?: boolean; class?: string; }
+const {file,alt='',width=1000,height,eager=false,class:className} = Astro.props;
+const image=sourceImage(file);
+---
+{image && <Image src={image} alt={alt} width={width} height={height} fit="cover" format="webp" loading={eager ? 'eager' : 'lazy'} class={className} />}

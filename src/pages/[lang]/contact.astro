@@ -1,73 +1,28 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { COMPANY, type Lang } from '../../config/site';
-import { useT } from '../../i18n/ui';
+import SourceImage from '../../components/SourceImage.astro';
+import { COPY,source } from '../../data/website';
+import { COMPANY,type Lang } from '../../config/site';
 import { langPaths } from '../../i18n/utils';
-
-export const getStaticPaths = langPaths;
-
-const lang = Astro.params.lang as Lang;
-const t = useT(lang);
-const q = encodeURIComponent(COMPANY.mapQuery);
-const mapEmbed = `https://www.google.com/maps?q=${q}&hl=${lang}&output=embed`;
-const mapLink = `https://www.google.com/maps/search/?api=1&query=${q}`;
+export const getStaticPaths=langPaths;
+const lang=Astro.params.lang as Lang,c=COPY[lang];
+const offices=[
+ {name:'Hyosan LPL (Headquarters)',address:'52, Seonggok-ro, Danwon-gu, Ansan-si, Gyeonggi-do, Republic of Korea',phone:'+82-31-495-5758',fax:'+82-31-491-5749',email:'hyosanlpl@naver.com',website:'www.hslpl.com/',url:'http://hslpl.com/en/mainen/'},
+ {name:'ICC',address:'50, Jangjagol-ro, Danwon-gu, Ansan-si, Gyeonggi-do, Republic of Korea',phone:'+82-31-494-8864',fax:'+82-31-494-8836',email:'eicc.co.kr',website:'www.eicc.co.kr',url:'https://en-eicc.imweb.me/'},
+ {name:'JF Chem',address:'1501, Dongwoo Bestium Tower, 281 Simin-daero, Dongan-gu, Anyang-si, Gyeonggi-do, Republic of Korea',email:'jfchem1020@naver.com'},
+ {name:'Hi VINA JSC (Vietnam Hub)',address:'Lot No. 03, Road No. 4, Giang Dien Industrial Park, Trang Bom Ward, Dong Nai City, Vietnam',phone:'+84-251-368-6731',email:'hivina0835@gmail.com'},
+];
 ---
-
-<Base lang={lang} title={t('contact.title')} description={t('contact.lead')}>
-  <section class="page-head">
-    <div class="container">
-      <h1>{t('contact.title')}</h1>
-      <p class="lead">{t('contact.lead')}</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container layout">
-      <dl class="info">
-        <dt>{t('contact.address')}</dt>
-        <dd>{COMPANY.address[lang]}<br /><a href={mapLink} target="_blank" rel="noopener">{t('contact.map')} ↗</a></dd>
-        <dt>{t('contact.phone')}</dt>
-        <dd><a href={`tel:${COMPANY.phone.replace(/\s/g, '')}`}>{COMPANY.phone}</a></dd>
-        <dt>{t('contact.fax')}</dt>
-        <dd>{COMPANY.fax}</dd>
-        {
-          COMPANY.email && (
-            <>
-              <dt>{t('contact.email')}</dt>
-              <dd><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></dd>
-            </>
-          )
-        }
-      </dl>
-      <iframe class="map" src={mapEmbed} title={t('contact.map')} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-  </section>
+<Base lang={lang} title={c.contact} description="Contact Us">
+<header class="page-head"><div class="container"><p class="micro">HI VINA / CONTACT</p><h1>Contact Us</h1></div></header>
+<section class="container section office-grid">{offices.map((office,i)=><article data-reveal><div class="office-image"><SourceImage file={source.contact.images[i]} alt={office.name} width={800} height={450}/></div><span class="micro">0{i+1}</span><h2>{office.name}</h2><dl><div><dt>Address</dt><dd>{office.address}</dd></div>{office.phone&&<div><dt>Tel</dt><dd><a href={`tel:${office.phone}`}>{office.phone}</a></dd></div>}{office.fax&&<div><dt>Fax</dt><dd>{office.fax}</dd></div>}<div><dt>Email</dt><dd>{office.email.includes('@')?<a href={`mailto:${office.email}`}>{office.email}</a>:office.email}</dd></div>{office.website&&<div><dt>Website</dt><dd><a href={office.url} target="_blank" rel="noopener noreferrer">{office.website} ↗</a></dd></div>}</dl></article>)}</section>
+<section class="inquiry-section"><div class="container inquiry-layout"><div><p class="micro">CONTACT HI VINA</p><h2>Contact Us</h2><a class="email" href={`mailto:${COMPANY.email}`}>{COMPANY.email} ↗</a><p class="form-note" id="inquiry-note">{c.form.note}</p></div><form data-inquiry aria-describedby="inquiry-note"><div class="form-grid"><label>Your name *<input name="name" required autocomplete="name" /></label><label>Phone number *<input name="phone" type="tel" required autocomplete="tel" /></label><label>Email address<input name="email" type="email" autocomplete="email" /></label><label>Subject<input name="subject" /></label><label class="full">Message *<textarea name="message" rows="5" required></textarea></label></div><button class="btn" type="submit">{c.form.send}<span aria-hidden="true">↗</span></button><noscript><p><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></p></noscript></form></div></section>
 </Base>
-
+<script>
+ const form=document.querySelector<HTMLFormElement>('[data-inquiry]');
+ if(form){const subject=form.elements.namedItem('subject') as HTMLInputElement;const selected=new URLSearchParams(location.search).get('product');if(selected)subject.value=selected;
+ form.addEventListener('submit',event=>{event.preventDefault();if(!form.reportValidity())return;const data=new FormData(form);const body=`Name: ${data.get('name')}\nPhone: ${data.get('phone')}\nEmail: ${data.get('email')}\n\n${data.get('message')}`;window.location.href=`mailto:hivina0835@gmail.com?subject=${encodeURIComponent(String(data.get('subject')||'HI VINA inquiry'))}&body=${encodeURIComponent(body)}`;});}
+</script>
 <style>
-  .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    gap: clamp(28px, 5vw, 56px);
-  }
-  dt {
-    font-weight: 600;
-    color: var(--color-primary);
-    font-size: 0.9rem;
-  }
-  dd {
-    margin: 4px 0 24px;
-  }
-  .map {
-    width: 100%;
-    min-height: 360px;
-    border: 0;
-    border-radius: var(--radius);
-    background: var(--color-surface);
-  }
-  @media (max-width: 860px) {
-    .layout {
-      grid-template-columns: 1fr;
-    }
-  }
+.office-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px 36px;}.office-image{overflow:hidden;border-radius:16px;margin-bottom:22px;background:#e9ece5;}.office-image :global(img){width:100%;height:230px;object-fit:cover;}.office-grid h2{font-size:25px;font-weight:400;}.office-grid .micro{display:block;margin-bottom:10px;}.office-grid dl{margin-top:24px;}.office-grid dl>div{display:grid;grid-template-columns:70px 1fr;gap:18px;padding-block:9px;}.office-grid dt{font-size:11px;color:#849087;}.office-grid dd{font-size:12px;line-height:1.85;margin:0;color:var(--ink-soft);}.office-grid dd>a{text-decoration:none;}.office-grid dd>a:hover{color:var(--moss);}.inquiry-section{padding-block:64px;background:#e9ede7;}.inquiry-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;}.inquiry-layout h2{font-size:38px;font-weight:400;margin-bottom:24px;}.email{font-size:14px;text-decoration:none;}.form-note{font-size:11px;line-height:1.8;color:var(--ink-soft);max-width:36ch;margin-top:26px;}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}.form-grid label{font-size:11px;display:grid;gap:10px;}.form-grid .full{grid-column:1 / -1;}input,textarea{width:100%;font:inherit;font-size:14px;background:transparent;border:0;border-bottom:1px solid #b9c3ba;padding:10px 0;color:var(--ink);border-radius:0;}input:focus,textarea:focus{outline:none;border-color:var(--moss);box-shadow:0 1px var(--moss);}form .btn{margin-top:24px;cursor:pointer;justify-content:space-between;min-width:190px;}@media(max-width:760px){.office-grid,.inquiry-layout{grid-template-columns:1fr;gap:36px;}.inquiry-section{padding-block:42px;}.office-image :global(img){height:220px;}}@media(max-width:400px){.form-grid{grid-template-columns:1fr;}}
 </style>

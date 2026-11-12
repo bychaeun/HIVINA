@@ -1,0 +1,8 @@
+---
+import EditorialListing from '../../../components/EditorialListing.astro';
+import type { Lang } from '../../../config/site';
+import { langPaths } from '../../../i18n/utils';
+export const getStaticPaths=langPaths;
+const lang=Astro.params.lang as Lang;
+---
+<EditorialListing lang={lang} type="news" />

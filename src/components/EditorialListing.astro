@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import SourceImage from './SourceImage.astro';
+import { COPY,source } from '../data/website';
+import { articleTitle } from '../data/editorial';
+import { href } from '../i18n/utils';
+import type { Lang } from '../config/site';
+const {lang,type}=Astro.props as {lang:Lang;type:'projects'|'news'};
+const c=COPY[lang], articles=source[type];
+---
+<Base lang={lang} title={c[type]} description={type==='projects'?c.projectsTitle:c.newsTitle}>
+<header class="page-head"><div class="container"><p class="micro">HI VINA / {type==='projects'?'IN SPACES':'JOURNAL'}</p><h1>{c[type]}</h1><p class="lead">{type==='projects'?c.projectsTitle:c.newsTitle}</p></div></header>
+<section class:list={['container section editorial-list',type]}>{articles.map((article,i)=><a class="editorial-card" href={href(lang,`/${type}/${article.slug}`)} data-reveal style={`--i:${Math.min(i,2)}`}><div class="editorial-image"><SourceImage file={article.images[0]} alt={articleTitle(article,lang)} width={1200} height={900}/><span aria-hidden="true">↗</span></div><div class="editorial-meta"><time>{article.date}</time><span>{String(i+1).padStart(2,'0')}</span></div><h2>{articleTitle(article,lang)}</h2></a>)}</section>
+</Base>
+<style>
+.editorial-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 28px;}.editorial-card{text-decoration:none;}.editorial-image{position:relative;overflow:hidden;border-radius:18px;background:#e6e9e3;}.editorial-image :global(img){width:100%;aspect-ratio:1.4;object-fit:cover;transition:transform .8s var(--ease);}.editorial-card:hover :global(img){transform:scale(1.03);}.editorial-image>span{position:absolute;right:18px;bottom:18px;border-radius:50%;width:36px;height:36px;background:#fff;display:grid;place-items:center;}.editorial-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-soft);margin:18px 0 12px;}.editorial-card h2{font-size:24px;font-weight:400;letter-spacing:-.03em;margin:0;max-width:35ch;}.projects .editorial-card:nth-child(even){margin-top:65px;}@media(max-width:760px){.editorial-list{grid-template-columns:1fr;gap:36px;}.projects .editorial-card:nth-child(even){margin-top:0;}.editorial-card h2{font-size:22px;}}
+</style>

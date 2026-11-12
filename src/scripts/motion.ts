@@ -1,21 +1,12 @@
-import Lenis from 'lenis';
-
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// 1) 부드러운 스크롤
-if (!reduce) {
-  const lenis = new Lenis({ lerp: 0.09 });
-  const raf = (time: number) => { lenis.raf(time); requestAnimationFrame(raf); };
-  requestAnimationFrame(raf);
-  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const hash = a.getAttribute('href') ?? '';
-      if (hash.length < 2) return;
-      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
-      if (target) { e.preventDefault(); lenis.scrollTo(target as HTMLElement, { offset: -80 }); }
-    });
-  });
-}
+// Use native anchor navigation so hashes, browser Back and reading order agree.
+window.addEventListener('pageshow', (event) => {
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+  if (!event.persisted && navigation?.type === 'navigate' && !location.hash) {
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+});
 
 // 2) 화면에 들어오면 나타나기 (data-reveal)
 const io = new IntersectionObserver((entries) => {

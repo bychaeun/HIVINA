@@ -1,230 +1,70 @@
 ---
 import Logo from './Logo.astro';
-import { LANGS, LANG_LABELS, type Lang } from '../config/site';
+import { LANG_LABELS, type Lang } from '../config/site';
 import { useT } from '../i18n/ui';
 import { href, swapLang } from '../i18n/utils';
-
-interface Props {
-  lang: Lang;
-  /** true 면 어두운 히어로 위에서 투명 → 스크롤하면 밝은 배경 (홈 화면용) */
-  overDark?: boolean;
-}
+import { COPY, families } from '../data/website';
+interface Props { lang: Lang; overDark?: boolean; }
 const { lang, overDark = false } = Astro.props;
-const t = useT(lang);
-
-/** 상단 메뉴 — 메뉴를 추가/삭제하려면 여기만 수정 */
-const nav = [
-  { path: '/about', label: t('nav.about') },
-  { path: '/products', label: t('nav.products') },
-  { path: '/catalogue', label: t('nav.catalogue') },
-];
-const current = Astro.url.pathname;
-const short: Record<Lang, string> = { ko: 'KO', vi: 'VI', en: 'EN' };
+const t=useT(lang), c=COPY[lang];
+const current=Astro.url.pathname;
+const isNotFound=/^\/404(?:\/?|\.html)$/.test(current);
+const isCurrent=(path:string)=>current.replace(/\/$/,'')===href(lang,path).replace(/\/$/,'')||current.startsWith(href(lang,path));
+const languages: Lang[]=['ko','en','vi'];
+const short={ko:'KR',en:'EN',vi:'VN'};
 ---
-
-<header class:list={['site-header', { 'over-dark': overDark }]}>
+<header class:list={['site-header',{'over-dark':overDark}]}>
   <div class="container bar">
-    <a class="home" href={href(lang)}><Logo id="header-logo" height={26} /></a>
-
-    <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={t('nav.menu')}>
-      <span></span><span></span><span></span>
-    </button>
-
+    <a class="home" href={href(lang)} aria-label={`HI VINA · ${t('nav.home')}`}><Logo id="header-logo" height={25} /></a>
+    <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={t('nav.menu')}><span></span><span></span></button>
     <nav class="nav" id="site-nav" aria-label={t('nav.menu')}>
       <div class="links">
-        {
-          nav.map((item) => {
-            const target = href(lang, item.path);
-            return (
-              <a href={target} aria-current={current.startsWith(target) ? 'page' : undefined}>
-                {item.label}
-              </a>
-            );
-          })
-        }
+        <a href={href(lang,'/about')} aria-current={isCurrent('/about')?'page':undefined}>{c.about}</a>
+        <details class="products-menu" data-header-dropdown>
+          <summary class:list={{selected:isCurrent('/products')}}>{c.products}<span class="chevron" aria-hidden="true">⌄</span></summary>
+          <div class="product-dropdown"><a class="overview" href={href(lang,'/products')}>{c.products}<span>↗</span></a><div class="family-links">{families.map(f=><a href={href(lang,`/products/${f.id}`)}><span>{f.name}</span><small>{f.subtitle}</small></a>)}</div></div>
+        </details>
+        <a href={href(lang,'/projects')} aria-current={isCurrent('/projects')?'page':undefined}>{c.projects}</a>
+        <a href={href(lang,'/news')} aria-current={isCurrent('/news')?'page':undefined}>{c.news}</a>
+        <a href={href(lang,'/contact')} aria-current={isCurrent('/contact')?'page':undefined}>{c.contact}</a>
       </div>
       <div class="right">
-        <div class="lang" role="group" aria-label={t('nav.language')}>
-          {
-            LANGS.map((l) => (
-              <a
-                href={swapLang(current, l)}
-                hreflang={l}
-                lang={l}
-                title={LANG_LABELS[l]}
-                aria-current={l === lang ? 'true' : undefined}
-              >
-                {short[l]}
-              </a>
-            ))
-          }
-        </div>
-        <a class="cta" href={href(lang, '/contact')}>{t('nav.contact')}</a>
+        <a class="catalogue-link" href={href(lang,'/catalogue')}>{c.catalogue}<span aria-hidden="true">↗</span></a>
+        <details class="language-menu" data-header-dropdown>
+          <summary aria-label={t('nav.language')}><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg><span>{short[lang]}</span><span class="chevron" aria-hidden="true">⌄</span></summary>
+          <div class="language-dropdown">{languages.map(l=><a href={isNotFound?href(l):swapLang(current,l)} lang={l} hreflang={l} aria-current={l===lang?'true':undefined}><span>{short[l]}</span>{LANG_LABELS[l]}{l===lang&&<span class="check" aria-hidden="true">✓</span>}</a>)}</div>
+        </details>
       </div>
     </nav>
   </div>
 </header>
-
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('.site-header .toggle');
-  btn?.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') !== 'true';
-    btn.setAttribute('aria-expanded', String(open));
-    btn.closest('.site-header')?.classList.toggle('menu-open', open);
-  });
+  const header=document.querySelector<HTMLElement>('.site-header');
+  const toggle=header?.querySelector<HTMLButtonElement>('.toggle');
+  const dropdowns=[...document.querySelectorAll<HTMLDetailsElement>('[data-header-dropdown]')];
+  const syncLanguages=()=>header?.querySelectorAll<HTMLAnchorElement>('[hreflang]').forEach(link=>{const url=new URL(link.href);url.search=location.search;url.hash=location.hash;link.href=url.href;});
+  syncLanguages();
+  window.addEventListener('hashchange',syncLanguages);
+  dropdowns.forEach(detail=>detail.addEventListener('toggle',syncLanguages));
+  toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));header?.classList.toggle('menu-open',open);if(!open)dropdowns.forEach(d=>d.open=false);});
+  dropdowns.forEach(detail=>detail.addEventListener('toggle',()=>{if(detail.open)dropdowns.forEach(other=>{if(other!==detail)other.open=false;});}));
+  document.addEventListener('click',event=>{dropdowns.forEach(detail=>{if(!detail.contains(event.target as Node))detail.open=false;});});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){dropdowns.forEach(detail=>{if(detail.open){detail.open=false;detail.querySelector('summary')?.focus();}});if(toggle?.getAttribute('aria-expanded')==='true'){toggle.setAttribute('aria-expanded','false');header?.classList.remove('menu-open');toggle.focus();}}});
 </script>
-
 <style>
-  .site-header {
-    position: fixed;
-    inset: 0 0 auto;
-    z-index: 50;
-    color: var(--forest);
-    --logo-text: #000;
-    background: rgb(246 247 243 / 0.86);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--color-line);
-    transition:
-      background 0.5s var(--ease),
-      color 0.5s var(--ease),
-      border-color 0.5s;
-  }
-  /* 홈: 히어로 위에서는 투명 */
-  .site-header.over-dark:not(.is-scrolled):not(.menu-open) {
-    background: transparent;
-    backdrop-filter: none;
-    border-color: transparent;
-    color: var(--paper);
-    --logo-text: #fff;
-  }
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: var(--header-h);
-    gap: 24px;
-  }
-  .home {
-    text-decoration: none;
-  }
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 34px;
-  }
-  .links {
-    display: flex;
-    gap: 34px;
-  }
-  .links a {
-    position: relative;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-  }
-  .links a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 2px;
-    background: var(--leaf);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s var(--ease);
-  }
-  .links a:hover::after,
-  .links a[aria-current='page']::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-  .right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .lang {
-    display: flex;
-    padding: 4px;
-    border: 1px solid currentColor;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .lang a {
-    padding: 6px 10px;
-    border-radius: 999px;
-    opacity: 0.65;
-    text-decoration: none;
-    transition:
-      opacity 0.3s,
-      background 0.3s;
-  }
-  .lang a[aria-current] {
-    opacity: 1;
-    background: var(--leaf);
-    color: var(--forest);
-  }
-  .cta {
-    padding: 10px 18px;
-    border-radius: 999px;
-    background: var(--leaf);
-    color: var(--forest);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-  }
-  .toggle {
-    display: none;
-    background: none;
-    border: 0;
-    color: inherit;
-    cursor: pointer;
-  }
-
-  /* 모바일: 햄버거 버튼으로 메뉴 열고 닫기 */
-  @media (max-width: 900px) {
-    .toggle {
-      display: grid;
-      gap: 5px;
-      padding: 10px;
-    }
-    .toggle span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: currentColor;
-    }
-    .toggle[aria-expanded='false'] + .nav {
-      display: none;
-    }
-    .nav {
-      position: absolute;
-      top: var(--header-h);
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      background: var(--paper);
-      border-bottom: 1px solid var(--color-line);
-      padding: 8px var(--gutter) 20px;
-    }
-    .links {
-      flex-direction: column;
-      gap: 0;
-    }
-    .links a {
-      padding: 14px 0;
-      border-bottom: 1px solid var(--color-line);
-    }
-    .links a::after {
-      display: none;
-    }
-    .right {
-      padding-top: 16px;
-      justify-content: space-between;
-    }
-  }
+  .site-header{position:fixed;inset:0 0 auto;z-index:50;color:#29322d;--logo-text:#202721;background:rgb(250 250 247 / .94);backdrop-filter:blur(18px);border-bottom:1px solid rgb(30 45 35 / .1);transition:background .3s,color .3s;}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:var(--header-h);gap:28px;}
+  .home{display:flex;flex:none;text-decoration:none;}
+  .nav,.links,.right{display:flex;align-items:center;}
+  .nav{gap:30px;}.links{gap:26px;}.right{gap:22px;}
+  .links>a,.links summary{position:relative;font-size:12px;font-weight:400;text-decoration:none;white-space:nowrap;}
+  .links>a::after,.products-menu>summary::after{content:'';position:absolute;bottom:-8px;left:0;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+  .links>a:hover::after,.links>a[aria-current]::after,.products-menu>summary.selected::after{transform:scaleX(1);}
+  summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;}summary::-webkit-details-marker{display:none;}summary:focus-visible{outline:2px solid var(--moss);outline-offset:6px;}.chevron{font-size:12px;transition:rotate .2s;}details[open]>summary .chevron{rotate:180deg;}
+  .products-menu{position:relative;}.product-dropdown{position:absolute;top:calc(100% + 26px);left:-24px;width:420px;background:#fafaf7;color:#29322d;padding:22px;border:1px solid var(--color-line);border-radius:12px;box-shadow:0 16px 48px rgb(0 0 0 / .08);}
+  .overview{display:flex;justify-content:space-between;font-size:12px;text-decoration:none;padding-bottom:16px;border-bottom:1px solid var(--color-line);}.family-links{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}.family-links>a{text-decoration:none;font-size:13px;}.family-links small{display:block;font-size:9px;color:var(--ink-soft);margin-top:5px;}.family-links>a:hover{color:var(--moss);}
+  .catalogue-link{display:flex;gap:18px;align-items:center;font-size:11px;text-decoration:none;border:1px solid rgb(40 50 45 / .25);padding:10px 16px;border-radius:30px;}
+  .language-menu{position:relative;}.language-menu>summary{font-size:10px;gap:7px;}.language-dropdown{position:absolute;top:calc(100% + 22px);right:0;min-width:190px;padding:6px;background:rgb(250 250 247 / .98);color:#29322d;border:1px solid var(--color-line);border-radius:10px;box-shadow:0 16px 48px rgb(0 0 0 / .08);}.language-dropdown a{display:flex;align-items:center;gap:14px;padding:12px;font-size:12px;text-decoration:none;border-radius:6px;}.language-dropdown a>span:first-child{font-size:10px;min-width:20px;}.language-dropdown a[aria-current]{background:var(--brand-deep);color:white;}.language-dropdown a:hover:not([aria-current]){background:#ecefe9;}.check{margin-left:auto;}
+  .toggle{display:none;}.site-header.over-dark:not(.is-scrolled):not(.menu-open){background:transparent;border-color:rgb(255 255 255 / .18);color:white;--logo-text:#fff;}.over-dark:not(.is-scrolled):not(.menu-open) .links{padding:11px 22px;background:rgb(255 255 255 / .07);border:1px solid rgb(255 255 255 / .16);border-radius:30px;backdrop-filter:blur(12px);}.over-dark:not(.is-scrolled):not(.menu-open) .catalogue-link{background:#fff;color:#26342b;border-color:#fff;}
+  @media(max-width:1050px){.toggle{display:grid;gap:6px;background:none;border:0;color:inherit;padding:12px;}.toggle span{display:block;width:23px;height:1px;background:currentColor;}.nav{position:absolute;top:var(--header-h);left:0;right:0;background:#fafaf7;color:#29322d;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gutter) 24px;border-bottom:1px solid var(--color-line);max-height:calc(100svh - var(--header-h));overflow:auto;}.toggle[aria-expanded='false']+.nav{display:none;}.links{flex-direction:column;align-items:stretch;gap:0;}.links>a,.links>details>summary{padding:16px 0;border-bottom:1px solid var(--color-line);font-size:14px;}.links>a::after,.products-menu>summary::after{display:none;}.product-dropdown{position:static;width:100%;padding:16px 0;border:0;box-shadow:none;}.right{justify-content:space-between;padding-top:22px;}.language-dropdown{top:auto;bottom:calc(100% + 8px);}.over-dark:not(.is-scrolled):not(.menu-open) .links{border:0;background:none;padding:0;border-radius:0;}.site-header.over-dark.menu-open{background:#fafaf7;--logo-text:#202721;}}
 </style>

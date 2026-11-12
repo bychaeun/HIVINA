@@ -1,117 +1,31 @@
 ---
 import { COMPANY, type Lang } from '../../config/site';
 import { useT } from '../../i18n/ui';
-
 const { lang } = Astro.props as { lang: Lang };
 const t = useT(lang);
 const links = COMPANY.family.filter((f) => f.url);
 ---
-
 <section class="family">
   <div class="container inner">
-    <div class="roots" aria-hidden="true" data-reveal>
-      <span class="hy">HYOSAN</span>
-      <span class="icc">ICC</span>
-      <b>HI VINA</b>
-    </div>
+    <div class="roots" aria-hidden="true" data-reveal><span>HYOSAN <i>×</i> ICC</span><span class="connector"></span><b>HI VINA</b></div>
     <div>
       <span class="label" data-reveal>{t('home.family.label')}</span>
       <h2 class="h2" data-reveal style="--i:1">{t('home.family.title')}</h2>
       <p data-reveal style="--i:2">{t('home.family.body')}</p>
-      <div class="links" data-reveal style="--i:3">
-        {
-          links.map((f) => (
-            <a class="btn" href={f.url} target="_blank" rel="noopener">
-              {f.name} <span class="arrow">→</span>
-            </a>
-          ))
-        }
-      </div>
+      <div class="links" data-reveal style="--i:3">{links.map((f) => <a class="editorial-link" href={f.url} target="_blank" rel="noopener">{f.name} <span aria-hidden="true">↗</span></a>)}</div>
     </div>
   </div>
 </section>
-
 <style>
-  .family {
-    padding: clamp(96px, 14vw, 180px) 0;
-  }
-  .inner {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: clamp(40px, 6vw, 96px);
-    align-items: center;
-  }
-  .roots {
-    position: relative;
-    aspect-ratio: 1;
-    display: grid;
-    place-items: center;
-  }
-  .roots span {
-    position: absolute;
-    top: 14%;
-    width: 58%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    font-size: clamp(14px, 1.6vw, 20px);
-  }
-  .hy {
-    left: 4%;
-    padding-right: 22%;
-    background: var(--forest);
-    color: var(--leaf);
-    animation: breathe 6s ease-in-out infinite alternate;
-  }
-  .icc {
-    right: 4%;
-    padding-left: 22%;
-    background: rgb(0 194 86 / 0.55);
-    color: var(--forest);
-    mix-blend-mode: multiply;
-    animation: breathe 6s 3s ease-in-out infinite alternate;
-  }
-  .roots b {
-    position: absolute;
-    top: 43%;
-    z-index: 1;
-    color: var(--paper);
-    font-size: clamp(13px, 1.3vw, 16px);
-    letter-spacing: 0.14em;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: var(--moss);
-  }
-  @keyframes breathe {
-    to {
-      transform: scale(1.05);
-    }
-  }
-  .h2 {
-    white-space: pre-line;
-    margin-top: 6px;
-  }
-  p {
-    color: var(--ink-soft);
-    font-size: clamp(16px, 1.4vw, 19px);
-    margin: 24px 0 36px;
-    max-width: 520px;
-  }
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  @media (max-width: 860px) {
-    .inner {
-      grid-template-columns: 1fr;
-    }
-    .roots {
-      max-width: 420px;
-      width: 100%;
-    }
-  }
+  .family { padding: clamp(48px, 6vw, 80px) 0; }
+  .inner { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 84px); align-items: center; }
+  .roots { display: grid; justify-items: center; align-content: center; gap: 24px; min-height: 240px; background: #eceee8; }
+  .roots > span:first-child { font-size: clamp(20px, 2.3vw, 30px); letter-spacing: .04em; font-weight: 400; }
+  .roots i { font-size: 18px; font-style: normal; padding: 0 12px; color: #85968a; }
+  .connector { height: 40px; width: 1px; background: #a4b3a7; }
+  .roots b { font-size: 22px; font-weight: 500; letter-spacing: .15em; color: var(--moss); }
+  .h2 { white-space: pre-line; margin-top: 6px; }
+  p { color: var(--ink-soft); font-size: 14px; margin: 18px 0; max-width: 48ch; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 760px) { .inner { grid-template-columns: 1fr; } .roots { min-height: 190px; gap: 18px; } }
 </style>

@@ -1,79 +1,170 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import CompanyPhoto from '../../components/CompanyPhoto.astro';
 import type { Lang } from '../../config/site';
+import { STORY } from '../../config/story';
+import { COPY } from '../../data/website';
 import { useT } from '../../i18n/ui';
-import { langPaths, localize } from '../../i18n/utils';
-
+import { href, langPaths, localize } from '../../i18n/utils';
+import wood from '../../assets/materials/wood.png';
+import fabric from '../../assets/materials/fabric.png';
 export const getStaticPaths = langPaths;
-
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
-const history = (await getCollection('history')).map((e) => e.data).sort((a, b) => b.year - a.year);
+const s = STORY[lang];
+const c = COPY[lang];
+const history = (await getCollection('history')).map((e) => e.data).sort((a, b) => a.year - b.year);
+const scenes = [
+  { id: 'introduction', label: t('about.title'), caption: 'HI VINA JSC / ĐỒNG NAI, VIỆT NAM' },
+  { id: 'foundation', label: t('about.partners'), caption: 'HYOSAN × ICC / MATERIAL STUDIES' },
+  { id: 'history', label: t('about.history'), caption: `${history[0]?.year} — ${history.at(-1)?.year} / OUR SHARED HISTORY` },
+];
 ---
-
 <Base lang={lang} title={t('about.title')} description={t('about.lead')}>
-  <section class="page-head">
-    <div class="container">
-      <h1>{t('about.title')}</h1>
-      <p class="lead">{t('about.lead')}</p>
+  <article class="split-story" data-split-story>
+    <aside class="visual-stage" aria-label={t('about.title')}>
+      <div class="scene is-active" data-story-scene="0" aria-hidden="false">
+        <div class="office-frame"><CompanyPhoto alt={s.photo} eager /></div>
+        <div class="scene-caption"><span>01 / HI VINA</span><p>{scenes[0].caption}</p></div>
+      </div>
+      <div class="scene" data-story-scene="1" aria-hidden="true">
+        <Image src={fabric} alt="" width={1000} height={1400} fit="cover" format="webp" loading="eager" />
+        <div class="scene-caption"><span>02 / FOUNDATION</span><p>{scenes[1].caption}</p></div>
+      </div>
+      <div class="scene" data-story-scene="2" aria-hidden="true">
+        <Image src={wood} alt="" width={1000} height={1400} fit="cover" format="webp" loading="eager" />
+        <div class="scene-caption"><span>03 / MILESTONES</span><p>{scenes[2].caption}</p></div>
+      </div>
+      <nav class="scene-nav" aria-label={t('about.title')}>
+        {scenes.map((scene, i) => <a href={`#${scene.id}`} class:list={{ 'is-active': i === 0 }} aria-current={i === 0 ? 'step' : undefined} data-story-jump={i}><span>{String(i + 1).padStart(2, '0')}</span><span class="visually-hidden">{scene.label}</span></a>)}
+      </nav>
+    </aside>
+    <div class="story-content">
+      <section id="introduction" class="story-panel introduction" data-story-panel="0" aria-labelledby="story-title">
+        <div class="chapter"><span>01 / HI VINA</span><span>{t('about.title')}</span></div>
+        <div class="panel-body">
+          <p class="overline" data-reveal>HYOSAN · ICC · VIETNAM</p>
+          <h1 id="story-title" data-reveal style="--i:1">{c.visionTitle}</h1>
+          <p class="intro" data-reveal style="--i:2">{c.aboutBody}</p>
+          <div class="mobile-visual"><CompanyPhoto alt={s.photo} eager /></div>
+          <dl class="facts" data-reveal style="--i:3"><div><dt>{s.roots}</dt><dd>HYOSAN × ICC</dd></div><div><dt>{s.location}</dt><dd>{s.locationValue}</dd></div><div><dt>{s.material}</dt><dd>{s.materialValue}</dd></div></dl>
+        </div>
+        <a class="next-chapter" href="#foundation"><span>{t('about.partners')}</span><span aria-hidden="true">↓</span></a>
+      </section>
+      <section id="foundation" class="story-panel foundation" data-story-panel="1" aria-labelledby="foundation-title">
+        <div class="chapter"><span>02 / FOUNDATION</span><span>{t('about.partners')}</span></div>
+        <div class="panel-body">
+          <h2 id="foundation-title" data-reveal>Corporate Vision (HI VINA JSC)</h2>
+          <p class="partners" data-reveal>HYOSAN <span>×</span> ICC</p>
+          <div class="mobile-visual"><Image src={fabric} alt="" width={700} height={420} fit="cover" format="webp" loading="lazy" /></div>
+          <div class="narrative"><p data-reveal>{c.aboutDetail}</p><p data-reveal style="--i:1">{c.values}</p></div>
+          <a class="editorial-link" href={href(lang, '/products')} data-reveal>{t('home.cta.products')} <span aria-hidden="true">↗</span></a>
+        </div>
+        <a class="next-chapter" href="#history"><span>{t('about.history')}</span><span aria-hidden="true">↓</span></a>
+      </section>
+      <section id="history" class="story-panel history" data-story-panel="2" aria-labelledby="history-title">
+        <div class="chapter"><span>03 / MILESTONES</span><span>{t('about.history')}</span></div>
+        <div class="panel-body">
+          <h2 id="history-title" data-reveal>{c.history}</h2>
+          <p class="history-note" data-reveal>HYOSAN · ICC · HI VINA</p>
+          <div class="mobile-visual"><Image src={wood} alt="" width={700} height={320} fit="cover" format="webp" loading="lazy" /></div>
+          <ol class="timeline">{history.map((h) => <li class:list={{ 'hivina-year': h.year === 2020 }} data-reveal><span class="year">{h.year}</span><p>{localize(h, 'text', lang)}</p></li>)}</ol>
+          <div class="story-next" data-reveal><p>{c.contactTitle}</p><a class="editorial-link" href={href(lang, '/contact')}>{t('home.cta.contact')} <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </section>
     </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <p class="body">{t('about.body')}</p>
-    </div>
-  </section>
-
-  <section class="section section--surface">
-    <div class="container">
-      <h2>{t('about.history')}</h2>
-      <ol class="timeline">
-        {
-          history.map((h) => (
-            <li>
-              <span class="year">{h.year}</span>
-              <span>{localize(h, 'text', lang)}</span>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
+  </article>
 </Base>
-
+<script>
+  const story = document.querySelector<HTMLElement>('[data-split-story]');
+  if (story) {
+    const panels = [...story.querySelectorAll<HTMLElement>('[data-story-panel]')];
+    const scenes = [...story.querySelectorAll<HTMLElement>('[data-story-scene]')];
+    const links = [...story.querySelectorAll<HTMLAnchorElement>('[data-story-jump]')];
+    const desktop = window.matchMedia('(min-width: 901px)');
+    let active = -1;
+    let queued = false;
+    const update = () => {
+      queued = false;
+      if (!desktop.matches) return;
+      const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 76;
+      const readingLine = headerHeight + (window.innerHeight - headerHeight) * .43;
+      let next = 0;
+      panels.forEach((panel, i) => { if (panel.getBoundingClientRect().top <= readingLine) next = i; });
+      if (next === active) return;
+      active = next;
+      scenes.forEach((scene, i) => {
+        scene.classList.toggle('is-active', i === active);
+        scene.setAttribute('aria-hidden', String(i !== active));
+      });
+      links.forEach((link, i) => {
+        link.classList.toggle('is-active', i === active);
+        if (i === active) link.setAttribute('aria-current', 'step');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    desktop.addEventListener('change', schedule);
+    window.addEventListener('pageshow', schedule);
+    update();
+  }
+</script>
 <style>
-  .body {
-    font-size: 1.1rem;
-    max-width: 70ch;
-    margin: 0;
+  .split-story { --story-line: rgb(30 45 35 / .17); display: grid; grid-template-columns: 1fr 1fr; align-items: start; background: #f5f4ef; color: #252c27; }
+  .visual-stage { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); overflow: hidden; background: #303b33; }
+  .scene { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .75s var(--ease), visibility .75s; }
+  .scene.is-active { opacity: 1; visibility: visible; }
+  .scene > img { width: 100%; height: 100%; object-fit: cover; }
+  .office-frame { position: absolute; inset: 0; overflow: hidden; }
+  .office-frame :global(.company-photo) { position: absolute; width: max(100%, calc((100svh - var(--header-h)) * 1.38855)); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .scene::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgb(0 0 0 / .48)); pointer-events: none; }
+  .scene-caption { position: absolute; z-index: 1; bottom: 86px; left: clamp(24px, 4vw, 56px); right: 24px; color: white; }
+  .scene-caption > span { font-size: 10px; letter-spacing: .13em; }
+  .scene-caption p { font-size: 11px; letter-spacing: .06em; margin: 12px 0 0; }
+  .scene-nav { position: absolute; z-index: 2; left: clamp(24px, 4vw, 56px); right: clamp(24px, 4vw, 56px); bottom: 26px; display: flex; gap: 12px; }
+  .scene-nav a { flex: 1; color: #fff; padding: 10px 0 0; text-decoration: none; font-size: 10px; opacity: .65; transition: opacity .3s; }
+  .scene-nav a.is-active { opacity: 1; }
+  .story-content { min-width: 0; }
+  .story-panel { min-height: calc(100svh - var(--header-h)); padding: 30px clamp(28px, 4.5vw, 72px); display: flex; flex-direction: column; scroll-margin-top: var(--header-h); }
+  .chapter { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; border-top: 1px solid var(--story-line); font-size: 10px; letter-spacing: .08em; color: #667269; }
+  .panel-body { padding-block: clamp(36px, 6vh, 64px); }
+  .introduction .panel-body, .foundation .panel-body { margin-block: auto; }
+  .overline { font-size: 10px; letter-spacing: .12em; color: var(--moss); margin: 0 0 20px; }
+  h1, h2 { font-size: clamp(28px, 2.55vw, 40px); font-weight: 500; line-height: 1.45; letter-spacing: -.04em; white-space: pre-line; margin: 0 0 24px; }
+  .intro { font-size: 14px; line-height: 1.95; color: #57635b; margin: 0 0 30px; max-width: 43ch; }
+  .facts { margin: 0; }
+  .facts > div { display: grid; grid-template-columns: minmax(80px, .65fr) 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--story-line); }
+  dt { font-size: 11px; color: #667269; align-self: center; }
+  dd { margin: 0; font-size: 13px; font-weight: 500; }
+  .next-chapter { display: flex; justify-content: space-between; align-items: center; padding-block: 15px 2px; border-top: 1px solid var(--story-line); font-size: 11px; text-decoration: none; color: #667269; }
+  .foundation { background: #ebeee8; }
+  .partners { font-size: 17px; letter-spacing: .06em; margin: 0 0 28px; }
+  .partners span { color: #849087; padding-inline: 12px; }
+  .narrative p { margin: 0 0 18px; font-size: 14px; line-height: 1.95; color: #57635b; }
+  .narrative { margin-bottom: 22px; }
+  .history-note { font-size: 12px; color: #657167; margin: -8px 0 30px; }
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline li { display: grid; grid-template-columns: 65px 1fr; align-items: baseline; gap: 18px; padding: 17px 0; border-top: 1px solid var(--story-line); }
+  .year { font-size: 24px; line-height: 1.4; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+  .timeline p { margin: 0; font-size: 12px; line-height: 1.8; color: #57635b; }
+  .hivina-year .year { color: var(--moss); font-weight: 600; }
+  .story-next { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--story-line); }
+  .story-next p { font-size: 17px; margin: 0 0 14px; }
+  .mobile-visual { display: none; }
+  @media (max-width: 900px) {
+    .split-story { display: block; }
+    .visual-stage { display: none; }
+    .story-panel { min-height: 0; padding: 24px var(--gutter) 32px; }
+    .panel-body { padding-block: 30px 18px; }
+    h1, h2 { font-size: 30px; }
+    .mobile-visual { display: block; margin: 26px 0; }
+    .mobile-visual > img { width: 100%; height: auto; }
+    .intro { max-width: none; }
+    .timeline li { grid-template-columns: 60px 1fr; }
   }
-  .timeline {
-    list-style: none;
-    margin: 32px 0 0;
-    padding: 0;
-    border-left: 2px solid var(--color-line);
-  }
-  .timeline li {
-    position: relative;
-    display: flex;
-    gap: 24px;
-    padding: 12px 0 12px 28px;
-  }
-  .timeline li::before {
-    content: '';
-    position: absolute;
-    left: -7px;
-    top: 21px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--color-accent);
-  }
-  .year {
-    font-weight: 700;
-    color: var(--color-primary);
-    min-width: 3.5em;
-  }
+  @media (prefers-reduced-motion: reduce) { .scene { transition: none; } }
 </style>

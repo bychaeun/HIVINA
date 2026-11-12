@@ -1,8 +1,340 @@
 id,category,sort,visible,new,name_ko,name_vi,name_en,summary_ko,summary_vi,summary_en,description_ko,description_vi,description_en,features_ko,features_vi,features_en,applications_ko,applications_vi,applications_en
-t-white,lpm,1,Y,N,T-White,T-White,T-White,멜라민 백색 종이,Giấy melamine màu trắng,White melamine paper,"[샘플 문구] 미팅 후 실제 설명으로 교체하세요.","[Nội dung mẫu] Vui lòng thay bằng mô tả thực tế.","[Sample text] Replace with the real description.",,,,가구 | 도어,Nội thất | Cửa,Furniture | Doors
-hi-flex,lpm,2,Y,Y,HI-FLEX,HI-FLEX,HI-FLEX,2017년 개발된 LPM 제품,Sản phẩm LPM phát triển năm 2017,LPM product developed in 2017,"[샘플 문구] 미팅 후 실제 설명으로 교체하세요.","[Nội dung mẫu] Vui lòng thay bằng mô tả thực tế.","[Sample text] Replace with the real description.",,,,,,
-lpm-standard,lpm,3,Y,N,LPM 일반,LPM tiêu chuẩn,LPM Standard,,,,,,,,,,,,
-lpm-paintable,lpm,4,Y,N,LPM 도장용,LPM dùng để sơn phủ,LPM Paintable,,,,,,,,,,,,
-pre-foil,finishing-foil,1,Y,N,Pre Foil,Pre Foil,Pre Foil,,,,,,,,,,,,
-post-foil,finishing-foil,2,Y,N,Post Foil,Post Foil,Post Foil,,,,,,,,,,,,
-uv-foil,finishing-foil,3,Y,N,UV Foil,UV Foil,UV Foil,2015년 출시된 UV 제품,Sản phẩm UV ra mắt năm 2015,UV product launched in 2015,,,,,,,,,
+"lpm","lpm","1","Y","N","LPM","LPM","LPM","LPM is an eco-friendly surface material created by impregnating decorative paper with melamine and urea resins. Using only heat and pressure, it thermally fuses directly onto substrates like MDF, HDF, and PB-eliminating the need for extra adhesives.","LPM is an eco-friendly surface material created by impregnating decorative paper with melamine and urea resins. Using only heat and pressure, it thermally fuses directly onto substrates like MDF, HDF, and PB-eliminating the need for extra adhesives.","LPM is an eco-friendly surface material created by impregnating decorative paper with melamine and urea resins. Using only heat and pressure, it thermally fuses directly onto substrates like MDF, HDF, and PB-eliminating the need for extra adhesives.","(Low Pressure Melamine)
+LPM is an eco-friendly surface material created by impregnating decorative paper with melamine and urea resins. Using only heat and pressure, it thermally fuses directly onto substrates like MDF, HDF, and PB-eliminating the need for extra adhesives.
+Key Strengths of the Product
+Various Design Expressions
+Available in glossy, matte, semi-gloss, embossed, logo patterns, etc.
+→ Enables realistic and three-dimensional surface textu
+Excellent Durability
+Scratch resistance, abrasion resistance, heat resistance, acid resistance, and water resistance.
+→ Strong surface performance against external environments.
+Eco-Friendly Material
+Blocks harmful formaldehyde emissions from the board.
+→ Safe for both humans and the environment.
+Cost Competitiveness
+Maintains functionality and quality.
+→ More economical compared to alternative materials.
+PRODUCT LINEUP
+We offers a wide range of high-performance LPM products optimized for various usage environments, from standard to specialized types, providing customized solutions for high-end furniture and interior markets.
+Standard LPM
+- Basic LPM for furniture and interior applications
+- Decorative paper impregnated with thermosetting resin and coated
+- Realistic and embossed texture using press plates
+- Approximately 50 design patterns available
+LPM Special
+- Coating LPM
+- Flame-Retardant LPM
+- Hi-Flex Low-Banding LPM
+- T-White LPM
+- Inert Coating LPM
+T-White LPM
+Excellent opacity (hiding power).
+By adding special additives to standard white paper, T-White delivers excellent opacity in 100 gsm and 150 gsm grades.
+High gloss and high opacity for premium markets.
+Coating LPM
+Functional LPM that allows direct painting.
+Surface developed for Poly coating.
+High gloss achievable with a single coating, minimal odor.
+Compatible with additional processes (High Gloss, UV, etc.).
+Reduces processing steps and costs.
+Hi-Flex Low-Banding LPM
+High elasticity with minimal warping.
+Reduces bending when pressed on one side.
+Compatible with various backing materials (PET, UV, etc.).
+Flame-Retardant LPM
+Meets fire safety standards.
+Flame-retardant solution added during production.
+Suitable for public and commercial spaces.
+Inert Coating LPM
+Additional coating applied on standard LPM surface.
+Uses eco-friendly coatings.
+Anti-fingerprint and high-gloss finish.
+Self-healing function for scratch recovery.","(Low Pressure Melamine)
+LPM is an eco-friendly surface material created by impregnating decorative paper with melamine and urea resins. Using only heat and pressure, it thermally fuses directly onto substrates like MDF, HDF, and PB-eliminating the need for extra adhesives.
+Key Strengths of the Product
+Various Design Expressions
+Available in glossy, matte, semi-gloss, embossed, logo patterns, etc.
+→ Enables realistic and three-dimensional surface textu
+Excellent Durability
+Scratch resistance, abrasion resistance, heat resistance, acid resistance, and water resistance.
+→ Strong surface performance against external environments.
+Eco-Friendly Material
+Blocks harmful formaldehyde emissions from the board.
+→ Safe for both humans and the environment.
+Cost Competitiveness
+Maintains functionality and quality.
+→ More economical compared to alternative materials.
+PRODUCT LINEUP
+We offers a wide range of high-performance LPM products optimized for various usage environments, from standard to specialized types, providing customized solutions for high-end furniture and interior markets.
+Standard LPM
+- Basic LPM for furniture and interior applications
+- Decorative paper impregnated with thermosetting resin and coated
+- Realistic and embossed texture using press plates
+- Approximately 50 design patterns available
+LPM Special
+- Coating LPM
+- Flame-Retardant LPM
+- Hi-Flex Low-Banding LPM
+- T-White LPM
+- Inert Coating LPM
+T-White LPM
+Excellent opacity (hiding power).
+By adding special additives to standard white paper, T-White delivers excellent opacity in 100 gsm and 150 gsm grades.
+High gloss and high opacity for premium markets.
+Coating LPM
+Functional LPM that allows direct painting.
+Surface developed for Poly coating.
+High gloss achievable with a single coating, minimal odor.
+Compatible with additional processes (High Gloss, UV, etc.).
+Reduces processing steps and costs.
+Hi-Flex Low-Banding LPM
+High elasticity with minimal warping.
+Reduces bending when pressed on one side.
+Compatible with various backing materials (PET, UV, etc.).
+Flame-Retardant LPM
+Meets fire safety standards.
+Flame-retardant solution added during production.
+Suitable for public and commercial spaces.
+Inert Coating LPM
+Additional coating applied on standard LPM surface.
+Uses eco-friendly coatings.
+Anti-fingerprint and high-gloss finish.
+Self-healing function for scratch recovery.","(Low Pressure Melamine)
+LPM is an eco-friendly surface material created by impregnating decorative paper with melamine and urea resins. Using only heat and pressure, it thermally fuses directly onto substrates like MDF, HDF, and PB-eliminating the need for extra adhesives.
+Key Strengths of the Product
+Various Design Expressions
+Available in glossy, matte, semi-gloss, embossed, logo patterns, etc.
+→ Enables realistic and three-dimensional surface textu
+Excellent Durability
+Scratch resistance, abrasion resistance, heat resistance, acid resistance, and water resistance.
+→ Strong surface performance against external environments.
+Eco-Friendly Material
+Blocks harmful formaldehyde emissions from the board.
+→ Safe for both humans and the environment.
+Cost Competitiveness
+Maintains functionality and quality.
+→ More economical compared to alternative materials.
+PRODUCT LINEUP
+We offers a wide range of high-performance LPM products optimized for various usage environments, from standard to specialized types, providing customized solutions for high-end furniture and interior markets.
+Standard LPM
+- Basic LPM for furniture and interior applications
+- Decorative paper impregnated with thermosetting resin and coated
+- Realistic and embossed texture using press plates
+- Approximately 50 design patterns available
+LPM Special
+- Coating LPM
+- Flame-Retardant LPM
+- Hi-Flex Low-Banding LPM
+- T-White LPM
+- Inert Coating LPM
+T-White LPM
+Excellent opacity (hiding power).
+By adding special additives to standard white paper, T-White delivers excellent opacity in 100 gsm and 150 gsm grades.
+High gloss and high opacity for premium markets.
+Coating LPM
+Functional LPM that allows direct painting.
+Surface developed for Poly coating.
+High gloss achievable with a single coating, minimal odor.
+Compatible with additional processes (High Gloss, UV, etc.).
+Reduces processing steps and costs.
+Hi-Flex Low-Banding LPM
+High elasticity with minimal warping.
+Reduces bending when pressed on one side.
+Compatible with various backing materials (PET, UV, etc.).
+Flame-Retardant LPM
+Meets fire safety standards.
+Flame-retardant solution added during production.
+Suitable for public and commercial spaces.
+Inert Coating LPM
+Additional coating applied on standard LPM surface.
+Uses eco-friendly coatings.
+Anti-fingerprint and high-gloss finish.
+Self-healing function for scratch recovery.","","","","","",""
+"finishing-foil","finishing-foil","2","Y","N","Finishing Foil","Finishing Foil","Finishing Foil","Finishing foil is an eco-friendly, high-performance surface material using precision printing and water-based lacquer coating technology. It provides high-resolution design and excellent durability for furniture and interior substrates. Applicable to doors, bodies, moldings, as well as walls, ceilings, and decorative surfaces.","Finishing foil is an eco-friendly, high-performance surface material using precision printing and water-based lacquer coating technology. It provides high-resolution design and excellent durability for furniture and interior substrates. Applicable to doors, bodies, moldings, as well as walls, ceilings, and decorative surfaces.","Finishing foil is an eco-friendly, high-performance surface material using precision printing and water-based lacquer coating technology. It provides high-resolution design and excellent durability for furniture and interior substrates. Applicable to doors, bodies, moldings, as well as walls, ceilings, and decorative surfaces.","Finishing foil is an eco-friendly, high-performance surface material using precision printing and water-based lacquer coating technology. It provides high-resolution design and excellent durability for furniture and interior substrates. Applicable to doors, bodies, moldings, as well as walls, ceilings, and decorative surfaces.
+Pre Foil
+Apply:
+Furniture body and Furniture back panel
+Water-Based Lacquer Coating on Printed Pre-Impregnated Paper
+Base paper impregnated with a mixture of pulp and resin is water-based printed and then coated with a water-soluble lacquer.
+This surface coating method is applied by
+IKEA
+, a global furniture brand.
+Post Foil
+Apply:
+Furniture Door, Tembarboard, Louver etc
+Base Paper / Decorative Paper Impregnated with Primary Aqueous Acrylic Resin and Coated with Water-Based Lacquer
+Post Foil
+General paper (60–100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with aqueous acrylic resin and then coated with water-based lacquer on the surface.
+Super Foil
+A special water-soluble resin is used during the impregnation process of general paper (60–100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) to improve adhesion, tensile strength, and surface properties.
+UV Foil
+Apply: Door, Louver, ETC
+General paper (60 - 100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with a special water-soluble resin and then finished with UV coating.
+Types:
+ UV Foil: Matte / Embossed
+Premium PET Foil
+Apply: Door, Louver, ETC
+General paper (60 - 100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with a special water-soluble resin and then finished with PET lamination.
+Types:
+PET UV Foil: Matte / Embossed / High Glossy","Finishing foil is an eco-friendly, high-performance surface material using precision printing and water-based lacquer coating technology. It provides high-resolution design and excellent durability for furniture and interior substrates. Applicable to doors, bodies, moldings, as well as walls, ceilings, and decorative surfaces.
+Pre Foil
+Apply:
+Furniture body and Furniture back panel
+Water-Based Lacquer Coating on Printed Pre-Impregnated Paper
+Base paper impregnated with a mixture of pulp and resin is water-based printed and then coated with a water-soluble lacquer.
+This surface coating method is applied by
+IKEA
+, a global furniture brand.
+Post Foil
+Apply:
+Furniture Door, Tembarboard, Louver etc
+Base Paper / Decorative Paper Impregnated with Primary Aqueous Acrylic Resin and Coated with Water-Based Lacquer
+Post Foil
+General paper (60–100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with aqueous acrylic resin and then coated with water-based lacquer on the surface.
+Super Foil
+A special water-soluble resin is used during the impregnation process of general paper (60–100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) to improve adhesion, tensile strength, and surface properties.
+UV Foil
+Apply: Door, Louver, ETC
+General paper (60 - 100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with a special water-soluble resin and then finished with UV coating.
+Types:
+ UV Foil: Matte / Embossed
+Premium PET Foil
+Apply: Door, Louver, ETC
+General paper (60 - 100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with a special water-soluble resin and then finished with PET lamination.
+Types:
+PET UV Foil: Matte / Embossed / High Glossy","Finishing foil is an eco-friendly, high-performance surface material using precision printing and water-based lacquer coating technology. It provides high-resolution design and excellent durability for furniture and interior substrates. Applicable to doors, bodies, moldings, as well as walls, ceilings, and decorative surfaces.
+Pre Foil
+Apply:
+Furniture body and Furniture back panel
+Water-Based Lacquer Coating on Printed Pre-Impregnated Paper
+Base paper impregnated with a mixture of pulp and resin is water-based printed and then coated with a water-soluble lacquer.
+This surface coating method is applied by
+IKEA
+, a global furniture brand.
+Post Foil
+Apply:
+Furniture Door, Tembarboard, Louver etc
+Base Paper / Decorative Paper Impregnated with Primary Aqueous Acrylic Resin and Coated with Water-Based Lacquer
+Post Foil
+General paper (60–100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with aqueous acrylic resin and then coated with water-based lacquer on the surface.
+Super Foil
+A special water-soluble resin is used during the impregnation process of general paper (60–100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) to improve adhesion, tensile strength, and surface properties.
+UV Foil
+Apply: Door, Louver, ETC
+General paper (60 - 100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with a special water-soluble resin and then finished with UV coating.
+Types:
+ UV Foil: Matte / Embossed
+Premium PET Foil
+Apply: Door, Louver, ETC
+General paper (60 - 100 gsm, approximately 3,000 designs from imported paper and Korean manufacturers) is impregnated with a special water-soluble resin and then finished with PET lamination.
+Types:
+PET UV Foil: Matte / Embossed / High Glossy","","","","","",""
+"hpl","hpl","3","Y","N","HPL","HPL","HPL","","","","","","","","","","","",""
+"tambour-board","tambour-board","4","Y","N","Tambour Board","Tambour Board","Tambour Board","","","","","","","","","","","",""
+"standard-lpm","lpm","5","Y","N","Standard LPM","Standard LPM","Standard LPM","LPM is an eco-friendly surface finishing material made by impregnating printed decorative paper with melamine and urea resins, then drying it so it can be directly bonded (without adhesive) onto substrates such as MDF (Medium Density Fiberboard), HDF (High Density Fiberboard), PB (Particle Board), and inorganic boards using only heat and pressure.","LPM is an eco-friendly surface finishing material made by impregnating printed decorative paper with melamine and urea resins, then drying it so it can be directly bonded (without adhesive) onto substrates such as MDF (Medium Density Fiberboard), HDF (High Density Fiberboard), PB (Particle Board), and inorganic boards using only heat and pressure.","LPM is an eco-friendly surface finishing material made by impregnating printed decorative paper with melamine and urea resins, then drying it so it can be directly bonded (without adhesive) onto substrates such as MDF (Medium Density Fiberboard), HDF (High Density Fiberboard), PB (Particle Board), and inorganic boards using only heat and pressure.","LPM is an eco-friendly surface finishing material made by impregnating printed decorative paper with melamine and urea resins, then drying it so it can be directly bonded (without adhesive) onto substrates such as MDF (Medium Density Fiberboard), HDF (High Density Fiberboard), PB (Particle Board), and inorganic boards using only heat and pressure.","LPM is an eco-friendly surface finishing material made by impregnating printed decorative paper with melamine and urea resins, then drying it so it can be directly bonded (without adhesive) onto substrates such as MDF (Medium Density Fiberboard), HDF (High Density Fiberboard), PB (Particle Board), and inorganic boards using only heat and pressure.","LPM is an eco-friendly surface finishing material made by impregnating printed decorative paper with melamine and urea resins, then drying it so it can be directly bonded (without adhesive) onto substrates such as MDF (Medium Density Fiberboard), HDF (High Density Fiberboard), PB (Particle Board), and inorganic boards using only heat and pressure.","","","","","",""
+"lpm-special","lpm","6","Y","N","LPM Special","LPM Special","LPM Special","","","","LPM Special
+LPM that does not cause board banding even with single-sided press adhesion.
+Use of LPM on only one side of the sheet provides greater material selection.
+Furniture door front and rear
+Front matte or special Embo / rear matte
+Easy press molding and advantageous for preventing bending
+Furniture door rear
+PET with front high gloss, with HI-FLEX LPM on the rear
+After cross-sectional press adhesive, it easier for front glass PET PUR adhesive
+Rear sheet for furniture body (2.7-4.5 MM)
+Same applicable to regular LPM body collar and embossed plates in use
+It is very easy to work with minimal bending","LPM Special
+LPM that does not cause board banding even with single-sided press adhesion.
+Use of LPM on only one side of the sheet provides greater material selection.
+Furniture door front and rear
+Front matte or special Embo / rear matte
+Easy press molding and advantageous for preventing bending
+Furniture door rear
+PET with front high gloss, with HI-FLEX LPM on the rear
+After cross-sectional press adhesive, it easier for front glass PET PUR adhesive
+Rear sheet for furniture body (2.7-4.5 MM)
+Same applicable to regular LPM body collar and embossed plates in use
+It is very easy to work with minimal bending","LPM Special
+LPM that does not cause board banding even with single-sided press adhesion.
+Use of LPM on only one side of the sheet provides greater material selection.
+Furniture door front and rear
+Front matte or special Embo / rear matte
+Easy press molding and advantageous for preventing bending
+Furniture door rear
+PET with front high gloss, with HI-FLEX LPM on the rear
+After cross-sectional press adhesive, it easier for front glass PET PUR adhesive
+Rear sheet for furniture body (2.7-4.5 MM)
+Same applicable to regular LPM body collar and embossed plates in use
+It is very easy to work with minimal bending","","","","","",""
+"t-white-lpm-1","lpm","7","Y","N","T-White LPM","T-White LPM","T-White LPM","","","","","","","","","","","",""
+"coating-lpm-1","lpm","8","Y","N","Coating LPM","Coating LPM","Coating LPM","","","","","","","","","","","",""
+"hi-flex-low-banding-lpm-1","lpm","9","Y","N","Hi-Flex Low-Banding LPM","Hi-Flex Low-Banding LPM","Hi-Flex Low-Banding LPM","","","","LPM that does not cause board banding even with single-sided press adhesion.
+Use of LPM on only one side of the sheet provides greater material selection.
+Furniture door front and rear
+Front matte or special Embo / rear matte
+Easy press molding and advantageous for preventing bending
+Furniture door rear
+PET with front high gloss, with HI-FLEX LPM on the rear
+After cross-sectional press adhesive, it easier for front glass PET PUR adhesive
+Rear sheet for furniture body (2.7-4.5 MM)
+Same applicable to regular LPM body collar and embossed plates in use
+It is very easy to work with minimal bending","LPM that does not cause board banding even with single-sided press adhesion.
+Use of LPM on only one side of the sheet provides greater material selection.
+Furniture door front and rear
+Front matte or special Embo / rear matte
+Easy press molding and advantageous for preventing bending
+Furniture door rear
+PET with front high gloss, with HI-FLEX LPM on the rear
+After cross-sectional press adhesive, it easier for front glass PET PUR adhesive
+Rear sheet for furniture body (2.7-4.5 MM)
+Same applicable to regular LPM body collar and embossed plates in use
+It is very easy to work with minimal bending","LPM that does not cause board banding even with single-sided press adhesion.
+Use of LPM on only one side of the sheet provides greater material selection.
+Furniture door front and rear
+Front matte or special Embo / rear matte
+Easy press molding and advantageous for preventing bending
+Furniture door rear
+PET with front high gloss, with HI-FLEX LPM on the rear
+After cross-sectional press adhesive, it easier for front glass PET PUR adhesive
+Rear sheet for furniture body (2.7-4.5 MM)
+Same applicable to regular LPM body collar and embossed plates in use
+It is very easy to work with minimal bending","","","","","",""
+"flame-retardant-lpm-1","lpm","10","Y","N","Flame-Retardant LPM","Flame-Retardant LPM","Flame-Retardant LPM","","","","","","","","","","","",""
+"inert-coating-lpm-1","lpm","11","Y","N","Inert Coating LPM","Inert Coating LPM","Inert Coating LPM","","","","","","","","","","","",""
+"pre-foil","finishing-foil","12","Y","N","Pre Foil","Pre Foil","Pre Foil","Impregnated base paper mixed with pulp and resin coated with a water-soluble lacquer after water-based printing.","Impregnated base paper mixed with pulp and resin coated with a water-soluble lacquer after water-based printing.","Impregnated base paper mixed with pulp and resin coated with a water-soluble lacquer after water-based printing.","Water-based lacquer coating on printed pre impregnated paper
+1. Pre Foil (Green Foil)
+Impregnated base paper mixed with pulp and resin coated with a water-soluble lacquer after water-based printing.
+■ Surface coating method applied by IKEA, a global furniture brand.
+2. 3D Pre Foil (3D Foil)
+Chemical Embo special printing and reinforced coating on pre impregnated paper (50 - 80 gsm).
+It's a product that complements expression and physical properties compared to the existing embossed products.","Water-based lacquer coating on printed pre impregnated paper
+1. Pre Foil (Green Foil)
+Impregnated base paper mixed with pulp and resin coated with a water-soluble lacquer after water-based printing.
+■ Surface coating method applied by IKEA, a global furniture brand.
+2. 3D Pre Foil (3D Foil)
+Chemical Embo special printing and reinforced coating on pre impregnated paper (50 - 80 gsm).
+It's a product that complements expression and physical properties compared to the existing embossed products.","Water-based lacquer coating on printed pre impregnated paper
+1. Pre Foil (Green Foil)
+Impregnated base paper mixed with pulp and resin coated with a water-soluble lacquer after water-based printing.
+■ Surface coating method applied by IKEA, a global furniture brand.
+2. 3D Pre Foil (3D Foil)
+Chemical Embo special printing and reinforced coating on pre impregnated paper (50 - 80 gsm).
+It's a product that complements expression and physical properties compared to the existing embossed products.","","","","","",""
+"post-foil","finishing-foil","13","Y","N","Post Foil","Post Foil","Post Foil","Base paper / Decorative paper impregnated with primary aqueous acrylic resin and coated with water-based lacquer on top only.","Base paper / Decorative paper impregnated with primary aqueous acrylic resin and coated with water-based lacquer on top only.","Base paper / Decorative paper impregnated with primary aqueous acrylic resin and coated with water-based lacquer on top only.","Base paper / Decorative paper impregnated with primary aqueous acrylic resin and coated with water-based lacquer on top only.
+1. Post Foil
+After wetting the front and rear of general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with an aqueous acrylic resin, the top is coated with an aqueous locker.
+2. Super Foil
+Increase adhesion, tensile strength, and surface properties by using a special water-soluble resin in the process of impregnating ordinary paper (60 - 100 gsm, imported paper, and 3,000 domestic paper).","Base paper / Decorative paper impregnated with primary aqueous acrylic resin and coated with water-based lacquer on top only.
+1. Post Foil
+After wetting the front and rear of general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with an aqueous acrylic resin, the top is coated with an aqueous locker.
+2. Super Foil
+Increase adhesion, tensile strength, and surface properties by using a special water-soluble resin in the process of impregnating ordinary paper (60 - 100 gsm, imported paper, and 3,000 domestic paper).","Base paper / Decorative paper impregnated with primary aqueous acrylic resin and coated with water-based lacquer on top only.
+1. Post Foil
+After wetting the front and rear of general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with an aqueous acrylic resin, the top is coated with an aqueous locker.
+2. Super Foil
+Increase adhesion, tensile strength, and surface properties by using a special water-soluble resin in the process of impregnating ordinary paper (60 - 100 gsm, imported paper, and 3,000 domestic paper).","","","","","",""
+"uv-foil","finishing-foil","14","Y","N","UV Foil","UV Foil","UV Foil","Immerse general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with a special water-soluble resin and apply UV coating or PET laminating.","Immerse general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with a special water-soluble resin and apply UV coating or PET laminating.","Immerse general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with a special water-soluble resin and apply UV coating or PET laminating.","Immerse general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with a special water-soluble resin and apply UV coating or PET laminating.
+종류: UV Foil (Matte / Embo), PET UV Foil (Matte / Embo / High Glossy).","Immerse general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with a special water-soluble resin and apply UV coating or PET laminating.
+종류: UV Foil (Matte / Embo), PET UV Foil (Matte / Embo / High Glossy).","Immerse general paper (60 - 100 gsm, imported paper, 3,000 types of domestic paper) with a special water-soluble resin and apply UV coating or PET laminating.
+종류: UV Foil (Matte / Embo), PET UV Foil (Matte / Embo / High Glossy).","","","","","",""
+"premium-pet-foil","finishing-foil","15","Y","N","Premium PET Foil","Premium PET Foil","Premium PET Foil","","","","","","","","","","","",""

@@ -1,105 +1,32 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import SourceImage from '../../components/SourceImage.astro';
+import { COPY,source } from '../../data/website';
 import type { Lang } from '../../config/site';
-import { useT, type UIKey } from '../../i18n/ui';
-import { langPaths } from '../../i18n/utils';
-import { CATALOGUE_GROUPS, getCatalogue } from '../../lib/images';
-
-export const getStaticPaths = langPaths;
-
-const lang = Astro.params.lang as Lang;
-const t = useT(lang);
-const items = getCatalogue();
-
-// 사진이 있는 그룹만, 정해진 순서 → 새 폴더는 이름순
-const present = [...new Set(items.map((i) => i.group))];
-const groups = [
-  ...CATALOGUE_GROUPS.filter((g) => present.includes(g)),
-  ...present.filter((g) => !CATALOGUE_GROUPS.includes(g)).sort(),
-];
-const label = (g: string) => {
-  const key = `catalogue.${g}` as UIKey;
-  return t(key) ?? g.charAt(0).toUpperCase() + g.slice(1);
-};
+import { href,langPaths } from '../../i18n/utils';
+export const getStaticPaths=langPaths;
+const lang=Astro.params.lang as Lang,c=COPY[lang];
+const groups=['wood','solid','fabric','stone','tambour-board'] as const;
 ---
-
-<Base lang={lang} title={t('catalogue.title')} description={t('catalogue.lead')}>
-  <section class="page-head">
-    <div class="container">
-      <h1>{t('catalogue.title')}</h1>
-      <p class="lead">{t('catalogue.lead')}</p>
-      {
-        groups.length > 1 && (
-          <nav class="jump">
-            {groups.map((g) => (
-              <a href={`#${g}`}>{label(g)}</a>
-            ))}
-          </nav>
-        )
-      }
-    </div>
-  </section>
-
-  {groups.length === 0 && <p class="container section">{t('catalogue.empty')}</p>}
-
-  {
-    groups.map((g) => (
-      <section class="section" id={g}>
-        <div class="container">
-          <h2>{label(g)}</h2>
-          <ul class="swatches">
-            {items
-              .filter((i) => i.group === g)
-              .map((i) => (
-                <li>
-                  <Image src={i.image} alt={i.code} widths={[200, 400]} sizes="200px" />
-                  <span>{i.code}</span>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </section>
-    ))
-  }
+<Base lang={lang} title={c.collection} description={c.browse}>
+<header class="page-head"><div class="container"><p class="micro">HI VINA / DESIGN LIBRARY</p><h1>{c.collection}</h1><p class="lead">{c.browse}</p></div></header>
+<section class="container section catalogue" data-catalogue>
+  <nav class="filters" aria-label={c.collection}><button type="button" data-group="all" aria-pressed="true">{c.filterAll}</button>{groups.map(g=><button type="button" data-group={g} aria-pressed="false">{c.groups[g]}</button>)}</nav>
+  <div class="catalogue-meta"><span>{c.patterns}</span><span data-catalogue-count aria-live="polite">{source.decors.length}</span></div>
+  <div class="design-grid">{source.decors.map((decor,i)=><a class="design-card" data-decor-group={decor.group} data-index={i} href={href(lang,`/design/${decor.slug}`)}><div><SourceImage file={decor.image} alt={decor.name} width={600} height={600}/><span aria-hidden="true">↗</span></div><p>{decor.name}<small>{c.groups[decor.group as keyof typeof c.groups]}</small></p></a>)}</div>
+  <nav class="pagination" aria-label={c.collection}><button type="button" data-page-step="-1" aria-label={lang==='ko'?'이전 페이지':lang==='vi'?'Trang trước':'Previous page'}>←</button><span data-page-status aria-live="polite"></span><button type="button" data-page-step="1" aria-label={lang==='ko'?'다음 페이지':lang==='vi'?'Trang tiếp theo':'Next page'}>→</button></nav>
+</section>
 </Base>
-
+<script>
+ const root=document.querySelector<HTMLElement>('[data-catalogue]');
+ if(root){
+  const cards=[...root.querySelectorAll<HTMLElement>('[data-decor-group]')];const filters=[...root.querySelectorAll<HTMLButtonElement>('[data-group]')];const steps=[...root.querySelectorAll<HTMLButtonElement>('[data-page-step]')];
+  let group='all',page=1;const pageSize=24;
+  function apply(sync=true,scroll=false){const matches=cards.filter(card=>group==='all'||card.dataset.decorGroup===group);const pages=Math.max(1,Math.ceil(matches.length/pageSize));page=Math.max(1,Math.min(page,pages));const visible=new Set(matches.slice((page-1)*pageSize,page*pageSize));cards.forEach(card=>{card.hidden=!visible.has(card);const link=card as HTMLAnchorElement;const destination=new URL(link.href);destination.searchParams.set('group',group);destination.searchParams.set('page',String(page));link.href=destination.href;});filters.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.group===group)));root!.querySelector('[data-catalogue-count]')!.textContent=String(matches.length);root!.querySelector('[data-page-status]')!.textContent=`${String(page).padStart(2,'0')} / ${String(pages).padStart(2,'0')}`;steps.forEach(button=>button.disabled=Number(button.dataset.pageStep)<0?page===1:page===pages);if(sync){const url=new URL(location.href);if(group==='all')url.searchParams.delete('group');else url.searchParams.set('group',group);if(page===1)url.searchParams.delete('page');else url.searchParams.set('page',String(page));history.replaceState(history.state,'',url);}if(scroll)window.scrollTo({top:root!.getBoundingClientRect().top+window.scrollY-100,behavior:'instant'});}
+  function read(){const params=new URLSearchParams(location.search);const requested=params.get('group')||'all';group=filters.some(f=>f.dataset.group===requested)?requested:'all';page=Math.max(1,Number(params.get('page'))||1);apply(false);}
+  filters.forEach(button=>button.addEventListener('click',()=>{group=button.dataset.group||'all';page=1;apply();}));steps.forEach(button=>button.addEventListener('click',()=>{page+=Number(button.dataset.pageStep);apply(true,true);}));window.addEventListener('popstate',read);window.addEventListener('pageshow',read);read();
+ }
+</script>
 <style>
-  .jump {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 24px;
-  }
-  .jump a {
-    text-decoration: none;
-    border: 1px solid var(--color-line);
-    border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 0.9rem;
-  }
-  section[id] {
-    scroll-margin-top: var(--header-h);
-  }
-  .swatches {
-    list-style: none;
-    padding: 0;
-    margin: 24px 0 0;
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
-  .swatches :global(img) {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid var(--color-line);
-  }
-  .swatches span {
-    display: block;
-    font-size: 0.85rem;
-    margin-top: 6px;
-    color: var(--color-muted);
-  }
+.filters{display:flex;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--color-line);padding-bottom:20px;}.filters button{font:inherit;font-size:12px;padding:10px 20px;border:1px solid var(--color-line);border-radius:30px;background:transparent;color:var(--ink-soft);cursor:pointer;}.filters button[aria-pressed='true']{background:var(--brand-deep);border-color:var(--brand-deep);color:#fff;}.catalogue-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);padding-block:22px;}.design-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 22px;}.design-card{text-decoration:none;}.design-card[hidden]{display:none;}.design-card>div{position:relative;aspect-ratio:1;overflow:hidden;border-radius:12px;background:#e5e8e1;}.design-card :global(img){width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);}.design-card:hover :global(img){transform:scale(1.04);}.design-card>div>span{position:absolute;right:14px;bottom:14px;width:30px;height:30px;border-radius:50%;background:rgb(255 255 255 / .85);display:grid;place-items:center;font-size:14px;}.design-card p{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin:12px 0 0;}.design-card small{font-size:10px;color:var(--ink-soft);}.pagination{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:48px;font-size:11px;}.pagination button{width:36px;height:36px;border:1px solid var(--color-line);border-radius:50%;background:var(--brand-deep);color:#fff;cursor:pointer;}.pagination button:disabled{background:transparent;color:#9aa39c;cursor:default;}@media(max-width:900px){.design-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}@media(max-width:600px){.design-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;}.filters{gap:8px;}.filters button{font-size:11px;padding:9px 14px;}.design-card small{display:none;}}
 </style>
