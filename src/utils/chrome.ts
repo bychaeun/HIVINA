@@ -13,7 +13,7 @@ export function canvasHeader(lang:Lang,pathname:string):string {
  let html=pages[lang].match(/<header\b[\s\S]*?<\/header>/)![0];
  html=html.replace('<header ','<header class="canvas-header" ');
  html=html.replace('href="#top"',`href="/${lang}/"`);
- if(pathname!==`/${lang}/`)html=html.replaceAll('href="#history"',`href="/${lang}/about/#history"`);
+ html=html.replace(/<a\b[^>]*href="#history"[^>]*>[\s\S]*?<\/a>/g,'');
  html=html.replace(/(<div class="lng"[^>]*>)([\s\S]*?)(<\/div>)/,(_all:string,start:string,links:string,end:string)=>start+links.replace(/href="\/(vi|en|ko)\/"/g,(_m:string,l:Lang)=>`href="${pathname.startsWith(`/${lang}/`)?swapLang(pathname,l):`/${l}/`}"`)+end);
  return externalLinks(html);
 }
