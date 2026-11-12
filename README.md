@@ -50,3 +50,11 @@ node scripts/verify-site.mjs
 ```
 
 Cloudflare Pages 빌드 명령은 `npm run build`, 출력 경로는 `dist`입니다. 현재 작업에서는 GitHub push와 운영 배포를 실행하지 않았습니다.
+
+## 홈 화면 (디자인 캔버스에서 옮긴 화면)
+
+- 홈(`/ko/`, `/en/`, `/vi/`)은 디자인 캔버스에서 확정한 화면을 언어별 정적 HTML로 옮긴 것입니다: `src/home/ko.html`, `en.html`, `vi.html`.
+- 스타일은 `public/home/home.css`, 동작(연혁 휠·점 타임라인, 프로젝트 슬라이드, LPM 3D, 문의 폼)은 `public/home/home.js`, 이미지와 영상은 `public/home/img/`, `public/home/video/`에 있습니다.
+- LPM 3D는 `public/models/lpm-assembly.glb`와 `public/3d/vendor/model-viewer.min.js`를 사용합니다.
+- 홈의 한국어·베트남어 문구는 공식 사이트 영어 원문을 번역한 것입니다. 회사소개·제품·프로젝트·뉴스·문의 하위 페이지는 기존 구현을 그대로 사용하며, 홈의 메뉴가 이 페이지들로 연결됩니다.
+- 문의 폼은 기존 원칙대로 사용자의 메일 앱에 내용을 넘깁니다.

@@ -1,96 +1,47 @@
 ---
-import Base from '../../layouts/Base.astro';
-import SourceImage from '../../components/SourceImage.astro';
-import { COPY, families, source, sourceImage, sourceImageByUrl } from '../../data/website';
-import { articleTitle } from '../../data/editorial';
-import { Image } from 'astro:assets';
-import type { Lang } from '../../config/site';
-import { href, langPaths } from '../../i18n/utils';
-export const getStaticPaths=langPaths;
-const lang=Astro.params.lang as Lang, c=COPY[lang];
-const hero=sourceImageByUrl('Homepage/1_1.png');
-const atmosphere=sourceImage(source.projects[5].images[0]);
-const surface=sourceImage(source.decors.find(d=>d.group==='wood')?.image);
-const factory=sourceImageByUrl('Our%20images/Factory.png');
-const sustainable=sourceImageByUrl('Homepage/9.png');
-const partners=source.home.images.filter(file=>source.media[file as keyof typeof source.media]?.includes('/partners/'));
-const projects=source.projects.slice(0,3);
-const news=source.news.slice(0,3);
+// 홈 화면. 디자인 캔버스에서 확정한 화면을 언어별 정적 HTML(src/home/*.html)로 옮겨 그대로 출력합니다.
+// 스타일은 public/home/home.css, 동작(연혁 휠·프로젝트 슬라이드·3D·문의 폼)은 public/home/home.js 입니다.
+import ko from '../../home/ko.html?raw';
+import en from '../../home/en.html?raw';
+import vi from '../../home/vi.html?raw';
+import { COMPANY, HTML_LANG, LANGS, type Lang } from '../../config/site';
+import { langPaths, swapLang } from '../../i18n/utils';
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const body = { ko, en, vi }[lang];
+const description = {
+  ko: '하이비나는 베트남에서 고품질 멜라민 페이퍼와 친환경 표면 마감재를 생산합니다.',
+  en: 'Hi VINA manufactures high-quality melamine paper and eco-friendly surface materials in Vietnam.',
+  vi: 'Hi VINA sản xuất giấy melamine chất lượng cao và vật liệu bề mặt thân thiện với môi trường tại Việt Nam.',
+}[lang];
+const site = Astro.site;
 ---
-<Base lang={lang} description={c.aboutBody} overDark>
-  <section class="home-hero">
-    {hero&&<Image src={hero} alt="" width={1920} format="webp" loading="eager" fetchpriority="high" class="hero-image" />}
-    <div class="hero-shade" aria-hidden="true"></div>
-    <div class="container hero-copy"><p class="hero-index" data-reveal>HI VINA / SURFACE MATERIALS</p><h1 data-reveal style="--i:1">{c.hero}</h1><p class="hero-lead" data-reveal style="--i:2">{c.heroLead}</p><a class="hero-link" href={href(lang,'/products')} data-reveal style="--i:3">{c.explore}<span aria-hidden="true">↗</span></a></div>
-    <div class="container hero-footer"><span>HYOSAN × ICC</span><span>ĐỒNG NAI, VIỆT NAM</span><a href="#about-home" aria-label={c.about}><span aria-hidden="true">↓</span></a></div>
-  </section>
 
-  <section id="about-home" class="home-about section container">
-    <div class="about-heading"><p class="micro" data-reveal>01 / ABOUT HI VINA</p><h2 data-reveal>{c.aboutTitle}</h2></div>
-    <div class="about-editorial">
-      <a class="atmosphere" href={href(lang,`/projects/${source.projects[5].slug}`)} data-reveal="image">{atmosphere&&<Image src={atmosphere} alt={source.projects[5].title} width={900} height={1000} fit="cover" format="webp" loading="lazy" />}<span>{source.projects[5].title} ↗</span></a>
-      <div class="about-detail">
-        <div class="photo-pair" data-reveal="image">{factory&&<Image src={factory} alt="HI VINA JSC" width={600} height={580} fit="cover" format="webp" loading="lazy" />}{surface&&<Image src={surface} alt="" width={600} height={580} fit="cover" format="webp" loading="lazy" />}</div>
-        <div class="about-paragraphs" data-reveal><p>{c.aboutBody}</p><a class="editorial-link" href={href(lang,'/about')}>{c.about}<span aria-hidden="true">↗</span></a></div>
-        <div class="principles">{[[c.visionLabel,c.vision],[c.missionLabel,c.mission],[c.valuesLabel,c.values]].map(([title,body],i)=><details data-reveal open={i===0}><summary><span>{title}</span><span aria-hidden="true">+</span></summary><p>{body}</p></details>)}</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section collection-section">
-    <div class="container section-top"><div><p class="micro" data-reveal>02 / OUR EXPERTISE</p><h2 data-reveal>{c.expertise}</h2></div><p class="section-description" data-reveal>{c.expertiseLead}</p></div>
-    <div class="collection-track" data-collection-track>
-      {families.map((family,i)=>{const cover=sourceImageByUrl(family.image);return <a class="collection-card" href={href(lang,`/products/${family.id}`)} data-reveal style={`--i:${i}`}>
-        {cover&&<Image src={cover} alt="" width={760} height={1000} fit="cover" format="webp" loading="lazy" />}
-        <span class="card-number">0{i+1}</span><div class="card-caption"><p>{family.subtitle}</p><h3>{family.name}</h3><span class="card-link">{c.details}<span aria-hidden="true">↗</span></span></div>
-      </a>})}
-    </div>
-    <div class="container collection-bottom"><a class="editorial-link" href={href(lang,'/products')}>{c.products}<span aria-hidden="true">↗</span></a><div class="track-controls"><button type="button" data-track-direction="-1" aria-label={lang==='ko'?'이전 제품':lang==='vi'?'Sản phẩm trước':'Previous products'}>←</button><button type="button" data-track-direction="1" aria-label={lang==='ko'?'다음 제품':lang==='vi'?'Sản phẩm tiếp theo':'Next products'}>→</button></div></div>
-  </section>
-
-  <section class="section container home-projects">
-    <div class="section-top"><div><p class="micro" data-reveal>03 / SELECTED PROJECTS</p><h2 data-reveal>{c.projectsTitle}</h2></div><a class="editorial-link" href={href(lang,'/projects')} data-reveal>{c.all}<span aria-hidden="true">↗</span></a></div>
-    <div class="project-grid">{projects.map((project,i)=><a href={href(lang,`/projects/${project.slug}`)} class="project-card" data-reveal style={`--i:${i}`}><SourceImage file={project.images[0]} alt={project.title} width={1000} height={1200} /><div><span>0{i+1} / PROJECT</span><h3>{project.title}</h3><span class="round-arrow" aria-hidden="true">↗</span></div></a>)}</div>
-  </section>
-
-  <section class="sustainability container section"><div data-reveal><p class="micro">Green Materials</p><h2>SUSTAINABLE MATERIAL<br/>SOLUTIONS<br/>FOR MODERN DESIGN</h2><a class="editorial-link" href={href(lang,'/news/public-disclosure-of-environmental')}>Our commitment<span aria-hidden="true">↗</span></a></div><div class="sustainability-image" data-reveal="image">{sustainable&&<Image src={sustainable} alt="" width={1100} height={900} fit="cover" format="webp" loading="lazy"/>}</div></section>
-  <div class="container partner-strip" aria-label="Partners">{partners.map(file=><SourceImage file={file} alt="" width={180}/>)}</div>
-
-  <section class="section container home-news">
-    <div class="section-top"><div><p class="micro" data-reveal>04 / JOURNAL</p><h2 data-reveal>{c.newsTitle}</h2></div><a class="editorial-link" href={href(lang,'/news')} data-reveal>{c.all}<span aria-hidden="true">↗</span></a></div>
-    <div class="news-list">{news.map(article=><a href={href(lang,`/news/${article.slug}`)} data-reveal><time>{article.date}</time><h3>{articleTitle(article,lang)}</h3><span aria-hidden="true">↗</span></a>)}</div>
-  </section>
-  <section class="home-contact"><div class="container"><div><p class="micro">CONTACT HI VINA</p><h2>{c.contactTitle}</h2><p>{c.contactLead}</p></div><a class="btn" href={href(lang,'/contact')}>{c.contact}<span aria-hidden="true">↗</span></a></div></section>
-</Base>
-<script>
-  const track=document.querySelector<HTMLElement>('[data-collection-track]');
-  const controls=[...document.querySelectorAll<HTMLButtonElement>('[data-track-direction]')];
-  const updateControls=()=>{if(!track)return;const end=track.scrollWidth-track.clientWidth;controls.forEach(button=>button.disabled=Number(button.dataset.trackDirection)<0?track.scrollLeft<=2:track.scrollLeft>=end-2);};
-  if(track){track.addEventListener('scroll',updateControls,{passive:true});new ResizeObserver(updateControls).observe(track);requestAnimationFrame(updateControls);}
-  controls.forEach(button=>button.addEventListener('click',()=>{
-    if(!track)return; const direction=Number(button.dataset.trackDirection);const card=track.querySelector<HTMLElement>('.collection-card');
-    track.scrollBy({left:direction*((card?.getBoundingClientRect().width||300)+18),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
-  }));
-</script>
-<style>
-  .home-about{scroll-margin-top:var(--header-h);}.atmosphere{text-decoration:none;}.atmosphere>span{display:block;font-size:10px;color:var(--ink-soft);padding-top:12px;}.track-controls button:disabled{opacity:.3;cursor:default;}
-  .home-hero{position:relative;min-height:660px;height:88svh;max-height:900px;background:#343a33;color:#fff;display:flex;flex-direction:column;justify-content:end;overflow:hidden;isolation:isolate;}
-  .hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;}
-  .hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgb(10 18 14 / .62),rgb(10 18 14 / .08) 80%),linear-gradient(0deg,rgb(10 18 14 / .42),transparent 65%);z-index:-2;}
-  .hero-copy{padding-block:130px 80px;}.hero-index{font-size:10px;letter-spacing:.18em;margin:0 0 24px;color:rgb(255 255 255 / .78);}
-  h1{font-size:clamp(36px,4.4vw,64px);line-height:1.12;font-weight:400;letter-spacing:-.045em;white-space:pre-line;max-width:15ch;margin-bottom:24px;}
-  .hero-lead{font-size:13px;line-height:1.9;max-width:45ch;color:rgb(255 255 255 / .82);margin-bottom:26px;}.hero-link{display:inline-flex;gap:44px;align-items:center;border:1px solid rgb(255 255 255 / .55);border-radius:30px;padding:12px 20px;color:#fff;text-decoration:none;font-size:12px;transition:background .3s;}.hero-link:hover{background:rgb(255 255 255 / .15);}
-  .hero-footer{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:22px;border-top:1px solid rgb(255 255 255 / .25);font-size:9px;letter-spacing:.14em;}.hero-footer a{color:#fff;text-decoration:none;font-size:20px;}
-  .micro{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#788079;margin:0 0 18px;}
-  h2{font-size:clamp(27px,3vw,42px);line-height:1.23;font-weight:400;white-space:pre-line;letter-spacing:-.035em;margin:0;}
-  .about-heading{max-width:65%;margin-bottom:36px;}.about-editorial{display:grid;grid-template-columns:.95fr 1fr;gap:clamp(28px,5vw,72px);align-items:start;}.atmosphere{padding-top:28px;}.atmosphere img{width:100%;height:580px;object-fit:cover;border-radius:20px;}.about-detail{margin-top:-106px;}.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;}.photo-pair :global(img){width:100%;height:245px;object-fit:cover;border-radius:20px;}.about-paragraphs{padding-block:28px;}.about-paragraphs p{font-size:13px;line-height:1.9;color:var(--ink-soft);margin:0 0 14px;max-width:54ch;}
-  .principles details{border-top:1px solid var(--color-line);}.principles summary{list-style:none;display:flex;justify-content:space-between;gap:16px;cursor:pointer;padding:15px 0;font-size:12px;}.principles summary::-webkit-details-marker{display:none;}.principles details[open] summary>span:last-child{rotate:45deg;}.principles p{font-size:13px;color:var(--ink-soft);line-height:1.8;margin:0 0 18px;max-width:45ch;}
-  .section-top{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:32px;}.section-description{font-size:13px;color:var(--ink-soft);max-width:36ch;line-height:1.9;margin:0;}.collection-section{border-block:1px solid var(--color-line);}.collection-track{display:flex;overflow:auto;scroll-snap-type:x mandatory;gap:18px;padding:4px max(var(--gutter),calc((100vw - var(--container)) / 2 + var(--gutter))) 12px;scrollbar-width:none;}.collection-track::-webkit-scrollbar{display:none;}.collection-card{position:relative;flex:0 0 calc((min(100vw,1320px) - 112px - 54px)/3.3);min-width:265px;aspect-ratio:.73;overflow:hidden;border-radius:18px;color:white;text-decoration:none;background:#41493f;scroll-snap-align:center;}.collection-card>img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);}.collection-card:hover>img{transform:scale(1.035);}.collection-card::after,.project-card::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgb(0 0 0 / .72));pointer-events:none;}.card-number{position:absolute;top:22px;left:22px;font-size:10px;letter-spacing:.1em;z-index:1;}.card-caption{position:absolute;bottom:24px;left:24px;right:24px;z-index:1;}.card-caption p{font-size:10px;margin:0 0 8px;opacity:.75;}.card-caption h3{font-size:25px;font-weight:400;letter-spacing:-.03em;margin-bottom:22px;}.card-link{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgb(255 255 255 / .35);padding-top:12px;font-size:11px;}.collection-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:16px;}.track-controls{display:flex;gap:8px;}.track-controls button{width:36px;height:36px;border:1px solid var(--color-line);border-radius:50%;background:none;color:var(--ink);cursor:pointer;}.track-controls button:last-child{background:var(--brand-deep);color:#fff;border-color:var(--brand-deep);}
-  .project-grid{display:grid;grid-template-columns:.9fr 1.3fr .9fr;gap:18px;}.project-card{position:relative;min-height:400px;overflow:hidden;border-radius:20px;color:#fff;background:#41493f;text-decoration:none;}.project-card:nth-child(2){min-height:460px;}.project-card:nth-child(odd){margin-block:30px 0;}.project-card :global(img){height:100%;width:100%;object-fit:cover;position:absolute;inset:0;transition:transform .8s var(--ease);}.project-card:hover :global(img){transform:scale(1.03);}.project-card>div{position:absolute;left:22px;right:22px;bottom:24px;z-index:1;}.project-card>div>span:first-child{font-size:9px;letter-spacing:.12em;opacity:.7;}.project-card h3{font-size:20px;font-weight:400;max-width:20ch;margin:12px 24px 0 0;}.round-arrow{position:absolute;right:0;bottom:0;font-size:20px;}.home-news{padding-top:24px;}.news-list>a{display:grid;grid-template-columns:100px 1fr 20px;gap:24px;padding:24px 0;border-top:1px solid var(--color-line);text-decoration:none;align-items:baseline;}.news-list time{font-size:10px;color:#7c847e;}.news-list h3{font-size:17px;font-weight:400;margin:0;}.news-list>a:hover h3{color:var(--moss);}
-  .home-contact{background:#eceee8;padding-block:64px;}.home-contact>.container{display:flex;justify-content:space-between;align-items:end;gap:40px;}.home-contact p:not(.micro){font-size:13px;color:var(--ink-soft);margin:20px 0 0;}.home-contact .btn{flex:none;min-width:150px;justify-content:space-between;}
-  .sustainability{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;border-top:1px solid var(--color-line);}.sustainability h2{font-size:clamp(24px,2.8vw,38px);margin-bottom:28px;}.sustainability-image{overflow:hidden;border-radius:18px;}.sustainability-image img{width:100%;height:400px;object-fit:cover;}.partner-strip{display:flex;flex-wrap:wrap;gap:22px 36px;align-items:center;justify-content:center;padding-block:24px 64px;}.partner-strip :global(img){width:105px;height:44px;object-fit:contain;filter:grayscale(1);opacity:.65;}
-  @media(max-width:760px){.sustainability{grid-template-columns:1fr;gap:30px;}.sustainability-image img{height:300px;}.partner-strip{gap:22px;}.partner-strip :global(img){width:78px;height:35px;}}
-  @media(min-width:1500px){.hero-copy{padding-bottom:100px;}}
-  @media(max-width:900px){.home-hero{min-height:640px;height:84svh;}.hero-copy{padding-block:120px 56px;}.about-heading{max-width:100%;}.about-editorial{grid-template-columns:1fr;}.about-detail{margin-top:0;}.atmosphere{padding:0;}.atmosphere img{height:380px;}.photo-pair :global(img){height:220px;}.section-top{align-items:start;gap:24px;}.section-description{max-width:30ch;}.project-grid{grid-template-columns:1fr 1fr;}.project-card:nth-child(3){display:none;}.project-card:nth-child(odd){margin:0;}.project-card,.project-card:nth-child(2){min-height:400px;}.collection-card{flex-basis:40vw;}}
-  @media(max-width:600px){.home-hero{min-height:590px;}.hero-copy{padding-bottom:44px;}h1{font-size:38px;}.hero-footer{font-size:8px;gap:10px;}.hero-footer>span:nth-child(2){font-size:7px;}.section-top{flex-direction:column;align-items:start;}.section-description{max-width:none;}.about-editorial{gap:22px;}.atmosphere img{height:340px;}.photo-pair{gap:10px;}.photo-pair :global(img){height:190px;border-radius:14px;}.collection-card{flex-basis:76vw;min-width:0;}.project-grid{grid-template-columns:1fr;}.project-card,.project-card:nth-child(2){min-height:380px;}.news-list>a{grid-template-columns:1fr 20px;gap:10px;}.news-list time{grid-column:1 / -1;}.news-list h3{font-size:16px;}.home-contact>.container{align-items:start;flex-direction:column;gap:28px;}}
-</style>
+<!doctype html>
+<html lang={HTML_LANG[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{COMPANY.name}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#04301c" />
+    <meta property="og:title" content={COMPANY.name} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {site && LANGS.map((l) => <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(swapLang(Astro.url.pathname, l), site)} />)}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    />
+    <link rel="preload" as="image" href="/home/img/hero.jpg" />
+    <link rel="stylesheet" href="/home/home.css" />
+    <script is:inline type="module" src="/3d/vendor/model-viewer.min.js"></script>
+  </head>
+  <body>
+    <Fragment set:html={body} />
+    <script is:inline src="/home/home.js" defer></script>
+  </body>
+</html>
