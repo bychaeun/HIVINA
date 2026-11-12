@@ -29,7 +29,7 @@
         r.setAttribute('aria-selected', String(k === yr));
       });
       dots.forEach(function (d, k) {
-        d.className = 'hd' + (k === yr ? ' on' : '');
+        d.className = 'hd' + (k === yr ? ' on' : k < yr ? ' done' : '');
         d.setAttribute('aria-selected', String(k === yr));
       });
       if (fill) fill.style.width = 'calc((100% - 12px) * ' + (yr / (N - 1)) + ')';
@@ -168,5 +168,58 @@
       var body = [val('name'), val('phone'), val('email'), '', val('message')].filter(function (x, i) { return x || i === 3; }).join('\n');
       location.href = 'mailto:' + DATA.mail + '?subject=' + encodeURIComponent(val('subject') || 'HI VINA') + '&body=' + encodeURIComponent(body);
     });
+  })();
+  /* ---- product tabs ---- */
+  (function () {
+    var tabs = $$('[data-tab]'), panels = $$('[data-panel]');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var k = t.getAttribute('data-tab');
+        tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
+        panels.forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== k; });
+      });
+    });
+  })();
+
+  /* ---- project categories (accordion) ---- */
+  (function () {
+    var btn = $('[data-act="cat"]'), list = $('[data-cat-list]'), grid = $('[data-catgrid]'), name = $('[data-cat-name]');
+    if (!btn || !list || !grid) return;
+    function close() {
+      list.hidden = true; btn.setAttribute('aria-expanded', 'false');
+      var ic = $('.ic', btn); if (ic) ic.classList.remove('up');
+    }
+    btn.addEventListener('click', function () {
+      list.hidden = !list.hidden; btn.setAttribute('aria-expanded', String(!list.hidden));
+      var ic = $('.ic', btn); if (ic) ic.classList.toggle('up', !list.hidden);
+    });
+    $$('[data-cat]', list).forEach(function (o) {
+      o.addEventListener('click', function () {
+        var c = o.getAttribute('data-cat');
+        grid.className = 'g3 hs cat-' + c;
+        if (name && DATA.cats) name.textContent = DATA.cats[c];
+        $$('[data-cat]', list).forEach(function (x) { var on = x === o; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
+        close();
+      });
+    });
+  })();
+
+  /* ---- news: newest first, rotating ---- */
+  (function () {
+    var rows = $$('[data-nw]'), N = DATA.news;
+    if (!rows.length || !N) return;
+    var img = $('[data-nw-img]'), date = $('[data-nw-date]'), title = $('[data-nw-title]'), link = $('[data-nw-link]'), text = $('[data-nw-text]');
+    var k = 0, timer = null;
+    function show(n) {
+      k = (n + N.length) % N.length;
+      if (img) img.src = N[k][0];
+      if (date) date.textContent = N[k][1];
+      if (title) title.textContent = N[k][2];
+      if (link) link.href = N[k][3];
+      if (text) text.className = k % 2 ? 'fa' : 'fb';
+      rows.forEach(function (r, i) { r.classList.toggle('on', i === k); r.setAttribute('aria-selected', String(i === k)); });
+    }
+    if (!reduced) timer = setInterval(function () { show(k + 1); }, 6000);
+    rows.forEach(function (r, i) { r.addEventListener('click', function () { clearInterval(timer); show(i); }); });
   })();
 })();

@@ -1,18 +1,17 @@
 ---
-import Base from '../../../layouts/Base.astro';
-import ProductTree from '../../../components/ProductTree.astro';
-import { Image } from 'astro:assets';
-import { COPY, families, productNames, sourceImageByUrl } from '../../../data/website';
-import { productDescription } from '../../../data/product-copy';
+// 디자인 캔버스에서 옮긴 화면입니다. 마크업은 src/site/products/<언어>.html 을 수정하세요.
+import CanvasPage from '../../../components/CanvasPage.astro';
+import ko from '../../../site/products/ko.html?raw';
+import en from '../../../site/products/en.html?raw';
+import vi from '../../../site/products/vi.html?raw';
 import type { Lang } from '../../../config/site';
-import { href, langPaths } from '../../../i18n/utils';
-export const getStaticPaths=langPaths;
-const lang=Astro.params.lang as Lang,c=COPY[lang];
+import { langPaths } from '../../../i18n/utils';
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const html = { ko, en, vi }[lang];
+const title = {"ko": "제품", "en": "Our product", "vi": "Sản phẩm"};
+const description = {"ko": "LPM, 피니싱 포일, HPL, 템바보드 — 친환경 인테리어 마감재.", "en": "LPM, finishing foil, HPL and tambour board — eco-friendly interior materials.", "vi": "LPM, finishing foil, HPL và tấm tambour — vật liệu nội thất thân thiện môi trường."}[lang];
 ---
-<Base lang={lang} title={c.products} description={c.expertiseLead}>
-<header class="page-head"><div class="container"><p class="micro">HI VINA / MATERIALS</p><h1>{c.products}</h1><p class="lead">{c.expertiseLead}</p></div></header>
-<div class="container section product-layout"><ProductTree lang={lang}/><div class="family-overview">{families.map((f,i)=>{const image=sourceImageByUrl(f.image);return <article data-reveal><a class="family-cover" href={href(lang,`/products/${f.id}`)}>{image&&<Image src={image} alt="" width={1200} height={650} fit="cover" format="webp" loading="lazy"/>}<span>0{i+1} / {f.name}<span>↗</span></span></a><div class="family-description"><div><h2>{f.name}</h2><p>{productDescription(f.id,lang)}</p></div><a class="editorial-link" href={href(lang,`/products/${f.id}`)}>{c.details}<span>↗</span></a></div>{f.children.length>0&&<div class="subtypes">{(f.id==='lpm'?['standard-lpm','lpm-special']:f.children).map(id=><a href={href(lang,`/products/${id}`)}>{productNames[id]}<span>↗</span></a>)}</div>}</article>})}</div></div>
-</Base>
-<style>
-.product-layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(32px,5vw,72px);}.family-overview{display:grid;gap:64px;}.family-cover{display:block;position:relative;overflow:hidden;border-radius:16px;background:#e5e9e2;}.family-cover img{width:100%;height:310px;object-fit:cover;transition:transform .8s var(--ease);}.family-cover:hover img{transform:scale(1.025);}.family-cover>span{position:absolute;inset:auto 22px 20px;display:flex;justify-content:space-between;color:#fff;font-size:14px;z-index:1;}.family-cover::after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgb(0 0 0 / .55));}.family-description{display:flex;justify-content:space-between;align-items:start;gap:24px;padding-block:24px 16px;}.family-description h2{font-size:26px;font-weight:400;margin-bottom:12px;}.family-description p{font-size:13px;line-height:1.9;color:var(--ink-soft);max-width:65ch;margin:0;}.family-description>a{white-space:nowrap;flex:none;}.subtypes{display:flex;flex-wrap:wrap;gap:0 22px;}.subtypes a{font-size:11px;text-decoration:none;padding:10px 0;border-bottom:1px solid var(--color-line);display:flex;gap:22px;}@media(max-width:900px){.product-layout{grid-template-columns:1fr;}.family-cover img{height:280px;}}@media(max-width:600px){.family-description{flex-direction:column;}.family-cover img{height:240px;}.family-overview{gap:42px;}}
-</style>
+
+<CanvasPage lang={lang} html={html} css="products" title={title ? title[lang] : undefined} description={description} model />

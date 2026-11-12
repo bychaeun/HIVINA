@@ -51,10 +51,12 @@ node scripts/verify-site.mjs
 
 Cloudflare Pages 빌드 명령은 `npm run build`, 출력 경로는 `dist`입니다. 현재 작업에서는 GitHub push와 운영 배포를 실행하지 않았습니다.
 
-## 홈 화면 (디자인 캔버스에서 옮긴 화면)
+## 디자인 캔버스에서 옮긴 화면
 
-- 홈(`/ko/`, `/en/`, `/vi/`)은 디자인 캔버스에서 확정한 화면을 언어별 정적 HTML로 옮긴 것입니다: `src/home/ko.html`, `en.html`, `vi.html`.
-- 스타일은 `public/home/home.css`, 동작(연혁 휠·점 타임라인, 프로젝트 슬라이드, LPM 3D, 문의 폼)은 `public/home/home.js`, 이미지와 영상은 `public/home/img/`, `public/home/video/`에 있습니다.
+- 홈·회사소개·제품·프로젝트·뉴스·문의(`/ko|en|vi/`, `/about/`, `/products/`, `/projects/`, `/news/`, `/contact/`)는 디자인 캔버스에서 확정한 화면을 언어별 정적 HTML로 옮긴 것입니다: `src/site/<페이지>/<언어>.html`.
+- 공통 셸은 `src/components/CanvasPage.astro`, 스타일은 `public/home/<페이지>.css`, 동작(메뉴, 연혁 휠·점 타임라인, 프로젝트 슬라이드, 제품 탭, 프로젝트 카테고리, 뉴스 전환, LPM 3D, 문의 폼)은 `public/home/home.js`입니다. 이미지와 영상은 `public/home/img/`, `public/home/video/`에 있습니다.
 - LPM 3D는 `public/models/lpm-assembly.glb`와 `public/3d/vendor/model-viewer.min.js`를 사용합니다.
-- 홈의 한국어·베트남어 문구는 공식 사이트 영어 원문을 번역한 것입니다. 회사소개·제품·프로젝트·뉴스·문의 하위 페이지는 기존 구현을 그대로 사용하며, 홈의 메뉴가 이 페이지들로 연결됩니다.
+- 영어 문구는 공식 사이트 영어 원문을 따르고, 한국어·베트남어 문구는 번역입니다.
+- 제품 상세·디자인 패턴·프로젝트 상세·뉴스 상세·카탈로그 페이지는 기존 구현(기존 헤더·푸터 디자인)을 그대로 사용하며, 위 화면의 카드와 링크가 이 페이지들로 연결됩니다.
+- 프로젝트·뉴스의 페이지 번호(1~10)와 프로젝트 카테고리 분류(호텔·리조트 / 주거)는 디자인용 자리 표시입니다. 실제 분류와 페이지 수에 맞춰 바꿔야 합니다.
 - 문의 폼은 기존 원칙대로 사용자의 메일 앱에 내용을 넘깁니다.

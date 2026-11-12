@@ -1,8 +1,17 @@
 ---
-import EditorialListing from '../../../components/EditorialListing.astro';
+// 디자인 캔버스에서 옮긴 화면입니다. 마크업은 src/site/projects/<언어>.html 을 수정하세요.
+import CanvasPage from '../../../components/CanvasPage.astro';
+import ko from '../../../site/projects/ko.html?raw';
+import en from '../../../site/projects/en.html?raw';
+import vi from '../../../site/projects/vi.html?raw';
 import type { Lang } from '../../../config/site';
 import { langPaths } from '../../../i18n/utils';
-export const getStaticPaths=langPaths;
-const lang=Astro.params.lang as Lang;
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const html = { ko, en, vi }[lang];
+const title = {"ko": "프로젝트", "en": "Project", "vi": "Dự án"};
+const description = {"ko": "하이비나의 소재가 완성한 공간.", "en": "Spaces completed with Hi VINA materials.", "vi": "Những không gian hoàn thiện cùng vật liệu Hi VINA."}[lang];
 ---
-<EditorialListing lang={lang} type="projects" />
+
+<CanvasPage lang={lang} html={html} css="projects" title={title ? title[lang] : undefined} description={description} />

@@ -1,8 +1,17 @@
 ---
-import EditorialListing from '../../../components/EditorialListing.astro';
+// 디자인 캔버스에서 옮긴 화면입니다. 마크업은 src/site/news/<언어>.html 을 수정하세요.
+import CanvasPage from '../../../components/CanvasPage.astro';
+import ko from '../../../site/news/ko.html?raw';
+import en from '../../../site/news/en.html?raw';
+import vi from '../../../site/news/vi.html?raw';
 import type { Lang } from '../../../config/site';
 import { langPaths } from '../../../i18n/utils';
-export const getStaticPaths=langPaths;
-const lang=Astro.params.lang as Lang;
+
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const html = { ko, en, vi }[lang];
+const title = {"ko": "뉴스", "en": "News", "vi": "Tin tức"};
+const description = {"ko": "하이비나의 새로운 소식과 공지.", "en": "News and announcements from Hi VINA.", "vi": "Tin tức và thông báo từ Hi VINA."}[lang];
 ---
-<EditorialListing lang={lang} type="news" />
+
+<CanvasPage lang={lang} html={html} css="news" title={title ? title[lang] : undefined} description={description} />

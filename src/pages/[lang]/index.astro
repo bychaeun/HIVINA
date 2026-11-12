@@ -1,47 +1,17 @@
 ---
-// 홈 화면. 디자인 캔버스에서 확정한 화면을 언어별 정적 HTML(src/home/*.html)로 옮겨 그대로 출력합니다.
-// 스타일은 public/home/home.css, 동작(연혁 휠·프로젝트 슬라이드·3D·문의 폼)은 public/home/home.js 입니다.
-import ko from '../../home/ko.html?raw';
-import en from '../../home/en.html?raw';
-import vi from '../../home/vi.html?raw';
-import { COMPANY, HTML_LANG, LANGS, type Lang } from '../../config/site';
-import { langPaths, swapLang } from '../../i18n/utils';
+// 디자인 캔버스에서 옮긴 화면입니다. 마크업은 src/site/home/<언어>.html 을 수정하세요.
+import CanvasPage from '../../components/CanvasPage.astro';
+import ko from '../../site/home/ko.html?raw';
+import en from '../../site/home/en.html?raw';
+import vi from '../../site/home/vi.html?raw';
+import type { Lang } from '../../config/site';
+import { langPaths } from '../../i18n/utils';
 
 export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
-const body = { ko, en, vi }[lang];
-const description = {
-  ko: '하이비나는 베트남에서 고품질 멜라민 페이퍼와 친환경 표면 마감재를 생산합니다.',
-  en: 'Hi VINA manufactures high-quality melamine paper and eco-friendly surface materials in Vietnam.',
-  vi: 'Hi VINA sản xuất giấy melamine chất lượng cao và vật liệu bề mặt thân thiện với môi trường tại Việt Nam.',
-}[lang];
-const site = Astro.site;
+const html = { ko, en, vi }[lang];
+const title = undefined;
+const description = {"ko": "하이비나는 베트남에서 고품질 멜라민 페이퍼와 친환경 표면 마감재를 생산합니다.", "en": "Hi VINA manufactures high-quality melamine paper and eco-friendly surface materials in Vietnam.", "vi": "Hi VINA sản xuất giấy melamine chất lượng cao và vật liệu bề mặt thân thiện với môi trường tại Việt Nam."}[lang];
 ---
 
-<!doctype html>
-<html lang={HTML_LANG[lang]}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{COMPANY.name}</title>
-    <meta name="description" content={description} />
-    <meta name="theme-color" content="#04301c" />
-    <meta property="og:title" content={COMPANY.name} />
-    <meta property="og:description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    {site && LANGS.map((l) => <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(swapLang(Astro.url.pathname, l), site)} />)}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
-    />
-    <link rel="preload" as="image" href="/home/img/hero.jpg" />
-    <link rel="stylesheet" href="/home/home.css" />
-    <script is:inline type="module" src="/3d/vendor/model-viewer.min.js"></script>
-  </head>
-  <body>
-    <Fragment set:html={body} />
-    <script is:inline src="/home/home.js" defer></script>
-  </body>
-</html>
+<CanvasPage lang={lang} html={html} css="home" title={title ? title[lang] : undefined} description={description} model preload="/home/img/hero.jpg" />

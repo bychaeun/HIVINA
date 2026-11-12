@@ -1,0 +1,50 @@
+---
+// 디자인 캔버스에서 옮긴 화면을 출력하는 공통 셸입니다.
+// 화면 마크업은 src/site/<페이지>/<언어>.html, 스타일은 public/home/<페이지>.css,
+// 동작(메뉴·연혁 휠·슬라이드·탭·카테고리·뉴스·3D·문의 폼)은 public/home/home.js 입니다.
+import { COMPANY, HTML_LANG, LANGS, type Lang } from '../config/site';
+import { swapLang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  html: string;
+  css: string;
+  title?: string;
+  description: string;
+  /** LPM 3D 뷰어(model-viewer)를 쓰는 화면이면 true */
+  model?: boolean;
+  preload?: string;
+}
+
+const { lang, html, css, title, description, model = false, preload } = Astro.props;
+const fullTitle = title ? `${title} | ${COMPANY.name}` : COMPANY.name;
+const site = Astro.site;
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#04301c" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {site && LANGS.map((l) => <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(swapLang(Astro.url.pathname, l), site)} />)}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    />
+    {preload && <link rel="preload" as="image" href={preload} />}
+    <link rel="stylesheet" href={`/home/${css}.css`} />
+    {model && <script is:inline type="module" src="/3d/vendor/model-viewer.min.js"></script>}
+  </head>
+  <body>
+    <Fragment set:html={html} />
+    <script is:inline src="/home/home.js" defer></script>
+  </body>
+</html>
