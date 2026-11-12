@@ -35,7 +35,7 @@ a{color:inherit;text-decoration:none}a:hover{color:inherit}
 @keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 @keyframes mq{to{transform:translateX(-50%)}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.mqw{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.22) 9%,#000 28%,#000 72%,rgba(0,0,0,.22) 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.22) 9%,#000 28%,#000 72%,rgba(0,0,0,.22) 91%,transparent 100%)}
+.mqw{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 4%,#000 12%,#000 88%,rgba(0,0,0,.6) 96%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 4%,#000 12%,#000 88%,rgba(0,0,0,.6) 96%,transparent 100%)}
 .mq{display:flex;align-items:center;width:max-content;animation:mq 70s linear infinite}
 .mq.rev{animation-direction:reverse;animation-duration:56s}
 .mqw:hover .mq{animation-play-state:paused}
@@ -212,6 +212,13 @@ html{scroll-behavior:smooth}
 .hd.done .dt::after{background:#fff}
 .mvh{transform:translateY(-110px)}
 .mv3>div:first-child{position:relative;z-index:2}
+.hlogo{width:min(317px,28%)}
+.hlg{padding-bottom:150px}
+.qt{font-family:'Dancing Script',cursive;font-style:normal;font-weight:600;font-size:66px;line-height:1.2;letter-spacing:0}
+.ql{display:block;width:max-content;max-width:100%;margin:0 auto;padding:0 .12em;animation:qw 1.9s cubic-bezier(.45,.05,.35,1) .3s both}
+.ql+.ql{animation-delay:2.2s}
+@keyframes qw{from{clip-path:inset(-20% 100% -20% -5%)}to{clip-path:inset(-20% -5% -20% -5%)}}
+@supports (animation-timeline:view()){.ql{animation:qw linear both;animation-timeline:view();animation-range:cover 4% cover 22%}.ql+.ql{animation-range:cover 20% cover 38%}}
 .burger{display:none}
 .hero{min-height:820px;padding:150px max(40px,calc(50% - 580px)) 48px}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.22);border-radius:20px;overflow:hidden}
@@ -278,5 +285,6 @@ html{scroll-behavior:smooth}
 .bleedL{margin-left:-20px}
 .hdl{--seg:calc((100cqw - 52px - 117px) / 8 - 9px)}
 .mvh{transform:none}
+.hlogo{width:39%}.hlg{padding-bottom:70px}.qt{font-size:36px}
 }
-@media (prefers-reduced-motion:reduce){.mq{animation:none}.hv:hover .ic{animation:none}.hsl,.flt,.hbar span{animation:none}.hsl:first-of-type{opacity:1}.hlogo,.hbt,.hl,.hm{animation:none!important}.galt{animation:none}.hxl img{animation:none}.hxl img:first-of-type{opacity:1}.whl{transition:none}}
+@media (prefers-reduced-motion:reduce){.mq{animation:none}.hv:hover .ic{animation:none}.hsl,.flt,.hbar span{animation:none}.hsl:first-of-type{opacity:1}.hlogo,.hbt,.hl,.hm,.ql{animation:none!important}.galt{animation:none}.hxl img{animation:none}.hxl img:first-of-type{opacity:1}.whl{transition:none}}
