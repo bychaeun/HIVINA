@@ -4,6 +4,7 @@
 // 동작(메뉴·연혁 휠·슬라이드·탭·카테고리·뉴스·3D·문의 폼)은 public/home/home.js 입니다.
 import { COMPANY, HTML_LANG, LANGS, type Lang } from '../config/site';
 import { swapLang } from '../i18n/utils';
+import { canvasHeader,canvasFooter,externalLinks } from '../utils/chrome';
 
 interface Props {
   lang: Lang;
@@ -19,6 +20,7 @@ interface Props {
 const { lang, html, css, title, description, model = false, preload } = Astro.props;
 const fullTitle = title ? `${title} | ${COMPANY.name}` : COMPANY.name;
 const site = Astro.site;
+const pageHtml=externalLinks(html.replace(/<header\b[\s\S]*?<\/header>/,()=>canvasHeader(lang,Astro.url.pathname)).replace(/<footer\b[\s\S]*?<\/footer>/,()=>canvasFooter(lang)));
 ---
 
 <!doctype html>
@@ -42,11 +44,14 @@ const site = Astro.site;
     {preload && <link rel="preload" as="image" href={preload} />}
     <link rel="stylesheet" href={`/home/${css}.css`} />
     <link rel="stylesheet" href="/home/refinements.css" />
+    <link rel="stylesheet" href="/home/chrome.css" />
+    <link rel="stylesheet" href="/home/design-modal.css" />
     {model && <script is:inline type="module" src="/3d/vendor/model-viewer.min.js"></script>}
   </head>
   <body data-page={css}>
-    <Fragment set:html={html} />
+    <Fragment set:html={pageHtml} />
     <script is:inline src="/home/home.js" defer></script>
     <script is:inline src="/home/refinements.js" defer></script>
+    <script is:inline src="/home/design-modal.js" defer></script>
   </body>
 </html>

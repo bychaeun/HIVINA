@@ -1,7 +1,16 @@
-import source from '../../content/reference/source.json';
+import originalSource from '../../content/reference/source.json';
+import { normalizeBrand } from '../utils/brand';
 import type { ImageMetadata } from 'astro';
 import type { Lang } from '../config/site';
-export { source };
+// Keep the archived source intact. Only display spelling changes, never URLs.
+export const source = {
+ ...originalSource,
+ home: {...originalSource.home, text: originalSource.home.text.map(normalizeBrand)},
+ about: {...originalSource.about, text: originalSource.about.text.map(normalizeBrand)},
+ products: originalSource.products.map(p=>({...p,text:p.text.map(normalizeBrand)})),
+ projects: originalSource.projects.map(p=>({...p,title:normalizeBrand(p.title),paragraphs:p.paragraphs.map(normalizeBrand)})),
+ news: originalSource.news.map(p=>({...p,title:normalizeBrand(p.title),paragraphs:p.paragraphs.map(normalizeBrand)})),
+};
 const files = import.meta.glob<{ default: ImageMetadata }>('/src/assets/imported/*.{png,jpg,jpeg,JPG,JPEG,PNG,webp,svg,avif}', { eager: true });
 export function sourceImage(file: string | undefined): ImageMetadata | undefined {
   return file ? files[`/src/assets/imported/${file}`]?.default : undefined;
@@ -34,7 +43,7 @@ const aboutLines=source.about.text.filter(line=>line.trim());
 const after=(label:string)=>homeLines[homeLines.indexOf(label)+1]||'';
 const ORIGINAL_COPY={
  hero:homeLines.slice(0,2).join('\n'),
- heroLead:homeLines.find(line=>line.startsWith('Hi VINA, backed'))||'',
+ heroLead:homeLines.find(line=>line.startsWith('HIVINA, backed'))||'',
  expertise:homeLines.slice(homeLines.findIndex(line=>line.startsWith('ECO-FRIENDLY')),homeLines.findIndex(line=>line.startsWith('ECO-FRIENDLY'))+2).join('\n'),
  expertiseLead:homeLines.find(line=>line==='Our expertise')||'',
  aboutTitle:homeLines.slice(2,4).join('\n'),

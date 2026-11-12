@@ -11,7 +11,7 @@ export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const html = { ko, en, vi }[lang];
 const title = {"ko": "문의하기", "en": "Contact us", "vi": "Liên hệ"};
-const description = {"ko": "Hi VINA JSC 문의 및 위치 안내.", "en": "Contact Hi VINA JSC and find our location.", "vi": "Liên hệ Hi VINA JSC và vị trí công ty."}[lang];
+const description = {"ko": "HIVINA JSC 문의 및 위치 안내.", "en": "Contact HIVINA JSC and find our location.", "vi": "Liên hệ HIVINA JSC và vị trí công ty."}[lang];
 ---
 
 <CanvasPage lang={lang} html={html} css="contact" title={title ? title[lang] : undefined} description={description} />

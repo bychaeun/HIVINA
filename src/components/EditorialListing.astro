@@ -9,7 +9,7 @@ const {lang,type}=Astro.props as {lang:Lang;type:'projects'|'news'};
 const c=COPY[lang], articles=source[type];
 ---
 <Base lang={lang} title={c[type]} description={type==='projects'?c.projectsTitle:c.newsTitle}>
-<header class="page-head"><div class="container"><p class="micro">HI VINA / {type==='projects'?'IN SPACES':'JOURNAL'}</p><h1>{c[type]}</h1><p class="lead">{type==='projects'?c.projectsTitle:c.newsTitle}</p></div></header>
+<header class="page-head"><div class="container"><p class="micro">HIVINA / {type==='projects'?'IN SPACES':'JOURNAL'}</p><h1>{c[type]}</h1><p class="lead">{type==='projects'?c.projectsTitle:c.newsTitle}</p></div></header>
 <section class:list={['container section editorial-list',type]}>{articles.map((article,i)=><a class="editorial-card" href={href(lang,`/${type}/${article.slug}`)} data-reveal style={`--i:${Math.min(i,2)}`}><div class="editorial-image"><SourceImage file={article.images[0]} alt={articleTitle(article,lang)} width={1200} height={900}/><span aria-hidden="true">↗</span></div><div class="editorial-meta"><time>{article.date}</time><span>{String(i+1).padStart(2,'0')}</span></div><h2>{articleTitle(article,lang)}</h2></a>)}</section>
 </Base>
 <style>

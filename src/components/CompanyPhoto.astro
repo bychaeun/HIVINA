@@ -4,7 +4,7 @@ import office from '../assets/imported/0aafc0d7c9ec75.webp';
 interface Props { alt: string; eager?: boolean; }
 const { alt, eager = false } = Astro.props;
 ---
-<!-- Actual factory photograph imported from the official HI VINA website. -->
+<!-- Actual factory photograph imported from the official HIVINA website. -->
 <div class="company-photo"><Image src={office} alt={alt} width={1920} format="webp" loading={eager ? 'eager' : 'lazy'} /></div>
 <style>
   .company-photo { position: relative; aspect-ratio: 461 / 332; overflow: hidden; background: #dfe6df; }

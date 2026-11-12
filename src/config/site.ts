@@ -20,11 +20,11 @@ export const LANG_LABELS: Record<Lang, string> = {
 export const HTML_LANG: Record<Lang, string> = { ko: 'ko', vi: 'vi', en: 'en' };
 
 export const COMPANY = {
-  name: 'HI VINA JSC',
+  name: 'HIVINA JSC',
   legalName: {
-    ko: '하이비나 주식회사',
-    vi: 'Công ty Cổ phần Hi Việt Nam (HI VINA)',
-    en: 'HI VINA Joint Stock Company',
+    ko: 'HIVINA 주식회사',
+    vi: 'Công ty Cổ phần Hi Việt Nam (HIVINA)',
+    en: 'HIVINA Joint Stock Company',
   } satisfies Record<Lang, string>,
   founded: 2020,
   /** 홈 화면 숫자 카운트업에 쓰이는 연도 */

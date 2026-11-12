@@ -2,6 +2,8 @@
 (function(){
   var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var all=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+  var menuButton=document.querySelector('[data-act="menu"]'),menu=document.querySelector('[data-menu]');
+  if(menuButton&&menu){menuButton.addEventListener('click',function(){menu.hidden=!menu.hidden;menuButton.setAttribute('aria-expanded',String(!menu.hidden));});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!menu.hidden){menu.hidden=true;menuButton.setAttribute('aria-expanded','false');menuButton.focus();}});}
 
   // Begin writing only when the quote itself enters view; finish while stationary.
   all('.qsec').forEach(function(section){
@@ -20,7 +22,7 @@
   all('.lng,.tbs[role="tablist"],.lpm-subnav[role="tablist"]').forEach(function(group){
     var isLanguage=group.classList.contains('lng');
     var isSubnav=group.classList.contains('lpm-subnav');
-    var selector=isLanguage?'a':isSubnav?'[data-lpm]':'[data-tab]';
+    var selector=isLanguage?'a':isSubnav?'[role="tab"]':'[data-tab]';
     var options=all(selector,group);
     if(!options.length)return;
     var indicator=document.createElement('span');

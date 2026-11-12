@@ -11,7 +11,7 @@ export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const html = { ko, en, vi }[lang];
 const title = {"ko": "회사소개", "en": "About us", "vi": "Giới thiệu"};
-const description = {"ko": "효산그룹의 30년 기술력을 바탕으로 한 베트남 글로벌 생산 거점, Hi VINA JSC.", "en": "Hi VINA JSC, a global manufacturing hub in Vietnam backed by 30 years of Hyosan Group expertise.", "vi": "Hi VINA JSC, trung tâm sản xuất toàn cầu tại Việt Nam với 30 năm chuyên môn của Tập đoàn Hyosan."}[lang];
+const description = {"ko": "효산그룹의 30년 기술력을 바탕으로 한 베트남 글로벌 생산 거점, HIVINA JSC.", "en": "HIVINA JSC, a global manufacturing hub in Vietnam backed by 30 years of Hyosan Group expertise.", "vi": "HIVINA JSC, trung tâm sản xuất toàn cầu tại Việt Nam với 30 năm chuyên môn của Tập đoàn Hyosan."}[lang];
 ---
 
 <CanvasPage lang={lang} html={html} css="about" title={title ? title[lang] : undefined} description={description} />

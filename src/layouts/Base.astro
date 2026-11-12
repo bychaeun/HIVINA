@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import CanvasChrome from '../components/CanvasChrome.astro';
 import { COMPANY, HTML_LANG, LANGS, type Lang } from '../config/site';
 import { swapLang } from '../i18n/utils';
 
@@ -36,12 +35,12 @@ const site = Astro.site;
         ))
     }
     <!-- 스크립트가 켜져 있을 때만 등장 모션용으로 요소를 숨김 (꺼져 있으면 그냥 보임) -->
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>document.documentElement.classList.add('js');if(new URLSearchParams(location.search).get('modal')==='1')document.documentElement.classList.add('is-design-modal');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
     />
     {
       lang === 'ko' && (
@@ -51,15 +50,21 @@ const site = Astro.site;
         />
       )
     }
+    <link rel="stylesheet" href="/home/refinements.css" />
+    <link rel="stylesheet" href="/home/chrome.css" />
+    <link rel="stylesheet" href="/home/detail-theme.css" />
+    <link rel="stylesheet" href="/home/design-modal.css" />
   </head>
-  <body>
-    <Header lang={lang} overDark={overDark} />
-    <main class:list={{ 'header-offset': !overDark }}>
+  <body class="detail-shell">
+    <CanvasChrome lang={lang} />
+    <main id="top" class:list={{ 'header-offset': !overDark }}>
       <slot />
     </main>
-    <Footer lang={lang} />
+    <CanvasChrome lang={lang} part="footer" />
     <script>
       import '../scripts/motion.ts';
     </script>
+    <script is:inline src="/home/refinements.js" defer></script>
+    <script is:inline src="/home/design-modal.js" defer></script>
   </body>
 </html>

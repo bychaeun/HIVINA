@@ -1,6 +1,5 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import ProductTree from '../../../components/ProductTree.astro';
 import SourceImage from '../../../components/SourceImage.astro';
 import VerbatimProductCopy from '../../../components/VerbatimProductCopy.astro';
 import { Image } from 'astro:assets';
@@ -20,7 +19,7 @@ const group=id==='tambour-board'?'tambour-board':undefined;
 ---
 <Base lang={lang} title={product.name} description={productDescription(id,lang)}>
   <header class="page-head"><div class="container"><a class="micro breadcrumb" href={href(lang,'/products')}>{c.products} / {family?.name||product.name}</a><h1>{product.name}</h1></div></header>
-  <div class="container section product-layout"><ProductTree lang={lang} current={id}/><article>
+  <div class="container section product-layout"><nav class="product-detail-nav" aria-label={c.products}>{families.map((f,i)=><a href={`${href(lang,'/products')}?family=${i}`} aria-current={f.id===family?.id?'page':undefined}>{f.name}</a>)}</nav><article>
     {cover&&<div class="detail-cover" data-reveal="image"><Image src={cover} alt={product.name} width={1300} height={720} fit="cover" format="webp" loading="eager"/></div>}
     <div class="product-intro" data-reveal><div><p class="micro">{c.specifications}</p><h2>{product.name}</h2></div><p>{productDescription(id,lang)}</p></div>
     <VerbatimProductCopy id={id} lang={lang}/>

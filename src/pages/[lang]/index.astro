@@ -11,7 +11,7 @@ export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const html = { ko, en, vi }[lang];
 const title = undefined;
-const description = {"ko": "하이비나는 베트남에서 고품질 멜라민 페이퍼와 친환경 표면 마감재를 생산합니다.", "en": "Hi VINA manufactures high-quality melamine paper and eco-friendly surface materials in Vietnam.", "vi": "Hi VINA sản xuất giấy melamine chất lượng cao và vật liệu bề mặt thân thiện với môi trường tại Việt Nam."}[lang];
+const description = {"ko": "HIVINA는 베트남에서 고품질 멜라민 페이퍼와 친환경 표면 마감재를 생산합니다.", "en": "HIVINA manufactures high-quality melamine paper and eco-friendly surface materials in Vietnam.", "vi": "HIVINA sản xuất giấy melamine chất lượng cao và vật liệu bề mặt thân thiện với môi trường tại Việt Nam."}[lang];
 ---
 
 <CanvasPage lang={lang} html={html} css="home" title={title ? title[lang] : undefined} description={description} model preload="/home/img/hero.jpg" />

@@ -23,8 +23,11 @@ const index=source[type].findIndex(a=>a.slug===slug);
 const next=source[type][(index+1)%source[type].length];
 ---
 <Base lang={lang} title={title} description={paragraphs[0]||title}>
-<article class="container section article"><header><a class="micro back" href={href(lang,`/${type}`)}>← {c[type]}</a><h1>{title}</h1><div class="article-meta"><span>HI VINA / {c[type]}</span><time>{article.date}</time></div></header>
-<div class="article-cover"><SourceImage file={article.images[0]} alt={title} width={1600} eager/></div>
+<header class="article-hero">
+ <div class="article-hero-image"><SourceImage file={article.images[0]} alt={title} width={1920} eager/></div>
+ <div class="container"><a class="article-back" href={href(lang,`/${type}`)}>← {c[type]}</a><p class="article-eyebrow">HIVINA / {c[type]}</p><h1>{title}</h1><time>{article.date}</time></div>
+</header>
+<article class="container section article">
 <div class="article-body">{paragraphs.map(p=><p>{linkedParagraph(p).map(part=>part.href?<a href={part.href} target="_blank" rel="noopener noreferrer">{part.text}</a>:part.text)}</p>)}</div>
 {article.images.length>1&&<div class="article-gallery">{article.images.slice(1).map(image=><SourceImage file={image} alt={title} width={1200}/>)}</div>}
 <nav class="article-bottom"><a class="editorial-link" href={href(lang,`/${type}`)}>{c.back}<span>↖</span></a><a class="next-article" href={href(lang,`/${type}/${next.slug}`)}><span>{c.related} ↗</span><strong>{articleTitle(next,lang)}</strong></a></nav>
@@ -32,4 +35,22 @@ const next=source[type][(index+1)%source[type].length];
 </Base>
 <style>
 .article>header{max-width:880px;margin:0 auto 36px;}.back{display:inline-block;text-decoration:none;margin-bottom:24px;}.article h1{font-size:clamp(30px,4.3vw,54px);font-weight:400;line-height:1.2;letter-spacing:-.04em;}.article-meta{display:flex;justify-content:space-between;gap:24px;font-size:10px;color:var(--ink-soft);margin-top:26px;padding-top:20px;border-top:1px solid var(--color-line);}.article-cover{overflow:hidden;border-radius:18px;background:#ecefe8;}.article-cover :global(img){width:100%;max-height:680px;object-fit:cover;}.article-body{max-width:720px;margin:42px auto;font-size:15px;line-height:2;color:var(--ink-soft);}.article-body p{margin:0 0 24px;}.article-gallery{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:48px;}.article-gallery :global(img){width:100%;height:100%;max-height:650px;object-fit:cover;border-radius:12px;}.article-gallery :global(img:last-child:nth-child(odd)){grid-column:1 / -1;}.article-bottom{display:flex;justify-content:space-between;align-items:start;gap:40px;border-top:1px solid var(--color-line);padding-top:28px;}.next-article{max-width:45%;text-decoration:none;}.next-article>span{display:block;font-size:10px;color:var(--ink-soft);margin-bottom:12px;}.next-article>strong{font-size:17px;font-weight:400;}@media(max-width:600px){.article-body{font-size:14px;}.article-gallery{grid-template-columns:1fr;}.article-bottom{flex-direction:column;gap:28px;}.next-article{max-width:none;}}
+</style>
+<style>
+ .article-hero{position:relative;isolation:isolate;overflow:hidden;background:#14201a;color:#fff;padding:170px 0 74px;min-height:410px;display:flex;align-items:end}
+ .article-hero-image{position:absolute;inset:0;z-index:-2}
+ .article-hero-image :global(img){width:100%;height:100%;object-fit:cover}
+ .article-hero:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#000c,#0007 60%,#0003)}
+ .article-back{display:inline-flex;align-items:center;font-size:13px;color:#fff;text-decoration:none;margin-bottom:32px}
+ .article-eyebrow{font-size:12px;letter-spacing:.12em;margin:0 0 14px;color:#ffffffc9;text-transform:uppercase}
+ .article-hero h1{font-size:clamp(30px,3.5vw,48px);font-weight:700;line-height:1.28;letter-spacing:-.025em;max-width:30ch;margin:0 0 24px;text-wrap:balance}
+ .article-hero time{font-size:13px;color:#ffffffd9}
+ .article-body{max-width:800px;margin:0 auto 56px;font-size:17px;line-height:1.95;color:#566259}
+ .article-gallery{gap:24px;margin-top:30px}
+ .article-gallery :global(img){border-radius:24px}
+ .article-bottom{padding-top:32px}
+ .article-bottom .editorial-link{font-size:14px;color:#006e3c;font-weight:600;text-decoration:none}
+ .next-article>span{font-size:12px}
+ .next-article>strong{font-size:20px;font-weight:600;line-height:1.5}
+ @media(max-width:760px){.article-hero{padding:130px 0 50px;min-height:360px}.article-hero h1{font-size:29px}.article-back{margin-bottom:24px}.article-body{font-size:15px;line-height:1.9}.article-gallery{gap:18px}.next-article>strong{font-size:17px}}
 </style>

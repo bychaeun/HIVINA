@@ -1,0 +1,7 @@
+---
+import { canvasHeader,canvasFooter } from '../utils/chrome';
+import type { Lang } from '../config/site';
+const {lang,part='header'}=Astro.props as {lang:Lang;part?:'header'|'footer'};
+const html=part==='header'?canvasHeader(lang,Astro.url.pathname):canvasFooter(lang);
+---
+<Fragment set:html={html}/>

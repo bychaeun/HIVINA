@@ -15,9 +15,9 @@ const milestones = [
 ---
 <section class="about" aria-labelledby="home-about-title">
   <div class="container">
-    <div class="section-index" data-reveal><span>01 / ABOUT HI VINA</span><span>HYOSAN · ICC · VIETNAM</span></div>
+    <div class="section-index" data-reveal><span>01 / ABOUT HIVINA</span><span>HYOSAN · ICC · VIETNAM</span></div>
     <div class="about-grid">
-      <figure data-reveal="image"><CompanyPhoto alt={s.photo} /><figcaption>HI VINA JSC <span>Đồng Nai, Việt Nam</span></figcaption></figure>
+      <figure data-reveal="image"><CompanyPhoto alt={s.photo} /><figcaption>HIVINA JSC <span>Đồng Nai, Việt Nam</span></figcaption></figure>
       <div class="copy"><h2 id="home-about-title" data-reveal>{s.title}</h2><p data-reveal style="--i:1">{t('about.body')}</p><a class="editorial-link" href={href(lang, '/about')} data-reveal style="--i:2">{t('home.about.more')} <span aria-hidden="true">↗</span></a></div>
     </div>
     <ol class="milestones">{milestones.map((item) => <li data-reveal><span class="year">{item.year}</span><span>{item.label}</span></li>)}</ol>

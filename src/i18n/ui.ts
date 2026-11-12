@@ -36,12 +36,12 @@ const ko = {
   'home.eco.p3': 'MDF·PB용 친환경 표면재',
   'home.family.label': 'Family Company',
   'home.family.title': '효산·ICC와\n하나의 뿌리에서',
-  'home.family.body': "HI VINA의 'HI'는 HYOSAN과 ICC의 첫 글자입니다. 한국에서 쌓은 두 회사의 기술을 베트남 현지 생산으로 이어갑니다.",
+  'home.family.body': "HIVINA의 'HI'는 HYOSAN과 ICC의 첫 글자입니다. 한국에서 쌓은 두 회사의 기술을 베트남 현지 생산으로 이어갑니다.",
   'home.contact.title': '함께할 파트너를 찾고 계신가요?',
   'home.contact.body': '제품 샘플, 견적, 거래 문의 모두 환영합니다.',
 
   'about.title': '회사소개',
-  'about.lead': 'HI VINA는 효산(HYOSAN)과 ICC의 이름을 딴 한국계 표면재 전문 기업입니다.',
+  'about.lead': 'HIVINA는 효산(HYOSAN)과 ICC의 이름을 딴 한국계 표면재 전문 기업입니다.',
   'about.body':
     '2020년 설립 이후 2021년부터 베트남 동나이성 장디엔 산업단지에서 생산을 시작했습니다. 멜라민 함침지(LPM), Finishing Foil 등 MDF·PB용 친환경 표면재를 생산·공급합니다.',
   'about.history': '연혁',
@@ -114,12 +114,12 @@ const vi: Record<UIKey, string> = {
   'home.eco.p3': 'Vật liệu bề mặt xanh cho MDF/PB',
   'home.family.label': 'Family Company',
   'home.family.title': 'Cùng một gốc rễ\nvới HYOSAN và ICC',
-  'home.family.body': "Chữ 'HI' trong HI VINA được ghép từ HYOSAN và ICC. Chúng tôi tiếp nối công nghệ của hai công ty Hàn Quốc bằng sản xuất tại Việt Nam.",
+  'home.family.body': "Chữ 'HI' trong HIVINA được ghép từ HYOSAN và ICC. Chúng tôi tiếp nối công nghệ của hai công ty Hàn Quốc bằng sản xuất tại Việt Nam.",
   'home.contact.title': 'Bạn đang tìm đối tác đồng hành?',
   'home.contact.body': 'Chúng tôi sẵn sàng hỗ trợ mẫu sản phẩm, báo giá và hợp tác kinh doanh.',
 
   'about.title': 'Giới thiệu',
-  'about.lead': 'HI VINA là doanh nghiệp vật liệu bề mặt có vốn Hàn Quốc, tên gọi ghép từ HYOSAN và ICC.',
+  'about.lead': 'HIVINA là doanh nghiệp vật liệu bề mặt có vốn Hàn Quốc, tên gọi ghép từ HYOSAN và ICC.',
   'about.body':
     'Thành lập năm 2020, HIVINA bắt đầu sản xuất từ năm 2021 tại KCN Giang Điền, tỉnh Đồng Nai. Chúng tôi sản xuất và cung cấp vật liệu bề mặt thân thiện môi trường cho MDF/PB như giấy melamine (LPM) và Finishing Foil.',
   'about.history': 'Lịch sử phát triển',
@@ -190,12 +190,12 @@ const en: Record<UIKey, string> = {
   'home.eco.p3': 'Eco-friendly surfaces for MDF and PB',
   'home.family.label': 'Family Company',
   'home.family.title': 'One root with\nHYOSAN and ICC',
-  'home.family.body': "The 'HI' in HI VINA comes from HYOSAN and ICC. We carry the two Korean companies' know-how into local production in Vietnam.",
+  'home.family.body': "The 'HI' in HIVINA comes from HYOSAN and ICC. We carry the two Korean companies' know-how into local production in Vietnam.",
   'home.contact.title': 'Looking for a partner to grow with?',
   'home.contact.body': 'Samples, quotes and business inquiries are all welcome.',
 
   'about.title': 'About',
-  'about.lead': 'HI VINA is a Korean-affiliated surface materials company named after HYOSAN and ICC.',
+  'about.lead': 'HIVINA is a Korean-affiliated surface materials company named after HYOSAN and ICC.',
   'about.body':
     'Founded in 2020, HIVINA started production in 2021 at Giang Dien Industrial Park, Dong Nai. We make and supply eco-friendly surface materials for MDF and particleboard, including melamine paper (LPM) and finishing foil.',
   'about.history': 'History',
